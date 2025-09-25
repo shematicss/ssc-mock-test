@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSC GK/GS Mock Test — 50 Questions</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --bg1:#0f2027; --bg2:#2c5364;
+      --card: rgba(255,255,255,0.06);
+      --accent:#ffb86b;
+      --accent2:#7bed9f;
+      --muted: rgba(255,255,255,0.7);
+    }
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .wrap{
+      max-width:980px; margin:24px auto; padding:20px;
+    }
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom:18px;
+    }
+    h1{ margin:0; font-size:20px; color:var(--accent); }
+    .meta{ font-size:13px; color:var(--muted); }
+    .card{
+      background:var(--card); padding:20px; border-radius:12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35); margin-bottom:14px;
+    }
+    #quizArea{ min-height:210px; }
+    .qno{ font-weight:600; color:var(--accent2); }
+    .questionText{ font-size:18px; margin:10px 0 14px; }
+    .options{ display:flex; flex-direction:column; gap:8px; }
+    .opt{
+      background: rgba(255,255,255,0.03);
+      padding:12px; border-radius:8px; cursor:pointer;
+      transition: all .18s; border:1px solid rgba(255,255,255,0.03);
+      display:flex; gap:12px; align-items:center;
+    }
+    .opt:hover{ transform:translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.45); }
+    .opt input{ accent-color:var(--accent); margin-right:6px; }
+    .controls{ display:flex; gap:10px; justify-content:center; margin-top:14px; }
+    .btn{
+      padding:10px 16px; border-radius:8px; border:0; cursor:pointer;
+      font-weight:600;
+    }
+    .btn-prev{ background:#3aa0ff; color:#072; }
+    .btn-next{ background: #ff9800; color:#111; }
+    .btn-submit{ background: #2ecc71; color:#042; }
+    .small{ font-size:13px; color:var(--muted); margin-top:8px; text-align:center; }
+    #timer{ font-weight:700; color:var(--accent); }
+    footer { text-align:center; margin-top:10px; color:rgba(255,255,255,0.6); font-size:13px; }
+    /* result */
+    .resultBox{ text-align:center; padding:22px; border-radius:10px; background:linear-gradient(90deg, rgba(0,0,0,0.2), rgba(255,255,255,0.02)); }
+    .resultScore{ font-size:28px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+    .reviewList{ text-align:left; margin-top:10px; max-height:360px; overflow:auto; padding-right:8px; }
+    .reviewItem{ padding:8px; border-bottom:1px dashed rgba(255,255,255,0.03); }
+    .correct{ color: #7bed9f; font-weight:700; }
+    .wrong{ color: #ff6b81; font-weight:700; }
+    @media(max-width:600px){
+      .wrap{ padding:12px; }
+      .questionText{ font-size:16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>SSC GK/GS Mock Test</h1>
+        <div class="meta">Total Questions: <span id="totalQ">50</span> | Time: <span id="timer">40:00</span></div>
+      </div>
+      <div class="meta">Progress: <span id="progress">1 / 50</span></div>
+    </header>
+
+    <div class="card" id="quizCard">
+      <div id="quizArea">
+        <!-- will be filled by JS -->
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-prev" onclick="prevQuestion()">Previous</button>
+        <button class="btn btn-next" onclick="nextQuestion()">Next</button>
+        <button class="btn btn-submit" onclick="submitQuiz()">Submit</button>
+      </div>
+      <div class="small">Select one option per question. You can change answers before submitting.</div>
+    </div>
+
+    <footer>© Mock Test • Practice Mode • Good luck!</footer>
+  </div>
+
+<script>
+/*
+  50 SSC-like GK/GS questions (options array, answer = index of correct option)
+  These are generic PYQ-style: history, polity, geography, economy, science, basic current affairs.
+*/
+const questions = [
+  { q: "Which Indian state has the longest coastline?", options:["West Bengal","Gujarat","Tamil Nadu","Kerala"], answer:1 },
+  { q: "Who is known as the 'Father of the Indian Constitution'?", options:["Mahatma Gandhi","B.R. Ambedkar","Dr. Rajendra Prasad","Jawaharlal Nehru"], answer:1 },
+  { q: "The headquarters of ISRO is located in which city?", options:["Bengaluru","Hyderabad","Chennai","New Delhi"], answer:0 },
+  { q: "Which river is known as the 'Sorrow of Bihar'?", options:["Ganges","Kosi","Gandak","Sone"], answer:1 },
+  { q: "Which Article of the Indian Constitution deals with the Right to Equality?", options:["Article 14","Article 19","Article 21","Article 32"], answer:0 },
+  { q: "Which gas is most abundant in Earth's atmosphere?", options:["Oxygen","Nitrogen","Carbon dioxide","Argon"], answer:1 },
+  { q: "Who wrote the book 'Discovery of India'?", options:["Jawaharlal Nehru","C. Rajagopalachari","Mahatma Gandhi","S. Radhakrishnan"], answer:0 },
+  { q: "Which Indian city is called the 'Manchester of India'?", options:["Surat","Ahmedabad","Kanpur","Coimbatore"], answer:1 },
+  { q: "Which is the largest continental shelf in the world?", options:["Sunda Shelf","Newfoundland Shelf","Kerguelen Shelf","Patagonian Shelf"], answer:0 },
+  { q: "The Prime Meridian passes through which country?", options:["France","United Kingdom","Spain","Portugal"], answer:1 },
+  { q: "Which schedule of the Constitution contains provisions about the anti-defection law?", options:["Tenth Schedule","Eighth Schedule","Fifth Schedule","Seventh Schedule"], answer:0 },
+  { q: "Who was the first woman Chief Justice of an Indian High Court?", options:["Leila Seth","Anna Chandy","M. Fathima Beevi","Kamaljit Singh"], answer:1 },
+  { q: "Which element has the chemical symbol 'K'?", options:["Potassium","Krypton","Calcium","Sodium"], answer:0 },
+  { q: "Which is the currency of Japan?", options:["Yuan","Yen","Won","Dollar"], answer:1 },
+  { q: "The 'Green Revolution' in India primarily started in which decade?", options:["1950s","1960s","1970s","1980s"], answer:1 },
+  { q: "Who is the author of the 'Mahabharata' according to tradition?", options:["Valmiki","Vyasa","Kalidasa","Tulsidas"], answer:1 },
+  { q: "Which Indian state is the largest by area?", options:["Uttar Pradesh","Madhya Pradesh","Maharashtra","Rajasthan"], answer:3 },
+  { q: "Which vitamin is produced when skin is exposed to sunlight?", options:["Vitamin A","Vitamin B12","Vitamin C","Vitamin D"], answer:3 },
+  { q: "Which body is the principal economic advisory body to the Government of India?", options:["NITI Aayog","RBI","Finance Commission","Planning Commission (former)"], answer:0 },
+  { q: "Who proposed the Theory of Relativity?", options:["Isaac Newton","Albert Einstein","Niels Bohr","Max Planck"], answer:1 },
+  { q: "Which city is the financial capital of India?", options:["New Delhi","Mumbai","Kolkata","Bengaluru"], answer:1 },
+  { q: "Which mountain range forms the northern boundary of the Indian subcontinent?", options:["Himalaya","Vindhya","Aravali","Western Ghats"], answer:0 },
+  { q: "Who founded the Maurya Empire?", options:["Chandragupta Maurya","Ashoka","Bindusara","Bimbisara"], answer:0 },
+  { q: "Which organ in the human body produces insulin?", options:["Liver","Pancreas","Kidney","Spleen"], answer:1 },
+  { q: "Which Indian leader launched the 'Green Revolution' policies as part of the government effort?", options:["Lal Bahadur Shastri","Indira Gandhi","Jawaharlal Nehru","Rajiv Gandhi"], answer:0 },
+  { q: "Which is the largest freshwater lake in India?", options:["Vembanad Lake","Chilika Lake","Dal Lake","Pulicat Lake"], answer:0 },
+  { q: "Which Amendment added the 'Right to Education' as a fundamental right in India?", options:["73rd","86th","42nd","44th"], answer:1 },
+  { q: "Which planet is known as the Red Planet?", options:["Venus","Mars","Jupiter","Saturn"], answer:1 },
+  { q: "Which Indian classical dance originated in Kerala?", options:["Bharatanatyam","Kathakali","Odissi","Kuchipudi"], answer:1 },
+  { q: "What is the capital of Australia?", options:["Sydney","Melbourne","Canberra","Perth"], answer:2 },
+  { q: "Who is the current (as per common PYQ style) Governor of the Reserve Bank of India? (Example Q — answer varies by year)", options:["Raghuram Rajan","Shaktikanta Das","Urjit Patel","Duvvuri Subbarao"], answer:1 },
+  { q: "Which freedom movement leader gave the slogan 'Do or Die'?", options:["Subhas Chandra Bose","Bhagat Singh","Mahatma Gandhi","Sardar Patel"], answer:2 },
+  { q: "Which gas causes international warming when present in higher concentration?", options:["Nitrogen","Oxygen","Carbon dioxide","Helium"], answer:2 },
+  { q: "Where is the headquarters of the World Health Organization (WHO)?", options:["Paris","New York","Geneva","London"], answer:2 },
+  { q: "The term 'Gross Domestic Product' (GDP) measures:", options:["Total population","Total exports","Total monetary value of goods & services produced within a country","Foreign investments"], answer:2 },
+  { q: "Which city hosts the Indian Parliament?", options:["Mumbai","Kolkata","New Delhi","Chennai"], answer:2 },
+  { q: "Which Indian leader is associated with the Champaran Satyagraha?", options:["Mahatma Gandhi","Jawaharlal Nehru","Lala Lajpat Rai","Rajendra Prasad"], answer:0 },
+  { q: "Which metal is used for making electrical wires because of its high conductivity?", options:["Iron","Aluminium","Copper","Lead"], answer:2 },
+  { q: "Which of the following is a UNESCO World Heritage site in India?", options:["Qutub Minar","Lalu Park","Charminar","Connaught Place"], answer:0 },
+  { q: "Which ocean lies on India's western coast?", options:["Pacific Ocean","Atlantic Ocean","Indian Ocean","Arctic Ocean"], answer:2 },
+  { q: "Who appoints the Chief Justice of India?", options:["Prime Minister","President of India","Chief Justice himself","Parliament"], answer:1 },
+  { q: "Which is the primary agency for conducting census in India?", options:["NITI Aayog","Census of India","Registrar General of India","Ministry of Home Affairs"], answer:2 },
+  { q: "Which vitamin helps in blood clotting?", options:["Vitamin A","Vitamin K","Vitamin C","Vitamin D"], answer:1 },
+  { q: "Which document contains the Preamble of India?", options:["The Constitution of India","The Indian Penal Code","The Gazette of India","The Independence Act"], answer:0 },
+  { q: "Which is the smallest planet in the Solar System (by recent classification)?", options:["Mercury","Pluto","Earth","Venus"], answer:0 },
+  { q: "Which Indian state is known as the 'Spice Garden of India'?", options:["Kerala","Goa","Punjab","Himachal Pradesh"], answer:0 },
+  { q: "Which treaty ended World War I?", options:["Treaty of Versailles","Treaty of Paris","Treaty of Tordesillas","Treaty of Ghent"], answer:0 },
+  { q: "The Ajanta and Ellora caves are located in which state?", options:["Maharashtra","Karnataka","Uttar Pradesh","Rajasthan"], answer:0 }
+];
+
+// test size = 50 (we provided 50 questions)
+const TOTAL = questions.length;
+document.getElementById('totalQ').innerText = TOTAL;
+
+// state
+let current = 0;
+let userAnswers = new Array(TOTAL).fill(null);
+let durationSeconds = 40 * 60; // 40 min default (you can change)
+let timerInterval = null;
+
+// helpers
+function renderQuestion(i){
+  const q = questions[i];
+  document.getElementById('progress').innerText = (i+1) + ' / ' + TOTAL;
+  const html = `
+    <div class="qno">Q${i+1}</div>
+    <div class="questionText">${escapeHtml(q.q)}</div>
+    <div class="options">
+      ${q.options.map((opt, idx) => `
+        <label class="opt" data-index="${idx}">
+          <input type="radio" name="q${i}" value="${idx}" ${userAnswers[i]===idx?'checked':''} />
+          <div>${escapeHtml(opt)}</div>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('quizArea').innerHTML = html;
+  // attach click handlers for labels to set answer quickly
+  document.querySelectorAll('.opt').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const idx = Number(el.getAttribute('data-index'));
+      userAnswers[i] = idx;
+      // mark radio
+      const radio = el.querySelector('input[type="radio"]');
+      radio.checked = true;
+    });
+  });
+}
+
+function escapeHtml(text){
+  return text.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]) });
+}
+
+function nextQuestion(){
+  saveAnswer();
+  if(current < TOTAL-1) current++;
+  renderQuestion(current);
+}
+function prevQuestion(){
+  saveAnswer();
+  if(current > 0) current--;
+  renderQuestion(current);
+}
+function saveAnswer(){
+  const sel = document.querySelector(`input[name="q${current}"]:checked`);
+  if(sel) userAnswers[current] = Number(sel.value);
+}
+
+function submitQuiz(){
+  saveAnswer();
+  if(!confirm("Are you sure you want to submit the test?")) return;
+  clearInterval(timerInterval);
+  // score
+  let score = 0;
+  for(let i=0;i<TOTAL;i++){
+    if(userAnswers[i] === questions[i].answer) score++;
+  }
+  showResult(score);
+}
+
+// timer
+function startTimer(){
+  const timerEl = document.getElementById('timer');
+  let s = durationSeconds;
+  timerInterval = setInterval(()=>{
+    if(s<=0){
+      clearInterval(timerInterval);
+      alert('Time is up! Submitting the test.');
+      submitQuiz();
+      return;
+    }
+    s--;
+    const m = Math.floor(s/60), sec = s%60;
+    timerEl.innerText = `${m}:${sec<10?'0'+sec:sec}`;
+  },1000);
+}
+
+// result
+function showResult(score){
+  const percent = Math.round((score/TOTAL)*100);
+  document.getElementById('quizCard').innerHTML = `
+    <div class="resultBox">
+      <div class="resultScore">Score: ${score} / ${TOTAL} (${percent}%)</div>
+      <div class="meta small">Review your answers below:</div>
+      <div class="reviewList" id="reviewList"></div>
+      <div style="margin-top:12px">
+        <button class="btn btn-submit" onclick="location.reload()">Try Again</button>
+      </div>
+    </div>
+  `;
+  // populate review list
+  const container = document.getElementById('reviewList');
+  let out = '';
+  questions.forEach((q,i)=>{
+    const user = userAnswers[i];
+    const correct = q.answer;
+    out += `<div class="reviewItem">
+      <div><strong>Q${i+1}:</strong> ${escapeHtml(q.q)}</div>
+      <div>Your answer: ${user===null?'<em>Not answered</em>':escapeHtml(q.options[user])} 
+        ${user===correct?'<span class="correct">✔</span>':'<span class="wrong">✖</span>'}
+      </div>
+      <div>Correct: <strong>${escapeHtml(q.options[correct])}</strong></div>
+    </div>`;
+  });
+  container.innerHTML = out;
+}
+
+// init
+renderQuestion(current);
+startTimer();
+
+</script>
+</body>
+</html>
