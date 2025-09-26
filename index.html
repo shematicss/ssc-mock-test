@@ -32,21 +32,16 @@
   /* ===== HERO — clearer background ===== */
   .hero{
     color:#fff;
-    position:relative;          /* overlay ke liye */
+    position:relative;
     overflow:hidden;
-    min-height:420px;            /* image zyada area dikh sake */
+    min-height:420px;
     padding:56px 16px 72px;
-    background:url("assets/img/hero-bg.jpg") center 30%/cover no-repeat; /* 30% = thoda upar focus */
+    background:url("assets/img/hero-bg.jpg") center 30%/cover no-repeat;
   }
-  /* Light overlay (image zyada visible, text readable) */
   .hero::before{
     content:"";
     position:absolute; inset:0;
-    background:linear-gradient(
-      135deg,
-      rgba(229,57,53,.32),       /* ↓ opacity badhao/ghatao as needed */
-      rgba(30,100,200,.38)
-    );
+    background:linear-gradient(135deg, rgba(229,57,53,.32), rgba(30,100,200,.38));
     pointer-events:none;
   }
   .hero-inner{max-width:1100px;margin:0 auto;display:grid;gap:10px;position:relative}
@@ -65,10 +60,23 @@
   .btn-primary:hover{transform:translateY(-2px)}
   .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.4);backdrop-filter:blur(6px)}
 
+  /* ===== New Exam Banner Image ===== */
+  .exam-image{
+    text-align:center;
+    margin:32px 0;
+  }
+  .exam-image img{
+    max-width:100%;
+    width:522px;
+    height:auto;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+  }
+
   /* Sections */
   main{max-width:1100px;margin:-32px auto 0;padding:0 16px}
   .section{margin-top:24px}
-  .section h2{margin:0 0 12px}
+  .section h2{margin:0 0 12px;text-align:center}
   .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
   .card{background:var(--card);border:1px solid rgba(2,6,23,.06);border-radius:16px;padding:18px;box-shadow:0 10px 24px rgba(2,6,23,.06);transition:.2s transform,.2s box-shadow,.2s border-color}
   .card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(2,6,23,.1);border-color:var(--ring)}
@@ -119,6 +127,11 @@
   </header>
 
   <main>
+    <!-- exam banner image -->
+    <div class="exam-image">
+      <img src="assets/img/exam-banner.jpg" alt="Exam Main Banner">
+    </div>
+
     <!-- exams -->
     <section id="exams" class="section">
       <h2>Choose your exam</h2>
