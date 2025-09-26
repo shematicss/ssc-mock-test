@@ -30,7 +30,17 @@
   .chip{font-size:12px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(2,6,23,.08);text-decoration:none;color:inherit}
 
   /* Hero */
-  .hero{color:#fff;overflow:hidden;background:linear-gradient(135deg,var(--red),#bf2f2c 30%, #2a2f3a 58%, var(--blue) 100%);padding:42px 16px 56px}
+  .hero{
+    color:#fff; 
+    overflow:hidden;
+
+    /* Background image + gradient overlay */
+    background:
+      linear-gradient(135deg, rgba(229,57,53,0.82), rgba(30,100,200,0.85)),
+      url("assets/img/hero-bg.jpg") center/cover no-repeat;
+
+    padding:42px 16px 56px;
+  }
   .hero-inner{max-width:1100px;margin:0 auto;display:grid;gap:10px}
   .hero h1{margin:0;font-size:34px;letter-spacing:.3px}
   .sub{margin:6px 0 0;color:#e8eeff}
