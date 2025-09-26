@@ -67,8 +67,8 @@
   }
   .exam-image img{
     max-width:100%;
-    width:522px;
-    height:auto;
+    width:522px;          /* fixed width */
+    height:auto;          /* height auto so ratio safe */
     border-radius:12px;
     box-shadow:0 8px 20px rgba(0,0,0,.15);
   }
@@ -129,7 +129,7 @@
   <main>
     <!-- exam banner image -->
     <div class="exam-image">
-      <img src="assets/img/exam-banner.jpg" alt="Exam Main Banner">
+      <img src="assets/exam-banner.jpg" alt="Exam Main Banner" width="522" height="626" loading="lazy">
     </div>
 
     <!-- exams -->
