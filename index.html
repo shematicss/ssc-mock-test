@@ -86,30 +86,30 @@
     position:relative;
     width:100%;
     max-width:1200px;
-    height:700px;                     /* target frame 1200×700 */
+    height:700px;
     margin:0 auto;
     overflow:hidden;
     border-radius:16px;
     box-shadow:0 10px 24px rgba(0,0,0,.15);
     background:#000;
   }
-  /* responsive height for small screens */
   @media (max-width:768px){
     .slider-container{height:min(56vw,420px)}
   }
 
+  /* FIXED SLIDER CSS */
   .slides{
     display:flex;
     height:100%;
-    transform:translateX(0);
     transition:transform .6s ease;
     will-change:transform;
+    width: calc(100% * var(--total, 5));
   }
   .slides img{
-    width:100%;
+    flex: 0 0 calc(100% / var(--total, 5));
+    width: calc(100% / var(--total, 5));
     height:100%;
-    flex-shrink:0;
-    object-fit:cover;                 /* safely fills 1200×700 frame */
+    object-fit:cover;
   }
 
   /* Navigation buttons */
@@ -284,6 +284,9 @@
   const imgs = document.querySelectorAll('.slides img');
   const total = imgs.length;
 
+  // set total in CSS variable
+  slides.style.setProperty('--total', total);
+
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
   const dotsWrap = document.querySelector('.dots');
@@ -303,7 +306,6 @@
   const dots = [...document.querySelectorAll('.dot')];
 
   function update() {
-    // move exactly one image width each time
     const pct = (index * 100) / total;
     slides.style.transform = `translateX(-${pct}%)`;
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
