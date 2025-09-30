@@ -60,7 +60,7 @@
   .btn-yt{background:#ff0000;color:#fff}
   .btn-yt:hover{opacity:.9}
 
-  /* ===== NEW: content section just below hero */
+  /* ===== content section just below hero */
   main{max-width:1100px;margin:-32px auto 0;padding:0 16px}
   .section{margin-top:24px}
   .section h2{margin:0 0 12px;text-align:center}
@@ -79,6 +79,78 @@
     color:var(--muted);
     font-size:16px;
   }
+
+  /* ===== SLIDER (5 images, 1200x700) — autoplay + manual */
+  .slider-wrap{margin-top:24px}
+  .slider-container{
+    position:relative;
+    width:100%;
+    max-width:1200px;
+    height:700px;                     /* target frame 1200×700 */
+    margin:0 auto;
+    overflow:hidden;
+    border-radius:16px;
+    box-shadow:0 10px 24px rgba(0,0,0,.15);
+    background:#000;
+  }
+  /* responsive height for small screens */
+  @media (max-width:768px){
+    .slider-container{height:min(56vw,420px)}
+  }
+
+  .slides{
+    display:flex;
+    height:100%;
+    transform:translateX(0);
+    transition:transform .6s ease;
+    will-change:transform;
+  }
+  .slides img{
+    width:100%;
+    height:100%;
+    flex-shrink:0;
+    object-fit:cover;                 /* safely fills 1200×700 frame */
+  }
+
+  /* Navigation buttons */
+  .nav-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,.5);
+    border:none;
+    color:#fff;
+    font-size:28px;
+    padding:10px 16px;
+    cursor:pointer;
+    border-radius:50%;
+    transition:.25s;
+    line-height:1;
+  }
+  .nav-btn:hover{background:rgba(0,0,0,.7)}
+  .prev{left:14px}
+  .next{right:14px}
+
+  /* Dots */
+  .dots{
+    position:absolute;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:10px;
+    padding:6px 10px;
+    background:rgba(0,0,0,.25);
+    border-radius:999px;
+    backdrop-filter:blur(6px);
+  }
+  .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:#cfd8e3;opacity:.8;cursor:pointer;
+    border:1px solid rgba(255,255,255,.6);
+    transition:transform .2s, opacity .2s;
+  }
+  .dot.active{opacity:1;transform:scale(1.15);background:#1E64C8}
 
   /* cards / grid */
   .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
@@ -127,13 +199,33 @@
   </header>
 
   <main>
-    <!-- NEW: content area just below banner -->
+    <!-- content area just below banner -->
     <section class="section intro">
       <h2>Welcome to SheMatics</h2>
       <p>
         Prepare for SSC, Banking and Railway exams with timed mock tests, topic-wise practice
         and crisp notes. Start with SSC now—more exams are coming soon.
       </p>
+    </section>
+
+    <!-- 5-image slider (1200x700) -->
+    <section class="section slider-wrap" aria-label="Highlights">
+      <div class="slider-container" role="region" aria-roledescription="carousel" aria-label="Highlights">
+        <div class="slides" aria-live="polite">
+          <img src="assets/slider/img1.jpg" alt="Slide 1" fetchpriority="high">
+          <img src="assets/slider/img2.jpg" alt="Slide 2" loading="lazy">
+          <img src="assets/slider/img3.jpg" alt="Slide 3" loading="lazy">
+          <img src="assets/slider/img4.jpg" alt="Slide 4" loading="lazy">
+          <img src="assets/slider/img5.jpg" alt="Slide 5" loading="lazy">
+        </div>
+
+        <!-- Buttons -->
+        <button class="nav-btn prev" aria-label="Previous slide">&#10094;</button>
+        <button class="nav-btn next" aria-label="Next slide">&#10095;</button>
+
+        <!-- Dots -->
+        <div class="dots" aria-label="Slide selectors"></div>
+      </div>
     </section>
 
     <!-- exams -->
@@ -182,6 +274,77 @@
     <a href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">YouTube</a>
   </footer>
 
-<script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+<script>
+  // Year in footer
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // ===== Slider: autoplay + manual =====
+  const container = document.querySelector('.slider-container');
+  const slides = document.querySelector('.slides');
+  const imgs = document.querySelectorAll('.slides img');
+  const total = imgs.length;
+
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  const dotsWrap = document.querySelector('.dots');
+
+  const AUTOPLAY_MS = 4000;
+  let index = 0;
+  let timer;
+
+  // Create dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'dot';
+    d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    d.addEventListener('click', () => goTo(i, true));
+    dotsWrap.appendChild(d);
+  }
+  const dots = [...document.querySelectorAll('.dot')];
+
+  function update() {
+    // move exactly one image width each time
+    const pct = (index * 100) / total;
+    slides.style.transform = `translateX(-${pct}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+
+  function next() { index = (index + 1) % total; update(); }
+  function prev() { index = (index - 1 + total) % total; update(); }
+  function goTo(i, reset = false) { index = i; update(); if (reset) restart(); }
+
+  function start() { stop(); timer = setInterval(next, AUTOPLAY_MS); }
+  function stop()  { if (timer) clearInterval(timer); }
+  function restart(){ stop(); start(); }
+
+  // Buttons
+  nextBtn.addEventListener('click', () => { next(); restart(); });
+  prevBtn.addEventListener('click', () => { prev(); restart(); });
+
+  // Pause on hover/focus
+  ['mouseenter','focusin'].forEach(evt => container.addEventListener(evt, stop));
+  ['mouseleave','focusout'].forEach(evt => container.addEventListener(evt, start));
+
+  // Keyboard support
+  container.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { next(); restart(); }
+    if (e.key === 'ArrowLeft')  { prev(); restart(); }
+  });
+  container.tabIndex = 0;
+
+  // Basic touch swipe
+  let sx = null;
+  container.addEventListener('touchstart', (e) => sx = e.touches[0].clientX, {passive:true});
+  container.addEventListener('touchend', (e) => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); restart(); }
+    sx = null;
+  });
+
+  // Init
+  update();
+  start();
+</script>
 </body>
 </html>
