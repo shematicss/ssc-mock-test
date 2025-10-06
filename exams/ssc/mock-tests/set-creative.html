@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SSC Mock Test — SheMatics (Creative)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crimson:#E53935;
+    --blue:#1E64C8;
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --glass: rgba(255,255,255,0.7);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background: linear-gradient(180deg,#f8fbff 0%, var(--bg) 100%);
+    color:#0b0f1a;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Sticky header with timer and progress */
+  .top {
+    position:sticky;
+    top:0;
+    z-index:40;
+    backdrop-filter: blur(6px);
+    background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.55));
+    border-bottom: 1px solid rgba(2,6,23,.04);
+    padding:12px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    justify-content:space-between;
+    box-shadow:0 6px 18px rgba(2,6,23,.03);
+  }
+  .brand {display:flex; gap:12px; align-items:center}
+  .logo {
+    width:44px;height:44px;border-radius:10px;overflow:hidden;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--crimson),var(--blue));
+    color:#fff;font-weight:800;font-size:18px;box-shadow:0 6px 18px rgba(0,0,0,.08)
+  }
+  .brand h2{margin:0;font-size:16px;letter-spacing:.2px}
+  .meta{display:flex;align-items:center;gap:12px}
+
+  .timer {
+    background: linear-gradient(135deg,#fff,rgba(255,255,255,0.9));
+    border:1px solid rgba(2,6,23,.06);
+    padding:8px 12px;border-radius:999px;font-weight:800;color:var(--crimson);
+    box-shadow:0 8px 22px rgba(229,57,53,.06);
+    min-width:94px;text-align:center;
+  }
+  .progressWrap{width:220px}
+  .progressBar{
+    height:10px;border-radius:999px;background:linear-gradient(90deg, rgba(30,100,200,.12), rgba(229,57,53,.08));
+    overflow:hidden;border:1px solid rgba(2,6,23,.04)
+  }
+  .progressFill{
+    height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--crimson));
+    transition:width .35s ease;
+  }
+
+  /* page container */
+  .container{max-width:1000px;margin:20px auto;padding:18px}
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:0 14px 40px rgba(2,6,23,.06);
+    padding:20px;border:1px solid rgba(2,6,23,.04);
+  }
+
+  header.main{
+    display:flex;gap:20px;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;
+  }
+  header.main .title {margin:0}
+  header.main p.lead{margin:6px 0 0;color:var(--muted)}
+
+  /* quiz grid */
+  .quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+  @media (max-width:820px){ .quiz-grid{grid-template-columns:1fr} }
+
+  .q{
+    border-radius:12px;
+    padding:14px;
+    background: linear-gradient(180deg,#fff, #fcfdff);
+    border:1px solid rgba(2,6,23,.04);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .q:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,.06)}
+  .q h3{margin:0 0 8px;font-size:15px}
+  .options{display:flex;flex-direction:column;gap:8px}
+  label.option{
+    display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;cursor:pointer;
+    border:1px solid transparent;transition:background .15s,border-color .15s,transform .12s;
+  }
+  label.option input{transform:translateY(0)}
+  label.option:hover{background:#f5f9ff}
+  label.option.checked{border-color:rgba(30,100,200,.12);background:linear-gradient(90deg, rgba(30,100,200,.03), rgba(229,57,53,.01));}
+
+  /* Buttons */
+  .controls{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:16px;flex-wrap:wrap}
+  .btn{
+    padding:10px 16px;border-radius:12px;border:0;font-weight:800;cursor:pointer;
+    color:#fff;letter-spacing:.3px;box-shadow:0 10px 28px rgba(2,6,23,.06)
+  }
+  .btn-submit{background:linear-gradient(135deg,var(--crimson),var(--blue))}
+  .btn-reset{background:#fff;color:var(--blue);border:1px solid rgba(30,100,200,.12);font-weight:700}
+  .btn-download{background:linear-gradient(90deg,var(--blue),#0a85ff)}
+
+  /* result area */
+  .result{
+    margin-top:18px;padding:14px;border-radius:12px;background:linear-gradient(180deg,#fff, #fcfcff);
+    border:1px solid rgba(2,6,23,.04);
+  }
+  .score{font-size:20px;font-weight:800;display:flex;gap:16px;align-items:center}
+  .detail-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+  .detail-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(90deg,#fff,#fbfdff);border:1px solid rgba(2,6,23,.03)}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* correct/wrong badges */
+  .badge-correct{color:green;font-weight:800}
+  .badge-wrong{color:var(--crimson);font-weight:800}
+
+  /* footer */
+  footer{margin-top:22px;text-align:center;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+  <!-- header -->
+  <div class="top" role="banner">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <div style="font-weight:800">SheMatics</div>
+        <div class="small">Mock Tests & Notes</div>
+      </div>
+    </div>
+
+    <div class="meta" aria-hidden="false">
+      <div class="progressWrap">
+        <div class="small" style="margin-bottom:6px;text-align:right">Progress</div>
+        <div class="progressBar" aria-hidden="true"><div class="progressFill" id="progressFill" style="width:0%"></div></div>
+      </div>
+      <div style="width:14px"></div>
+      <div class="timer" id="timer">16:00</div>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="card">
+      <header class="main">
+        <div>
+          <h1 class="title">SSC Mock Test — Creative (Set)</h1>
+          <p class="lead">30 questions • Timer will auto-submit • Theme: <span style="color:var(--blue)">Blue</span> & <span style="color:var(--crimson)">Crimson</span></p>
+        </div>
+        <div class="small" style="text-align:right">
+          <div id="statusLabel">Answered: 0 / 30</div>
+          <div id="scoreHint" style="margin-top:6px;color:var(--muted)">Submit when ready</div>
+        </div>
+      </header>
+
+      <form id="quizForm" aria-describedby="statusLabel">
+        <section class="quiz-grid" id="questionsGrid">
+          <!-- Questions inserted here -->
+        </section>
+
+        <div class="controls" role="region" aria-label="Quiz controls">
+          <button type="button" class="btn btn-submit" id="submitBtn" onclick="submitQuiz()">Submit</button>
+          <button type="button" class="btn btn-reset" onclick="resetQuiz()">Reset</button>
+          <button type="button" class="btn btn-download" id="dlBtn" onclick="downloadResults()" style="display:none">Download Results</button>
+        </div>
+
+        <div id="resultArea" class="result" style="display:none" aria-live="polite"></div>
+      </form>
+    </div>
+
+    <footer>
+      © <span id="year"></span> SheMatics — Good luck!
+    </footer>
+  </main>
+
+<script>
+/* -------------------------
+   QUESTIONS (30 items)
+   Each object: text, options [A..D], correct, explanation (optional)
+------------------------- */
+const QUESTIONS = [
+  {q:"What is 25% of 240?", opts: ["30","50","60","70"], ans:"C", ex:"25% of 240 = 240 × 0.25 = 60"},
+  {q:"Find the missing number: 7, 14, 28, __, 112", opts:["42","56","64","84"], ans:"B", ex:"Sequence doubles each time: 28×2=56"},
+  {q:"Which is a prime number?", opts:["15","21","29","33"], ans:"C"},
+  {q:"Who was Chairman of the Drafting Committee of the Indian Constitution?", opts:["B. R. Ambedkar","Jawaharlal Nehru","Sardar Patel","C. Rajagopalachari"], ans:"A"},
+  {q:"If A:B = 3:4 and B:C = 2:5, then A:C = ?", opts:["3:10","6:20","3:20","3:8"], ans:"A", ex:"Scale to common B=8 => A=6, C=20 => 6:20 => 3:10"},
+  {q:"Select the word opposite in meaning to 'Obscure'.", opts:["Hidden","Clear","Vague","Ambiguous"], ans:"B"},
+  {q:"Which gas is most abundant in Earth's atmosphere?", opts:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"], ans:"B"},
+  {q:"Solve: 17 + 28 ÷ 7", opts:["6","21","31","45"], ans:"B", ex:"28 ÷ 7 = 4; 17+4 = 21"},
+  {q:"Rearrange to make a meaningful sentence: 'the / won / team / match / the'.", opts:["The team won the match.","Won the team match the.","The match the team won.","Team the won match the."], ans:"A"},
+  {q:"Find LCM of 12 and 15.", opts:["60","30","15","12"], ans:"A"},
+  {q:"Who is known as the 'Iron Man of India'?", opts:["Jawaharlal Nehru","Sardar Vallabhbhai Patel","Subhas Chandra Bose","Mahatma Gandhi"], ans:"B"},
+  {q:"If train A travels 60 km in 1 hour and train B travels 150 km in 2.5 hours, which has higher average speed?", opts:["Train A","Train B","Both equal","Cannot determine"], ans:"C", ex:"Train B speed = 150/2.5 = 60 km/h => equal"},
+  {q:"Choose the correctly spelled word.", opts:["Accomodate","Acommodate","Accommodate","Acommoddate"], ans:"C"},
+  {q:"Solve for x: 2x + 7 = 23", opts:["6","8","10","5"], ans:"B", ex:"2x=16 => x=8"},
+  {q:"Which planet is known as the Red Planet?", opts:["Venus","Mars","Jupiter","Saturn"], ans:"B"},
+  {q:"A clock shows 3:00. What is the angle between hour and minute hands?", opts:["90°","0°","120°","45°"], ans:"A"},
+  {q:"Fill in the blank: 'She — to the market every Sunday.'", opts:["go","goes","gone","going"], ans:"B"},
+  {q:"Which Indian state has the largest area?", opts:["Maharashtra","Madhya Pradesh","Rajasthan","Uttar Pradesh"], ans:"C"},
+  {q:"Find the next number in the sequence: 2, 6, 12, 20, ___", opts:["26","30","24","22"], ans:"B", ex:"n(n+1) series => next 5×6=30"},
+  {q:"Which is the largest ocean on Earth?", opts:["Atlantic Ocean","Indian Ocean","Arctic Ocean","Pacific Ocean"], ans:"D"},
+  {q:"Convert 0.75 into fraction.", opts:["3/4","7/10","75/100","2/3"], ans:"A"},
+  {q:"Who wrote the play 'Hamlet'?", opts:["Charles Dickens","William Shakespeare","George Bernard Shaw","John Milton"], ans:"B"},
+  {q:"A bag contains 5 red and 3 blue balls. If one ball is drawn at random, probability it is red?", opts:["3/8","5/8","1/2","5/3"], ans:"B"},
+  {q:"Which instrument is used to measure atmospheric pressure?", opts:["Thermometer","Barometer","Hygrometer","Anemometer"], ans:"B"},
+  {q:"If 5x = 35, then value of x is?", opts:["5","6","7","8"], ans:"C"},
+  {q:"Choose the synonym of 'Rapid'.", opts:["Slow","Quick","Weak","Heavy"], ans:"B"},
+  {q:"Which is NOT a renewable source of energy?", opts:["Solar","Wind","Coal","Biomass"], ans:"C"},
+  {q:"Find value: 9 × 8 − (6 ÷ 2)", opts:["69","68","70","58"], ans:"A", ex:"9×8 =72; 6÷2=3; 72−3=69"},
+  {q:"Select the correct pair: Capital — State", opts:["Patna — Bihar","Pune — Maharashtra","Ranchi — Odisha","Shimla — Punjab"], ans:"A"},
+  {q:"Which sentence is grammatically correct?", opts:["She don't like ice-cream.","She doesn't likes ice-cream.","She doesn't like ice-cream.","She not like ice-cream."], ans:"C"}
+];
+
+/* ---------- render questions ---------- */
+const grid = document.getElementById('questionsGrid');
+QUESTIONS.forEach((item, idx) => {
+  const i = idx + 1;
+  const qCard = document.createElement('article');
+  qCard.className = 'q';
+  qCard.id = 'q'+i;
+  const title = document.createElement('h3');
+  title.innerHTML = `${i}. ${item.q}`;
+  qCard.appendChild(title);
+
+  const opts = document.createElement('div');
+  opts.className = 'options';
+  ['A','B','C','D'].forEach((letter, j) => {
+    const label = document.createElement('label');
+    label.className = 'option';
+    label.setAttribute('data-opt', letter);
+
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'q'+i;
+    radio.value = letter;
+    radio.setAttribute('aria-label', `Option ${letter}`);
+    radio.addEventListener('change', onAnswerChange);
+
+    const span = document.createElement('span');
+    span.innerHTML = `<strong style="min-width:22px;display:inline-block">${letter}.</strong> ${item.opts[j] || ''}`;
+
+    label.appendChild(radio);
+    label.appendChild(span);
+    opts.appendChild(label);
+  });
+
+  qCard.appendChild(opts);
+  grid.appendChild(qCard);
+});
+
+/* ---------- state & UI helpers ---------- */
+const TOTAL = QUESTIONS.length;
+const progressFill = document.getElementById('progressFill');
+const statusLabel = document.getElementById('statusLabel');
+const scoreHint = document.getElementById('scoreHint');
+const resultArea = document.getElementById('resultArea');
+const dlBtn = document.getElementById('dlBtn');
+const submitBtn = document.getElementById('submitBtn');
+
+function updateProgress(){
+  const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+  const pct = Math.round((answered / TOTAL) * 100);
+  progressFill.style.width = pct + '%';
+  statusLabel.textContent = `Answered: ${answered} / ${TOTAL}`;
+  scoreHint.textContent = answered === TOTAL ? 'All answered — ready to submit' : 'You can submit anytime';
+}
+
+/* highlight label when chosen */
+function onAnswerChange(e){
+  const parent = e.target.closest('.options');
+  parent.querySelectorAll('label.option').forEach(l => l.classList.remove('checked'));
+  const label = e.target.closest('label.option');
+  if(label) label.classList.add('checked');
+  updateProgress();
+}
+
+/* ---------- TIMER (16 minutes) ---------- */
+let TOTAL_SECONDS = 16 * 60; // 16 minutes
+let secondsLeft = TOTAL_SECONDS;
+let timerInterval = null;
+const timerEl = document.getElementById('timer');
+
+function formatTime(s){
+  const mm = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  return `${mm}:${ss}`;
+}
+function startTimer(){
+  timerEl.textContent = formatTime(secondsLeft);
+  timerInterval = setInterval(()=>{
+    secondsLeft--;
+    if(secondsLeft < 0){
+      clearInterval(timerInterval);
+      timerEl.textContent = '00:00';
+      autoSubmitOnTimeout();
+      return;
+    }
+    timerEl.textContent = formatTime(secondsLeft);
+  },1000);
+}
+function stopTimer(){ if(timerInterval) clearInterval(timerInterval); }
+function autoSubmitOnTimeout(){
+  // small visual cue
+  resultArea.style.display = 'block';
+  resultArea.innerHTML = `<div style="font-weight:800;color:var(--crimson)">Time is up — auto-submitting...</div>`;
+  setTimeout(()=> submitQuiz(true), 700);
+}
+startTimer();
+
+/* ---------- submit & scoring ---------- */
+function submitQuiz(isAuto=false){
+  stopTimer();
+  // disable submit button
+  submitBtn.disabled = true;
+  const userAnswers = [];
+  let score = 0;
+  const detailNodes = [];
+
+  for(let i=0;i<TOTAL;i++){
+    const id = 'q'+(i+1);
+    const qEl = document.getElementById(id);
+    const sel = qEl.querySelector('input[type="radio"]:checked');
+    const user = sel ? sel.value : null;
+    const correct = QUESTIONS[i].ans;
+    const isCorrect = user === correct;
+    if(isCorrect) score++;
+    // mark border & show small badge
+    qEl.style.borderColor = isCorrect ? 'rgba(16,185,129,.6)' : 'rgba(229,57,53,.12)';
+    // create detail row
+    const row = {
+      index: i+1,
+      question: QUESTIONS[i].q,
+      user: user || '—',
+      correct: correct,
+      isCorrect: isCorrect,
+      explanation: QUESTIONS[i].ex || ''
+    };
+    detailNodes.push(row);
+    userAnswers.push(row);
+    // show correct/incorrect small note inside card
+    // remove existing note if any
+    const existingNote = qEl.querySelector('.note');
+    if(existingNote) existingNote.remove();
+    const note = document.createElement('div');
+    note.className = 'note small';
+    note.style.marginTop = '8px';
+    note.style.padding = '8px';
+    note.style.borderRadius = '8px';
+    note.style.background = '#fbfeff';
+    note.style.border = '1px solid rgba(2,6,23,.03)';
+    note.innerHTML = isCorrect ? `<span class="badge-correct">Correct</span>` : `<span class="badge-wrong">Incorrect</span> &nbsp; Correct: <strong>${correct}</strong>`;
+    if(QUESTIONS[i].ex) note.innerHTML += `<div style="margin-top:6px" class="small">${QUESTIONS[i].ex}</div>`;
+    qEl.appendChild(note);
+  }
+
+  // summary
+  const percent = Math.round((score / TOTAL) * 100);
+  const timeUsed = formatTime(TOTAL_SECONDS - secondsLeft);
+  resultArea.style.display = 'block';
+  resultArea.innerHTML = `
+    <div class="score">
+      <div>Score: <span style="font-size:18px">${score}/${TOTAL}</span></div>
+      <div class="small">(${percent}%)</div>
+    </div>
+    <div class="small" style="margin-top:8px">Answered: ${document.querySelectorAll('input[type="radio"]:checked').length} / ${TOTAL} • Time used: ${timeUsed} ${isAuto ? '(auto-submitted)' : ''}</div>
+    <div style="margin-top:12px">${percent >= 60 ? '<span style="color:green;font-weight:800">Good job — you passed this set.</span>' : '<span style="color:var(--crimson);font-weight:800">Work on weak areas and try again.</span>'}</div>
+  `;
+
+  // per-question compact report
+  const detailsWrap = document.createElement('div');
+  detailsWrap.className = 'detail-list';
+  userAnswers.forEach(r => {
+    const item = document.createElement('div');
+    item.className = 'detail-item';
+    item.innerHTML = `<div style="max-width:70%"><strong>Q${r.index}.</strong> ${r.question}</div>
+      <div style="text-align:right">
+        <div class="${r.isCorrect ? 'badge-correct' : 'badge-wrong'}">${r.isCorrect ? 'Correct' : 'Wrong'}</div>
+        <div class="small">You: ${r.user} &nbsp; | &nbsp; Ans: ${r.correct}</div>
+      </div>`;
+    if(r.explanation){
+      const ex = document.createElement('div');
+      ex.className = 'small';
+      ex.style.marginTop = '8px';
+      ex.textContent = 'Explanation: ' + r.explanation;
+      item.appendChild(ex);
+    }
+    detailsWrap.appendChild(item);
+  });
+  resultArea.appendChild(detailsWrap);
+
+  // show download button
+  dlBtn.style.display = 'inline-block';
+  dlBtn.dataset.payload = JSON.stringify({score, total: TOTAL, percent, timeUsed, answers: userAnswers});
+}
+
+/* ---------- reset ---------- */
+function resetQuiz(){
+  if(!confirm('Reset all answers and restart timer?')) return;
+  document.getElementById('quizForm').reset();
+  // remove per-card notes and reset borders
+  document.querySelectorAll('.q').forEach(q => {
+    q.style.borderColor = 'rgba(2,6,23,.04)';
+    const note = q.querySelector('.note');
+    if(note) note.remove();
+  });
+  resultArea.style.display = 'none';
+  dlBtn.style.display = 'none';
+  submitBtn.disabled = false;
+  secondsLeft = TOTAL_SECONDS;
+  stopTimer();
+  startTimer();
+  updateProgress();
+}
+
+/* ---------- download CSV ---------- */
+function downloadResults(){
+  const payload = JSON.parse(dlBtn.dataset.payload || '{}');
+  if(!payload || !payload.answers) return alert('No results to download.');
+  const rows = [['Q No','Question','Your Answer','Correct Answer','Correct?','Explanation']];
+  payload.answers.forEach(r => rows.push([r.index, `"${r.question.replace(/"/g,'""')}"`, r.user, r.correct, r.isCorrect ? 'Yes':'No', `"${(r.explanation||'').replace(/"/g,'""')}"`]));
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `shematics_mock_set_results_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/* initial UI update */
+document.getElementById('year').textContent = new Date().getFullYear();
+updateProgress();
+</script>
+</body>
+</html>
