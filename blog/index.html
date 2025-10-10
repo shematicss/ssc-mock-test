@@ -68,16 +68,17 @@
     box-shadow:0 10px 24px rgba(2,6,23,.06);transition:.2s transform,.2s box-shadow,.2s border-color
   }
   .card:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(2,6,23,.12);border-color:var(--ring)}
-  .thumb{height:140px;background:linear-gradient(135deg, rgba(37,99,235,.9), rgba(236,72,153,.9));position:relative}
-  .thumb.alt1{background:linear-gradient(135deg, rgba(20,184,166,.9), rgba(139,92,246,.9))}
-  .thumb.alt2{background:linear-gradient(135deg, rgba(245,158,11,.95), rgba(37,99,235,.9))}
-  .ribbon{
-    position:absolute;top:12px;left:-8px;background:#fff;color:#111;font-weight:800;font-size:12px;
-    padding:6px 10px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.15)
-  }
   .content{padding:16px}
   .content h3{margin:0 0 6px}
   .meta{font-size:13px;color:var(--muted);margin-top:8px}
+
+  /* Images in blog cards */
+  .thumb{height:180px;position:relative;overflow:hidden;border-top-left-radius:16px;border-top-right-radius:16px}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .ribbon{
+    position:absolute;top:12px;left:12px;background:#fff;color:#111;font-weight:800;
+    font-size:12px;padding:6px 10px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.15)
+  }
 
   footer{margin:28px 0 22px;padding:0 16px;color:var(--muted);text-align:center}
 </style>
@@ -124,17 +125,23 @@
     <section id="posts" class="grid">
       <!-- Welcome/info card -->
       <article class="card">
-        <div class="thumb"><span class="ribbon">Start here</span></div>
+        <div class="thumb">
+          <img src="https://picsum.photos/seed/welcome-blog/1200/800" alt="Welcome to SheMatics Blog">
+          <span class="ribbon">Start here</span>
+        </div>
         <div class="content">
           <h3>Welcome to the SheMatics Blog</h3>
           <p class="meta">What you’ll find: exam strategies, concise notes, and important updates for SSC, Banking, and Railway.</p>
         </div>
       </article>
 
-      <!-- Example Post 1 -->
+      <!-- Post 1 -->
       <article class="card">
         <a href="how-to-crack-ssc-cgl.html">
-          <div class="thumb alt1"><span class="ribbon">Strategy</span></div>
+          <div class="thumb">
+            <img src="https://picsum.photos/seed/ssc-plan/1200/800" alt="SSC CGL 60-Day Study Plan">
+            <span class="ribbon">Strategy</span>
+          </div>
           <div class="content">
             <h3>SSC CGL: 60-Day Study Plan (Topic Weights + Mocks)</h3>
             <p class="meta">A complete daily schedule, high-weightage topics, mock test plan, and common mistakes to avoid.</p>
@@ -142,10 +149,13 @@
         </a>
       </article>
 
-      <!-- Example Post 2 -->
+      <!-- Post 2 -->
       <article class="card">
         <a href="number-system-notes.html">
-          <div class="thumb alt2"><span class="ribbon">Notes</span></div>
+          <div class="thumb">
+            <img src="https://picsum.photos/seed/number-system/1200/800" alt="Number System Notes and Practice">
+            <span class="ribbon">Notes</span>
+          </div>
           <div class="content">
             <h3>Number System — Concise Notes & Practice Questions</h3>
             <p class="meta">Divisibility, remainders, LCM/HCF and last-digit tricks with solved examples.</p>
