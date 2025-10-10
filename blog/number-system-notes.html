@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Number System — Concise Notes & Practice — SheMatics</title>
+<meta name="description" content="Key concepts of the Number System: divisibility, remainders, LCM/HCF, last-digit tricks with solved examples for SSC.">
+<link rel="icon" href="../assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0B0F1A;--muted:#667085;--paper:#f7f9fc;--card:#fff;--blue:#2563eb;--teal:#14b8a6;--violet:#8b5cf6;--amber:#f59e0b}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:920px;margin:0 auto;padding:16px}
+  .top{display:flex;gap:10px;align-items:center;margin:10px 0 18px;font-weight:600}
+  .top a{padding:6px 10px;border-radius:10px;border:1px solid rgba(2,6,23,.08);background:#fff}
+  .hero{border-radius:16px;color:#fff;background:linear-gradient(120deg,var(--teal),var(--violet));padding:28px 20px;box-shadow:0 14px 30px rgba(2,6,23,.15)}
+  .hero h1{margin:0 0 6px;font-size:30px} .badge{display:inline-block;margin-top:8px;background:#fff;color:#111;font-weight:800;font-size:12px;padding:6px 10px;border-radius:10px}
+  article{background:#fff;border:1px solid rgba(2,6,23,.06);border-radius:16px;margin-top:-12px;padding:20px;box-shadow:0 10px 24px rgba(2,6,23,.06)}
+  h2{margin:18px 0 8px} .muted{color:var(--muted)}
+  .note{background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.3);padding:12px;border-radius:12px}
+  .warn{background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.35);padding:12px;border-radius:12px}
+  .table{width:100%;border-collapse:collapse;margin:8px 0 14px}
+  .table th,.table td{border:1px solid rgba(2,6,23,.08);padding:10px;text-align:left}
+  code{background:#0b0f1a; color:#fff; padding:2px 6px; border-radius:6px}
+  .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(37,99,235,.12);margin-right:6px}
+  footer{margin:26px 0 20px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a href="../index.html">← Home</a>
+      <a href="./index.html">Blog</a>
+    </div>
+
+    <header class="hero">
+      <h1>Number System — Concise Notes & Practice</h1>
+      <p>Divisibility, remainders, LCM/HCF and last-digit tricks for SSC exams.</p>
+      <span class="badge">Notes · Quant</span>
+    </header>
+
+    <article>
+      <p class="muted">Reading time: ~7 min · Updated: <span id="d"></span></p>
+
+      <h2>1) Divisibility rules (quick)</h2>
+      <table class="table">
+        <tr><th>Number</th><th>Rule</th></tr>
+        <tr><td>2</td><td>Last digit even</td></tr>
+        <tr><td>3</td><td>Sum of digits divisible by 3</td></tr>
+        <tr><td>4</td><td>Last two digits divisible by 4</td></tr>
+        <tr><td>5</td><td>Last digit 0 or 5</td></tr>
+        <tr><td>8</td><td>Last three digits divisible by 8</td></tr>
+        <tr><td>11</td><td>|(sum odd places − sum even places)| divisible by 11</td></tr>
+      </table>
+
+      <h2>2) Remainders (modular basics)</h2>
+      <div class="note"><strong>Key:</strong> If <code>a ≡ b (mod m)</code>, then you can replace <code>a</code> by <code>b</code> in any multiplication/addition mod <code>m</code>.</div>
+      <p><strong>Trick:</strong> For large powers, reduce base first. Example: Find last digit of <code>7^123</code>.  
+      Cycle of last digit of 7 → 7,9,3,1 (length 4). <code>123 ≡ 3 (mod 4)</code> ⇒ last digit is <strong>3</strong>.</p>
+
+      <h2>3) LCM & HCF (prime power rule)</h2>
+      <p>Write prime powers: LCM → take higher powers; HCF → lower powers.</p>
+      <table class="table">
+        <tr><th>Numbers</th><th>LCM</th><th>HCF</th></tr>
+        <tr><td>60 (=2²·3·5) & 90 (=2·3²·5)</td><td>2²·3²·5 = 180</td><td>2·3·5 = 30</td></tr>
+      </table>
+
+      <h2>4) Last-digit / last-two-digit tricks</h2>
+      <ul>
+        <li>Last digit of a product depends only on last digits of factors.</li>
+        <li>Use cycles for bases ending with 2,3,7,8.</li>
+        <li>For last two digits, use mod 100 and Chinese Remainder with 4 & 25 if needed.</li>
+      </ul>
+
+      <h2>5) Practice set</h2>
+      <ol>
+        <li>Find remainder when <code>5^123</code> is divided by 7.</li>
+        <li>LCM of 48, 60 and 90.</li>
+        <li>Last two digits of <code>13^7</code>.</li>
+        <li>Smallest number divisible by 12, 15 and 20 leaving remainder 3 each.</li>
+      </ol>
+
+      <div class="warn"><strong>Exam tip:</strong> Maintain a 1-page formula sheet. Revise it daily and mark weak topics after each mock.</div>
+
+      <p class="muted">Tags:
+        <span class="tag">Notes</span>
+        <span class="tag">Quant</span>
+      </p>
+    </article>
+
+    <footer>© <span id="y"></span> SheMatics — maths by her, ∞</footer>
+  </div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const d = new Date(); document.getElementById('d').textContent =
+    d.toLocaleDateString(undefined,{day:'2-digit',month:'short',year:'numeric'});
+</script>
+</body>
+</html>
