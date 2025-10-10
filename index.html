@@ -131,7 +131,7 @@
   .prev{left:14px}
   .next{right:14px}
 
-  /* Dots */
+  /* Dots (renamed to avoid clash with info note dot) */
   .dots{
     position:absolute;
     bottom:16px;
@@ -144,13 +144,13 @@
     border-radius:999px;
     backdrop-filter:blur(6px);
   }
-  .dot{
+  .pager-dot{
     width:10px;height:10px;border-radius:50%;
     background:#cfd8e3;opacity:.8;cursor:pointer;
     border:1px solid rgba(255,255,255,.6);
     transition:transform .2s, opacity .2s;
   }
-  .dot.active{opacity:1;transform:scale(1.15);background:#1E64C8}
+  .pager-dot.active{opacity:1;transform:scale(1.15);background:#1E64C8}
 
   /* cards / grid */
   .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
@@ -167,7 +167,7 @@
 
   /* info strip */
   .note{display:flex;align-items:center;gap:12px;margin-top:12px;background:#fff;border:1px solid rgba(2,6,23,.06);border-radius:12px;padding:14px}
-  .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--blue));box-shadow:0 0 0 8px rgba(30,100,200,.10)}
+  .note .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--blue));box-shadow:0 0 0 8px rgba(30,100,200,.10)}
 
   footer{margin:28px 0 22px;padding:0 16px;color:var(--muted);text-align:center}
 </style>
@@ -181,6 +181,7 @@
     <div class="nav">
       <span class="chip">Free forever</span>
       <span class="chip">Mobile friendly</span>
+      <a class="chip" href="blog/index.html">Blog</a>
       <a class="chip" href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">YouTube</a>
     </div>
   </div>
@@ -262,6 +263,18 @@
             <button class="btn btn-outline" disabled>Locked</button>
           </div>
         </article>
+
+        <!-- New: Blog highlight card -->
+        <article class="card">
+          <span class="pill blue">New</span>
+          <h3>Blog</h3>
+          <p class="muted">Strategies, notes & updates.</p>
+          <div class="actions">
+            <a class="btn btn-accent" href="blog/index.html">Read posts</a>
+            <a class="btn btn-outline" href="blog/how-to-crack-ssc-cgl.html">60-Day Plan</a>
+            <a class="btn btn-outline" href="blog/number-system-notes.html">Number System</a>
+          </div>
+        </article>
       </div>
 
       <div id="about" class="note">
@@ -274,6 +287,7 @@
   <footer>
     © <span id="y"></span> SheMatics — maths by her, ∞ ·
     <a href="exams/ssc/mock-tests/set-creative.html">Start SSC Mock</a> ·
+    <a href="blog/index.html">Blog</a> ·
     <a href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">YouTube</a>
   </footer>
 
@@ -298,15 +312,15 @@
   let index = 0;
   let timer;
 
-  // Create dots
+  // Create dots (fixed aria-label + class name)
   for (let i = 0; i < total; i++) {
     const d = document.createElement('button');
-    d.className = 'dot';
+    d.className = 'pager-dot';
     d.setAttribute('aria-label', `Go to slide ${i + 1}`);
     d.addEventListener('click', () => goTo(i, true));
     dotsWrap.appendChild(d);
   }
-  const dots = [...document.querySelectorAll('.dot')];
+  const dots = [...document.querySelectorAll('.pager-dot')];
 
   function update() {
     const pct = (index * 100) / total;
