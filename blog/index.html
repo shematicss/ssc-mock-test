@@ -4,27 +4,87 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SheMatics Blog — Notes, Strategy & Updates</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<meta name="description" content="Exam strategies, concise notes, and important updates for SSC, Banking, and Railway exams by SheMatics.">
 <link rel="icon" href="../assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{--red:#E53935;--blue:#1E64C8;--ink:#0B0F1A;--muted:#6b7280;--paper:#f7f9fc;--card:#fff;--ring:rgba(30,100,200,.28)}
+  :root{
+    --ink:#0B0F1A; --muted:#667085; --paper:#f7f9fc; --card:#ffffff;
+    --blue:#2563eb; --pink:#ec4899; --violet:#8b5cf6; --teal:#14b8a6; --amber:#f59e0b;
+    --ring:rgba(37,99,235,.25);
+  }
   *{box-sizing:border-box} html,body{margin:0}
-  body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.7}
+  body{
+    font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--ink); background:
+      radial-gradient(800px 500px at 0% 0%, rgba(236,72,153,.08), transparent 60%),
+      radial-gradient(900px 600px at 100% 10%, rgba(37,99,235,.10), transparent 60%),
+      var(--paper);
+    line-height:1.7;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* Topbar */
   .topbar{display:flex;align-items:center;gap:12px;padding:14px 16px;max-width:1100px;margin:0 auto}
-  .logo{width:44px;height:44px;object-fit:contain}
-  .brand{font-weight:800;font-size:22px}
+  .logo{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.12))}
+  .brand{font-weight:800;font-size:22px;letter-spacing:.2px}
   .nav{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
-  .chip{font-size:12px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(2,6,23,.08);text-decoration:none;color:inherit}
-  main{max-width:1100px;margin:0 auto;padding:16px}
-  h1{margin:8px 0 16px}
-  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-  .card{background:var(--card);border:1px solid rgba(2,6,23,.06);border-radius:16px;padding:18px;box-shadow:0 10px 24px rgba(2,6,23,.06);transition:.2s}
-  .card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(2,6,23,.1);border-color:var(--ring)}
-  .muted{color:var(--muted)} .tag{font-size:12px;padding:3px 8px;border-radius:999px;background:rgba(30,100,200,.08);color:#123967}
+  .chip{font-size:12px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(2,6,23,.08)}
+
+  /* HERO */
+  .hero{
+    position:relative; overflow:hidden; color:#fff; margin:8px 0 0;
+    background:linear-gradient(120deg, var(--blue), var(--violet), var(--pink));
+    background-size:200% 200%;
+    animation:heroShift 12s ease-in-out infinite;
+  }
+  @keyframes heroShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .hero-inner{max-width:1100px;margin:0 auto;padding:48px 16px 64px;display:grid;gap:10px}
+  .hero h1{margin:0;font-size:36px;letter-spacing:.3px;text-shadow:0 6px 24px rgba(0,0,0,.25)}
+  .hero p{margin:6px 0 0;color:#eef2ff}
+  .cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:800;border:1px solid transparent}
+  .btn-white{background:#fff;color:var(--ink)}
+  .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.45);backdrop-filter:blur(6px)}
+
+  /* Main */
+  main{max-width:1100px;margin:-28px auto 0;padding:0 16px}
+  .panel{
+    background:#fff;border-radius:16px;padding:18px;box-shadow:0 10px 24px rgba(2,6,23,.08);
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between
+  }
+  .filters{display:flex;gap:8px;flex-wrap:wrap}
+  .tag{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(2,6,23,.06);cursor:default}
+  .t-blue{background:rgba(37,99,235,.12);color:#143c82}
+  .t-pink{background:rgba(236,72,153,.12);color:#7e214d}
+  .t-violet{background:rgba(139,92,246,.12);color:#40246d}
+  .t-teal{background:rgba(20,184,166,.12);color:#0b4e49}
+  .t-amber{background:rgba(245,158,11,.12);color:#7a4c03}
+
+  /* Grid Cards */
+  .grid{display:grid;gap:18px;margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{
+    background:var(--card);border:1px solid rgba(2,6,23,.06);border-radius:16px;overflow:hidden;
+    box-shadow:0 10px 24px rgba(2,6,23,.06);transition:.2s transform,.2s box-shadow,.2s border-color
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(2,6,23,.12);border-color:var(--ring)}
+  .thumb{height:140px;background:linear-gradient(135deg, rgba(37,99,235,.9), rgba(236,72,153,.9));position:relative}
+  .thumb.alt1{background:linear-gradient(135deg, rgba(20,184,166,.9), rgba(139,92,246,.9))}
+  .thumb.alt2{background:linear-gradient(135deg, rgba(245,158,11,.95), rgba(37,99,235,.9))}
+  .ribbon{
+    position:absolute;top:12px;left:-8px;background:#fff;color:#111;font-weight:800;font-size:12px;
+    padding:6px 10px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.15)
+  }
+  .content{padding:16px}
+  .content h3{margin:0 0 6px}
+  .meta{font-size:13px;color:var(--muted);margin-top:8px}
+
   footer{margin:28px 0 22px;padding:0 16px;color:var(--muted);text-align:center}
 </style>
 </head>
 <body>
+
+  <!-- Topbar -->
   <div class="topbar">
     <a href="../index.html"><img class="logo" src="../assets/img/logo.png" alt="SheMatics"></a>
     <div class="brand">SheMatics</div>
@@ -35,17 +95,64 @@
     </div>
   </div>
 
-  <main>
-    <h1>Blog</h1>
-    <p class="muted">Exam strategy, chapter notes, updates & announcements.</p>
-
-    <div class="grid">
-      <article class="card">
-        <h3>Welcome to the SheMatics Blog</h3>
-        <p class="muted">Yaha par SSC/Bank/Railway ke tips, concise notes aur updates milenge. Next step me pehla post add karenge.</p>
-        <div class="muted"><span class="tag">Start here</span></div>
-      </article>
+  <!-- Hero -->
+  <header class="hero" role="banner">
+    <div class="hero-inner">
+      <h1>Smart prep starts here</h1>
+      <p>Colorful strategies, crisp notes and high-yield insights for SSC, Banking & Railway.</p>
+      <div class="cta">
+        <a class="btn btn-white" href="#posts">Explore posts</a>
+        <a class="btn btn-ghost" href="../index.html#exams">Take a mock</a>
+      </div>
     </div>
+  </header>
+
+  <main>
+    <!-- quick filters (visual only) -->
+    <div class="panel">
+      <div class="filters">
+        <span class="tag t-blue">Strategy</span>
+        <span class="tag t-teal">Notes</span>
+        <span class="tag t-violet">Quant</span>
+        <span class="tag t-pink">English</span>
+        <span class="tag t-amber">Updates</span>
+      </div>
+      <span class="meta">New posts every week ✨</span>
+    </div>
+
+    <!-- Posts -->
+    <section id="posts" class="grid">
+      <!-- Welcome/info card -->
+      <article class="card">
+        <div class="thumb"><span class="ribbon">Start here</span></div>
+        <div class="content">
+          <h3>Welcome to the SheMatics Blog</h3>
+          <p class="meta">What you’ll find: exam strategies, concise notes, and important updates for SSC, Banking, and Railway.</p>
+        </div>
+      </article>
+
+      <!-- Example Post 1 -->
+      <article class="card">
+        <a href="how-to-crack-ssc-cgl.html">
+          <div class="thumb alt1"><span class="ribbon">Strategy</span></div>
+          <div class="content">
+            <h3>SSC CGL: 60-Day Study Plan (Topic Weights + Mocks)</h3>
+            <p class="meta">A complete daily schedule, high-weightage topics, mock test plan, and common mistakes to avoid.</p>
+          </div>
+        </a>
+      </article>
+
+      <!-- Example Post 2 -->
+      <article class="card">
+        <a href="number-system-notes.html">
+          <div class="thumb alt2"><span class="ribbon">Notes</span></div>
+          <div class="content">
+            <h3>Number System — Concise Notes & Practice Questions</h3>
+            <p class="meta">Divisibility, remainders, LCM/HCF and last-digit tricks with solved examples.</p>
+          </div>
+        </a>
+      </article>
+    </section>
   </main>
 
   <footer>© <span id="y"></span> SheMatics — maths by her, ∞</footer>
