@@ -30,6 +30,16 @@
   .hero p{margin:0;color:#eef2ff}
   .badge{display:inline-block;margin-top:10px;background:#fff;color:#111;font-weight:800;font-size:12px;padding:6px 10px;border-radius:10px}
 
+  /* banner image just below hero content */
+  .banner{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+    margin:16px 0 0;
+    display:block;
+  }
+
   /* article */
   article{background:#fff;border:1px solid rgba(2,6,23,.06);border-radius:16px;margin-top:-16px;padding:20px;box-shadow:0 10px 24px rgba(2,6,23,.06)}
   h2{margin:18px 0 8px}
@@ -54,6 +64,8 @@
       <h1>SSC CGL: 60-Day Study Plan</h1>
       <p>Topic-wise weightage, daily schedule and mock test blueprint.</p>
       <span class="badge">Strategy · SSC</span>
+      <!-- NEW: banner image -->
+      <img class="banner" src="https://picsum.photos/seed/ssc-plan-banner/1200/400" alt="Study plan banner">
     </header>
 
     <article>
@@ -88,7 +100,7 @@
       <h2 id="mocks">Mock test strategy</h2>
       <ul>
         <li>Attempt 3 sectional + 2 full-length mocks per week.</li>
-        <li>Analyse within 24 hours—note wrong concepts in an **Error Log**.</li>
+        <li>Analyse within 24 hours—note wrong concepts in an <strong>Error Log</strong>.</li>
         <li>Redo the same mock after 7 days to measure retention.</li>
       </ul>
 
