@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Book your Free Session – SheMatics</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f6f7fb;margin:0;padding:24px}
+    .card{max-width:520px;margin:0 auto;background:#fff;border-radius:16px;padding:24px;box-shadow:0 12px 36px rgba(26,26,44,.08)}
+    h2{margin:0 0 6px}
+    .label{font-size:13px;margin:14px 0 6px;color:#555}
+    input,select{width:100%;padding:12px 14px;border:1.5px solid #e7e7ef;border-radius:10px;font-size:15px}
+    .row{display:flex;gap:8px}
+    .btn{padding:12px 14px;border:1px solid #ddd;border-radius:10px;background:#f8f8ff;cursor:pointer}
+    .btn.pri{border:0;background:linear-gradient(90deg,#ff8a3d,#ff4f60);color:#fff;font-weight:700;width:100%;margin-top:18px}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    .hint{font-size:12px;color:#777;margin-top:6px}
+    .err{color:#d93025;font-size:13px;margin-top:8px}
+    .ok{color:#146c43;font-size:13px;margin-top:8px}
+    .tabs{display:flex;gap:8px;margin:8px 0 16px}
+    .tab{flex:1;padding:10px 12px;border:1.5px solid #cfcff7;border-radius:10px;text-align:center;cursor:pointer}
+    .tab.active{border-color:#6c2bd9;color:#6c2bd9;font-weight:600}
+    .otp-wrap{display:flex;gap:8px;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Book your Free Session</h2>
+    <div class="hint">Learn from India’s best teachers</div>
+
+    <div class="label">Select the Session Mode</div>
+    <div class="tabs">
+      <div id="mode-online" class="tab active">Online</div>
+      <div id="mode-offline" class="tab">Offline</div>
+    </div>
+
+    <div class="label">Enter Your Details</div>
+    <input id="name" placeholder="Enter Name of your Child"/>
+
+    <div class="label">Mobile Number</div>
+    <div class="otp-wrap">
+      <input id="phone" placeholder="Enter your Mobile Number (10 digits)"/>
+      <button id="sendOtpBtn" class="btn">Send OTP</button>
+    </div>
+
+    <div id="recaptcha-container"></div>
+
+    <div id="otpArea" style="display:none">
+      <div class="otp-wrap">
+        <input id="otpCode" placeholder="Enter OTP"/>
+        <button id="verifyOtpBtn" class="btn">Verify</button>
+      </div>
+      <div id="otpMsg" class="hint"></div>
+    </div>
+
+    <div class="label">Email Address</div>
+    <input id="email" placeholder="Email Address"/>
+
+    <div class="label">State</div>
+    <select id="state">
+      <option value="">State</option>
+      <option>Delhi</option><option>Uttar Pradesh</option><option>Bihar</option>
+      <option>Maharashtra</option><option>Rajasthan</option>
+    </select>
+
+    <button id="submitBtn" class="btn pri" disabled>Continue to Schedule</button>
+    <div id="msg" class="hint"></div>
+    <div id="err" class="err"></div>
+  </div>
+
+  <!-- Firebase v9 (modular) via CDN -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+    // === YOUR CONFIG (from Firebase) ===
+    const firebaseConfig = {
+      apiKey: "AIzaSyDqoIldbsh3SjZCidOKc_yfw2oqFGpipWM",
+      authDomain: "shematics-50191.firebaseapp.com",
+      projectId: "shematics-50191",
+      storageBucket: "shematics-50191.firebasestorage.app",
+      messagingSenderId: "534175088985",
+      appId: "1:534175088985:web:3e6bf95d3e82bbd20b8c48",
+      measurementId: "G-RP4L649FKB"
+    };
+
+    // Init
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // UI helpers
+    const q = id => document.getElementById(id);
+    let sessionMode = "Online";
+    let confirmationResult = null;
+    let phoneVerified = false;
+
+    q("mode-online").onclick = () => { sessionMode="Online"; q("mode-online").classList.add("active"); q("mode-offline").classList.remove("active"); };
+    q("mode-offline").onclick = () => { sessionMode="Offline"; q("mode-offline").classList.add("active"); q("mode-online").classList.remove("active"); };
+
+    // reCAPTCHA (invisible)
+    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size: 'invisible' }, auth);
+
+    // Send OTP
+    q("sendOtpBtn").onclick = async () => {
+      q("err").textContent=""; q("otpMsg").textContent="";
+      const raw = q("phone").value.trim();
+      if(!/^\d{10}$/.test(raw)){ q("err").textContent="Valid 10-digit mobile no. डालें"; return; }
+
+      const phone = "+91" + raw; // India default; जरूरत हो तो देश बदलें
+
+      try {
+        const appVerifier = window.recaptchaVerifier;
+        confirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
+        q("otpArea").style.display="block";
+        q("otpMsg").textContent = "OTP sent. Please check your phone.";
+      } catch(e){
+        q("err").textContent = e.message || "Failed to send OTP.";
+        try { window.recaptchaVerifier.clear(); } catch(_) {}
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size:'invisible' }, auth);
+      }
+    };
+
+    // Verify OTP
+    q("verifyOtpBtn").onclick = async () => {
+      q("err").textContent="";
+      if(!confirmationResult){ q("err").textContent="Please send OTP first."; return; }
+      const code = q("otpCode").value.trim();
+      try {
+        await confirmationResult.confirm(code);
+        phoneVerified = true;
+        q("otpMsg").textContent = "✅ Mobile verified";
+        q("submitBtn").disabled = false;
+      } catch(e){
+        q("otpMsg").textContent = "Wrong OTP. Try again.";
+      }
+    };
+
+    // Submit (demo only)
+    q("submitBtn").onclick = () => {
+      if(!phoneVerified){ q("err").textContent="Verify your mobile first."; return; }
+      const payload = {
+        name: q("name").value.trim(),
+        phone: q("phone").value.trim(),
+        email: q("email").value.trim(),
+        state: q("state").value,
+        mode: sessionMode,
+        ts: new Date().toISOString()
+      };
+      if(!payload.name || !payload.phone || !payload.state){ q("err").textContent="Name, Phone, State ज़रूरी हैं."; return; }
+      q("msg").textContent = "Thanks! Your request is submitted (demo).";
+      q("submitBtn").disabled = true;
+      console.log("Form data:", payload);
+    };
+  </script>
+</body>
+</html>
