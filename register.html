@@ -107,7 +107,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-    // === YOUR CONFIG (from Firebase) ===
+    // === YOUR CONFIG ===
     const firebaseConfig = {
       apiKey: "AIzaSyDqoIldbsh3SjZCidOKc_yfw2oqFGpipWM",
       authDomain: "shematics-50191.firebaseapp.com",
@@ -118,11 +118,9 @@
       measurementId: "G-RP4L649FKB"
     };
 
-    // Init
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // UI helpers
     const q = id => document.getElementById(id);
     let sessionMode = "Online";
     let confirmationResult = null;
@@ -131,52 +129,63 @@
     q("mode-online").onclick = () => { sessionMode="Online"; q("mode-online").classList.add("active"); q("mode-offline").classList.remove("active"); };
     q("mode-offline").onclick = () => { sessionMode="Offline"; q("mode-offline").classList.add("active"); q("mode-online").classList.remove("active"); };
 
-    // ✅ reCAPTCHA create/render ONLY ONCE
-    async function ensureRecaptcha(){
-      if (!window.recaptchaVerifier) {
-        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size:'invisible' }, auth);
-        await window.recaptchaVerifier.render();
+    // ✅ Clean + recreate reCAPTCHA every time
+    async function ensureRecaptcha() {
+      if (window.recaptchaVerifier) {
+        try { await window.recaptchaVerifier.clear(); } catch(e){}
+        window.recaptchaVerifier = null;
       }
+      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size: 'invisible' }, auth);
+      await window.recaptchaVerifier.render();
     }
 
-    // Send OTP
+    // ✅ Send OTP
     q("sendOtpBtn").onclick = async () => {
-      q("err").textContent=""; q("otpMsg").textContent="";
+      q("err").textContent = ""; 
+      q("otpMsg").textContent = "";
       const raw = q("phone").value.trim();
-      if(!/^\d{10}$/.test(raw)){ q("err").textContent="Valid 10-digit mobile no. डालें"; return; }
-      const phone = "+91" + raw;
 
+      if (!/^\d{10}$/.test(raw)) { 
+        q("err").textContent = "Valid 10-digit mobile no. डालें"; 
+        return; 
+      }
+
+      const phone = "+91" + raw;
       try {
         await ensureRecaptcha();
         confirmationResult = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
-        q("otpArea").style.display="block";
-        q("otpMsg").textContent = "OTP sent. Please check your phone.";
-      } catch(e){
-        q("err").textContent = e.message || "Failed to send OTP.";
-        // reset so next attempt can recreate cleanly
-        try { window.recaptchaVerifier.clear(); } catch(_) {}
-        window.recaptchaVerifier = null;
+        q("otpArea").style.display = "block";
+        q("otpMsg").textContent = "OTP sent ✅ Please check your phone.";
+      } catch (e) {
+        console.error("OTP Error:", e);
+        q("err").textContent = e.message || "Failed to send OTP. Check domain or SMS region policy.";
       }
     };
 
-    // Verify OTP
+    // ✅ Verify OTP
     q("verifyOtpBtn").onclick = async () => {
-      q("err").textContent="";
-      if(!confirmationResult){ q("err").textContent="Please send OTP first."; return; }
+      q("err").textContent = "";
+      if (!confirmationResult) {
+        q("err").textContent = "Please send OTP first.";
+        return;
+      }
       const code = q("otpCode").value.trim();
       try {
         await confirmationResult.confirm(code);
         phoneVerified = true;
-        q("otpMsg").textContent = "✅ Mobile verified";
+        q("otpMsg").textContent = "✅ Mobile verified!";
         q("submitBtn").disabled = false;
-      } catch(e){
-        q("otpMsg").textContent = "Wrong OTP. Try again.";
+      } catch (e) {
+        q("otpMsg").textContent = "❌ Wrong OTP. Try again.";
       }
     };
 
-    // Submit (demo only)
+    // ✅ Submit demo
     q("submitBtn").onclick = () => {
-      if(!phoneVerified){ q("err").textContent="Verify your mobile first."; return; }
+      if (!phoneVerified) {
+        q("err").textContent = "Verify your mobile first.";
+        return;
+      }
       const payload = {
         name: q("name").value.trim(),
         phone: q("phone").value.trim(),
@@ -185,8 +194,11 @@
         mode: sessionMode,
         ts: new Date().toISOString()
       };
-      if(!payload.name || !payload.phone || !payload.state){ q("err").textContent="Name, Phone, State ज़रूरी हैं."; return; }
-      q("msg").textContent = "Thanks! Your request is submitted (demo).";
+      if (!payload.name || !payload.phone || !payload.state) {
+        q("err").textContent = "Name, Phone, State ज़रूरी हैं.";
+        return;
+      }
+      q("msg").textContent = "✅ Thanks! Your request is submitted (demo).";
       q("submitBtn").disabled = true;
       console.log("Form data:", payload);
     };
