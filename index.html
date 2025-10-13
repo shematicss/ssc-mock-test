@@ -192,6 +192,8 @@
       <h1>Mock Tests & Notes for SSC, Banking, Railway & more</h1>
       <p class="sub">maths by her, ∞ — practice sets, quick notes and clean UI</p>
       <div class="cta">
+        <!-- NEW BUTTON -->
+        <a class="btn btn-primary" href="register.html">Book Free Session</a>
         <a class="btn btn-primary" href="#exams">Explore Exams</a>
         <a class="btn btn-ghost" href="#about">About</a>
         <a class="btn btn-yt" href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">Subscribe on YouTube</a>
@@ -301,7 +303,6 @@
   const imgs = document.querySelectorAll('.slides img');
   const total = imgs.length;
 
-  // set total in CSS variable
   slides.style.setProperty('--total', total);
 
   const prevBtn = document.querySelector('.prev');
@@ -312,7 +313,6 @@
   let index = 0;
   let timer;
 
-  // Create dots (fixed aria-label + class name)
   for (let i = 0; i < total; i++) {
     const d = document.createElement('button');
     d.className = 'pager-dot';
@@ -336,22 +336,18 @@
   function stop()  { if (timer) clearInterval(timer); }
   function restart(){ stop(); start(); }
 
-  // Buttons
   nextBtn.addEventListener('click', () => { next(); restart(); });
   prevBtn.addEventListener('click', () => { prev(); restart(); });
 
-  // Pause on hover/focus
   ['mouseenter','focusin'].forEach(evt => container.addEventListener(evt, stop));
   ['mouseleave','focusout'].forEach(evt => container.addEventListener(evt, start));
 
-  // Keyboard support
   container.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') { next(); restart(); }
     if (e.key === 'ArrowLeft')  { prev(); restart(); }
   });
   container.tabIndex = 0;
 
-  // Basic touch swipe
   let sx = null;
   container.addEventListener('touchstart', (e) => sx = e.touches[0].clientX, {passive:true});
   container.addEventListener('touchend', (e) => {
@@ -361,7 +357,6 @@
     sx = null;
   });
 
-  // Init
   update();
   start();
 </script>
