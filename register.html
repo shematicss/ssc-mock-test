@@ -58,9 +58,43 @@
 
     <div class="label">State</div>
     <select id="state">
-      <option value="">State</option>
-      <option>Delhi</option><option>Uttar Pradesh</option><option>Bihar</option>
-      <option>Maharashtra</option><option>Rajasthan</option>
+      <option value="">State / UT</option>
+      <option>Andhra Pradesh</option>
+      <option>Arunachal Pradesh</option>
+      <option>Assam</option>
+      <option>Bihar</option>
+      <option>Chhattisgarh</option>
+      <option>Goa</option>
+      <option>Gujarat</option>
+      <option>Haryana</option>
+      <option>Himachal Pradesh</option>
+      <option>Jharkhand</option>
+      <option>Karnataka</option>
+      <option>Kerala</option>
+      <option>Madhya Pradesh</option>
+      <option>Maharashtra</option>
+      <option>Manipur</option>
+      <option>Meghalaya</option>
+      <option>Mizoram</option>
+      <option>Nagaland</option>
+      <option>Odisha</option>
+      <option>Punjab</option>
+      <option>Rajasthan</option>
+      <option>Sikkim</option>
+      <option>Tamil Nadu</option>
+      <option>Telangana</option>
+      <option>Tripura</option>
+      <option>Uttar Pradesh</option>
+      <option>Uttarakhand</option>
+      <option>West Bengal</option>
+      <option>Andaman & Nicobar Islands</option>
+      <option>Chandigarh</option>
+      <option>Dadra & Nagar Haveli and Daman & Diu</option>
+      <option>Delhi</option>
+      <option>Jammu & Kashmir</option>
+      <option>Ladakh</option>
+      <option>Lakshadweep</option>
+      <option>Puducherry</option>
     </select>
 
     <button id="submitBtn" class="btn pri" disabled>Continue to Schedule</button>
@@ -97,26 +131,31 @@
     q("mode-online").onclick = () => { sessionMode="Online"; q("mode-online").classList.add("active"); q("mode-offline").classList.remove("active"); };
     q("mode-offline").onclick = () => { sessionMode="Offline"; q("mode-offline").classList.add("active"); q("mode-online").classList.remove("active"); };
 
-    // reCAPTCHA (invisible)
-    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size: 'invisible' }, auth);
+    // ✅ reCAPTCHA create/render ONLY ONCE
+    async function ensureRecaptcha(){
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size:'invisible' }, auth);
+        await window.recaptchaVerifier.render();
+      }
+    }
 
     // Send OTP
     q("sendOtpBtn").onclick = async () => {
       q("err").textContent=""; q("otpMsg").textContent="";
       const raw = q("phone").value.trim();
       if(!/^\d{10}$/.test(raw)){ q("err").textContent="Valid 10-digit mobile no. डालें"; return; }
-
-      const phone = "+91" + raw; // India default; जरूरत हो तो देश बदलें
+      const phone = "+91" + raw;
 
       try {
-        const appVerifier = window.recaptchaVerifier;
-        confirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
+        await ensureRecaptcha();
+        confirmationResult = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
         q("otpArea").style.display="block";
         q("otpMsg").textContent = "OTP sent. Please check your phone.";
       } catch(e){
         q("err").textContent = e.message || "Failed to send OTP.";
+        // reset so next attempt can recreate cleanly
         try { window.recaptchaVerifier.clear(); } catch(_) {}
-        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', { size:'invisible' }, auth);
+        window.recaptchaVerifier = null;
       }
     };
 
