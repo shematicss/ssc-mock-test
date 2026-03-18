@@ -4,390 +4,354 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SheMatics • Full Mock Test — 60 Q • 30 min</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --red:#E53935; --blue:#1E64C8; --bg:#f7fafc; --card:#fff; --muted:#6b7280; --ink:#081226;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;height:100%}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-  header{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;padding:16px}
-  .container{max-width:1000px;margin:16px auto;padding:0 16px}
-  .top{display:flex;align-items:center;gap:12px}
-  .logo{width:44px;height:44px;object-fit:contain;border-radius:8px;background:#fff;padding:6px}
-  h1{margin:0;font-size:20px}
-  .meta{color:rgba(255,255,255,0.9);font-size:13px}
-  .panel{display:grid;grid-template-columns: 1fr 320px; gap:18px;margin-top:18px}
-  .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 8px 24px rgba(2,6,23,.06)}
-  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-  .question{font-weight:700;margin:6px 0 12px}
-  .options{display:flex;flex-direction:column;gap:8px}
-  .opt{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px solid #e6eaf0;cursor:pointer}
-  .opt input{width:18px;height:18px}
-  .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-  button{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
-  .btn-ghost{background:#fff;border:1px solid #e6eaf0}
-  .btn-primary{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff}
-  .info{font-size:13px;color:var(--muted);margin-top:8px}
-  .timer{font-weight:800;color:var(--red)}
-  .sidebar .section-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-  .qnum{padding:8px;border-radius:8px;text-align:center;border:1px solid #eceff6;cursor:pointer}
-  .qnum.answered{background:linear-gradient(135deg,#eef2ff,#ecfdf5);border-color:transparent}
-  .qnum.current{box-shadow:0 6px 18px rgba(0,0,0,.08);border-color:var(--blue)}
-  .result{display:none}
-  .review li{margin-bottom:8px}
-  .summary{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  .chip{padding:6px 8px;border-radius:999px;background:#f1f5f9;border:1px solid #e6eaf0;font-weight:700}
-  @media(max-width:980px){ .panel{grid-template-columns:1fr} .sidebar{order:-1} .sidebar .section-list{grid-template-columns:repeat(6,1fr)}}
+:root{--red:#E53935;--red-dark:#b71c1c;--blue:#1E64C8;--blue-dark:#0d3b7a;--silver:#8a9ab0;--bg:#f4f7fc;--card:#fff;--muted:#6b7280;--ink:#0B0F1A;--green:#16a34a;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:linear-gradient(135deg,var(--red-dark),var(--red) 40%,var(--blue));color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 4px 24px rgba(11,15,26,.18)}
+.header-inner{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px}
+.logo{width:42px;height:42px;object-fit:contain;border-radius:10px;background:rgba(255,255,255,.15);padding:5px}
+.header-title h1{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;margin:0}
+.header-meta{font-size:12px;color:rgba(255,255,255,.75);margin-top:2px}
+.timer-box{margin-left:auto;text-align:right;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:8px 18px;min-width:100px}
+.timer-label{font-size:10px;color:rgba(255,255,255,.65);letter-spacing:.8px;text-transform:uppercase}
+#timer{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:#fff;line-height:1}
+#timer.urgent{color:#fde68a;animation:tp 1s infinite}
+@keyframes tp{0%,100%{opacity:1}50%{opacity:.5}}
+.container{max-width:1100px;margin:0 auto;padding:20px 24px}
+.panel{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.card{background:var(--card);border-radius:20px;padding:28px;box-shadow:0 6px 28px rgba(11,15,26,.07);border:1px solid rgba(11,15,26,.06)}
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(11,15,26,.07)}
+.section-badge{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:4px 14px;border-radius:999px;background:rgba(30,100,200,.10);color:var(--blue)}
+.q-counter{font-size:13px;color:var(--muted);font-weight:600}
+.q-counter span{color:var(--ink);font-weight:800}
+.progress-wrap{margin-bottom:20px}
+.progress-bar{height:5px;background:rgba(11,15,26,.07);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--blue));border-radius:999px;transition:.4s width}
+#qText{font-size:17px;font-weight:700;line-height:1.6;margin-bottom:24px;padding:20px;background:linear-gradient(135deg,rgba(229,57,53,.04),rgba(30,100,200,.04));border-radius:14px;border-left:4px solid var(--blue)}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:14px;border:1.5px solid rgba(11,15,26,.09);cursor:pointer;transition:.2s border-color,.2s background,.2s transform;background:#fff}
+.opt:hover{border-color:var(--blue);background:rgba(30,100,200,.04);transform:translateX(4px)}
+.opt.selected{border-color:var(--blue);background:rgba(30,100,200,.08)}
+.opt input{display:none}
+.opt-label{width:32px;height:32px;border-radius:10px;flex-shrink:0;background:rgba(11,15,26,.06);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--muted);transition:.2s background,.2s color}
+.opt.selected .opt-label{background:var(--blue);color:#fff}
+.opt-text{font-size:15px;font-weight:500}
+.actions{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:12px;border:none;cursor:pointer;font-weight:700;font-size:14px;font-family:"Plus Jakarta Sans",system-ui,sans-serif;transition:.2s transform,.2s box-shadow}
+.btn:hover{transform:translateY(-2px)}
+.btn-ghost{background:#fff;border:1.5px solid rgba(11,15,26,.12);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-primary{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;box-shadow:0 4px 16px rgba(30,100,200,.3)}
+.btn-clear{background:#fff5f5;border:1.5px solid #fca5a5;color:#dc2626}
+.btn-submit{background:linear-gradient(135deg,var(--green),#15803d);color:#fff;box-shadow:0 4px 16px rgba(22,163,74,.3);margin-left:auto}
+#explain{display:none;margin-top:16px;padding:14px 18px;border-radius:12px;background:#dcfce7;border:1px solid rgba(22,163,74,.25);font-size:14px;color:#166534;font-weight:500}
+.sidebar .card{padding:20px}
+.palette-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.palette-title{font-weight:800;font-size:15px}
+.palette-hint{font-size:11px;color:var(--muted)}
+.section-list{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.qnum{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:1.5px solid rgba(11,15,26,.09);cursor:pointer;transition:.2s;color:var(--muted);background:#fff}
+.qnum:hover{border-color:var(--blue);color:var(--blue)}
+.qnum.answered{background:rgba(30,100,200,.10);border-color:rgba(30,100,200,.3);color:var(--blue)}
+.qnum.current{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;border-color:transparent;box-shadow:0 3px 12px rgba(30,100,200,.35)}
+.counts{display:flex;gap:10px;margin-top:14px}
+.count-chip{flex:1;text-align:center;padding:10px 8px;border-radius:12px;background:var(--bg);border:1px solid rgba(11,15,26,.07)}
+.count-num{font-size:20px;font-weight:800;color:var(--ink)}
+.count-label{font-size:11px;color:var(--muted);margin-top:2px}
+.tips{margin-top:16px;padding:14px;background:rgba(30,100,200,.05);border-radius:12px;border:1px solid rgba(30,100,200,.10)}
+.tips-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px}
+.tips ul{margin-left:16px;font-size:13px;color:var(--muted);line-height:1.8}
+#resultArea{display:none}
+.result-header{background:linear-gradient(135deg,var(--red-dark),var(--red),var(--blue));color:#fff;border-radius:16px;padding:28px;margin-bottom:20px;text-align:center}
+.result-score{font-family:"Playfair Display",serif;font-size:52px;font-weight:800;line-height:1;margin-bottom:8px}
+.result-msg{font-size:18px;font-weight:600;opacity:.9}
+.result-meta{font-size:13px;opacity:.7;margin-top:6px}
+.section-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:20px}
+.summary-chip{background:var(--card);border:1px solid rgba(11,15,26,.08);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px rgba(11,15,26,.05)}
+.summary-chip-num{font-size:20px;font-weight:800;color:var(--blue)}
+.summary-chip-label{font-size:12px;color:var(--muted);margin-top:4px}
+details{margin-top:16px}
+summary{cursor:pointer;font-weight:700;padding:14px 18px;background:rgba(30,100,200,.06);border-radius:12px;border:1px solid rgba(30,100,200,.12);list-style:none;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+.review-list{margin-top:12px;display:flex;flex-direction:column;gap:12px}
+.review-item{padding:16px;border-radius:14px;border:1px solid rgba(11,15,26,.07);background:var(--card)}
+.review-item.correct{border-color:rgba(22,163,74,.25);background:rgba(22,163,74,.04)}
+.review-item.wrong{border-color:rgba(229,57,53,.25);background:rgba(229,57,53,.04)}
+.review-q{font-weight:700;font-size:14px;margin-bottom:6px}
+.review-ans{font-size:13px;color:var(--muted)}
+.review-exp{font-size:13px;color:#166534;margin-top:6px}
+.result-actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+@media(max-width:900px){.panel{grid-template-columns:1fr}.sidebar{order:-1}.section-list{grid-template-columns:repeat(8,1fr)}}
+@media(max-width:500px){.section-list{grid-template-columns:repeat(6,1fr)}.header-title h1{font-size:15px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="container">
-    <div class="top">
-      <img class="logo" src="/assets/img/logo.png" alt="SheMatics">
-      <div>
-        <h1>SheMatics — Full Mock Test</h1>
-        <div class="meta">60 Questions • 30 minutes • Sections: Maths, Reasoning, English, GK/GS</div>
-      </div>
-      <div style="margin-left:auto; text-align:right">
-        <div class="meta">Total Time</div>
-        <div class="timer" id="timer">30:00</div>
-      </div>
+  <div class="header-inner">
+    <img class="logo" src="/assets/img/logo.png" alt="SheMatics">
+    <div class="header-title">
+      <h1>SheMatics — Full Mock Test</h1>
+      <div class="header-meta">60 Questions • 30 Minutes • Maths · Reasoning · English · GK/GS</div>
+    </div>
+    <div class="timer-box">
+      <div class="timer-label">Time Left</div>
+      <div id="timer">30:00</div>
     </div>
   </div>
 </header>
 
-<main class="container">
-  <div class="panel">
-    <!-- main card -->
-    <div class="card">
-      <div class="qmeta">
-        <div>Section: <strong id="sectionName">Maths</strong></div>
-        <div>Q <span id="current">1</span> / <span id="total">60</span></div>
-      </div>
-
-      <div id="questionArea">
-        <div id="qText" class="question">Question text...</div>
-        <div class="options" id="options"></div>
-
-        <div class="actions">
-          <button class="btn-ghost" id="prevBtn">Previous</button>
-          <button class="btn-ghost" id="nextBtn">Next</button>
-          <button class="btn-primary" id="submitBtn">Submit Test</button>
-          <button class="btn-ghost" id="clearBtn">Clear Answer</button>
-        </div>
-        <div class="info" id="explain" style="display:none"></div>
-      </div>
-
-      <div id="resultArea" class="result card" style="margin-top:12px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-weight:800">Your Score: <span id="scoreVal"></span> / <span id="totalQ"></span></div>
-          <div id="msg" style="font-weight:700"></div>
-        </div>
-        <div class="summary" id="sectionSummary"></div>
-
-        <details style="margin-top:10px">
-          <summary>Review answers</summary>
-          <ol id="reviewList" class="review"></ol>
-        </details>
-
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <button class="btn-ghost" id="goHome">Go to Home</button>
-          <button class="btn-primary" id="retakeBtn">Retake Test</button>
+<div class="container">
+  <div id="questionArea">
+    <div class="panel">
+      <div>
+        <div class="card">
+          <div class="qmeta">
+            <div class="section-badge" id="sectionName">Maths</div>
+            <div class="q-counter">Question <span id="current">1</span> of <span id="total">60</span></div>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:1.67%"></div></div>
+          </div>
+          <div id="qText">Loading...</div>
+          <div class="options" id="options"></div>
+          <div id="explain"></div>
+          <div class="actions">
+            <button class="btn btn-ghost" id="prevBtn">&#8592; Previous</button>
+            <button class="btn btn-ghost" id="nextBtn">Next &#8594;</button>
+            <button class="btn btn-ghost btn-clear" id="clearBtn">&#10005; Clear</button>
+            <button class="btn btn-submit" id="submitBtn">&#10003; Submit Test</button>
+          </div>
         </div>
       </div>
+      <aside class="sidebar">
+        <div class="card">
+          <div class="palette-header">
+            <div class="palette-title">Question Palette</div>
+            <div class="palette-hint">Tap to jump</div>
+          </div>
+          <div class="section-list" id="palette"></div>
+          <div class="counts">
+            <div class="count-chip"><div class="count-num" id="ansCount">0</div><div class="count-label">Answered</div></div>
+            <div class="count-chip"><div class="count-num" id="remCount">60</div><div class="count-label">Remaining</div></div>
+          </div>
+          <div class="tips">
+            <div class="tips-title">&#128161; Tips</div>
+            <ul><li>Attempt all questions</li><li>Don't spend too long on one Q</li><li>Review before submitting</li></ul>
+          </div>
+        </div>
+      </aside>
     </div>
-
-    <!-- sidebar -->
-    <aside class="card sidebar">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-weight:800">Question Palette</div>
-        <div class="muted">Click to jump</div>
-      </div>
-
-      <div class="section-list" id="palette"></div>
-
-      <div class="info" style="margin-top:12px">Answered: <span id="ansCount">0</span> • Remaining: <span id="remCount">60</span></div>
-      <div style="margin-top:12px" class="info">
-        <div>Tips:</div>
-        <ul style="margin:6px 0 0 18px;color:var(--muted);font-size:13px">
-          <li>Attempt all; don’t spend too long on one Q.</li>
-          <li>Use review to check marked answers at the end.</li>
-        </ul>
-      </div>
-    </aside>
   </div>
-</main>
+
+  <div id="resultArea">
+    <div class="result-header">
+      <div class="result-score"><span id="scoreVal">0</span> / <span id="totalQ">60</span></div>
+      <div class="result-msg" id="msg"></div>
+      <div class="result-meta">SheMatics Mock Test &bull; Full 60 Questions</div>
+    </div>
+    <div class="section-summary" id="sectionSummary"></div>
+    <details>
+      <summary>&#128203; Review All Answers</summary>
+      <div class="review-list" id="reviewList"></div>
+    </details>
+    <div class="result-actions">
+      <button class="btn btn-ghost" id="goHome">&#8592; Go to Home</button>
+      <button class="btn btn-primary" id="retakeBtn">&#8635; Retake Test</button>
+    </div>
+  </div>
+</div>
 
 <script>
-// ======= QUESTIONS (60) =======
-const questions = [
-/* 15 Maths */
-{section:'Maths', q:"2 + 7 = ?", o:["8","9","10","11"], a:1, e:"2 + 7 = 9"},
-{section:'Maths', q:"If 20% of a number is 40, the number is:", o:["80","120","200","160"], a:3, e:"20% of x = 40 → 0.2x=40 → x=40/0.2=200 (option 3)"},
-{section:'Maths', q:"LCM of 6 and 8 is:", o:["12","24","18","48"], a:1, e:"Multiples common: 24 is LCM"},
-{section:'Maths', q:"HCF of 14 and 21 is:", o:["3","7","14","21"], a:1, e:"Common factors: 7"},
-{section:'Maths', q:"Area of rectangle with length 8 and breadth 5:", o:["40","13","30","80"], a:0, e:"Area = 8×5 = 40"},
-{section:'Maths', q:"If speed = 60 km in 2 hours, speed is:", o:["20 km/h","30 km/h","15 km/h","40 km/h"], a:1, e:"60/2 = 30 km/h"},
-{section:'Maths', q:"Simple interest on ₹1000 at 5% for 2 years:", o:["₹50","₹100","₹150","₹200"], a:3, e:"SI = P×R×T/100 = 1000×5×2/100 = ₹100; Wait compute carefully: 1000×5=5000; ×2=10000; /100 = 100 → option 1? — Correction: actually 100. So fix: option values adjusted below."},
-// Fix the above to correct options (we need integer correctness). Replace object:
-{section:'Maths', q:"Simple interest on ₹1000 at 5% for 2 years:", o:["₹50","₹100","₹150","₹200"], a:1, e:"SI = 1000×5×2/100 = ₹100"},
-{section:'Maths', q:"(5 × 6) + 12 = ?", o:["42","32","40","48"], a:0, e:"5×6=30; +12 = 42"},
-{section:'Maths', q:"If x = 3, evaluate 2x^2 + 1:", o:["19","13","15","18"], a:2, e:"2×9 + 1 = 18+1=19 → option 0 (adjust)"},
-// Fix: compute accurately. Let's replace with simpler correct Qs to avoid confusion.
-{section:'Maths', q:"If x = 3, evaluate 2x + 5:", o:["11","8","10","7"], a:0, e:"2×3 + 5 = 6 + 5 = 11"},
-{section:'Maths', q:"Average of 4, 6 and 8 is:", o:["6","7","5","8"], a:0, e:"(4+6+8)/3 = 18/3 = 6"},
-{section:'Maths', q:"2^5 equals:", o:["32","16","64","8"], a:0, e:"2^5 = 32"},
-{section:'Maths', q:"What is 15% of 200?", o:["20","25","30","35"], a:2, e:"15% of 200 = 0.15×200 = 30"},
-{section:'Maths', q:"If ratio 2:3 and total is 50, larger part is:", o:["20","30","25","35"], a:1, e:"Parts 2+3=5; larger = 3/5×50 = 30"},
-
-/* 15 Reasoning */
-{section:'Reasoning', q:"Complete the series: 2, 4, 8, 16, ?", o:["18","24","32","36"], a:2, e:"Each term ×2 → next is 32"},
-{section:'Reasoning', q:"Find the odd one out: Dog, Cat, Cow, Car", o:["Dog","Cat","Cow","Car"], a:3, e:"Car is not an animal"},
-{section:'Reasoning', q:"If 'A' means '+', 'B' means '-', then 5 A 3 B 2 = ?", o:["6","0","--","--"], a:0, e:"5 + 3 - 2 = 6"},
-{section:'Reasoning', q:"Direction: You face North, turn right, then right, then left. You face:", o:["South","East","West","North"], a:2, e:"North -> right (East) -> right (South) -> left (East). Wait compute: start North -> right = East; right = South; left = East → final East (option 1). Adjust option indices accordingly."},
-// Replace with clearer one:
-{section:'Reasoning', q:"You face North. Turn right, then left. Which direction now?", o:["North","East","South","West"], a:1, e:"North -> right = East; then left = North. Hmm mismatch. Let's pick simpler: North -> right = East; then left = North. So final North. Let's instead create a simple reasoning Q."},
-// To avoid confusion, replace previous two with simpler correct ones:
-{section:'Reasoning', q:"If all Bloops are Razzies and all Razzies are Lazzies, then all Bloops are:", o:["Lazzies","Not Lazzies","Cannot say","Both"], a:0, e:"Transitive: Bloops -> Razzies -> Lazzies"},
-{section:'Reasoning', q:"Find next: 3, 6, 11, 18, ?", o:["25","27","26","24"], a:0, e:"Pattern: +3, +5, +7, next +9 → 18+9=27. Wait calculation: 3→6(+3),6→11(+5),11→18(+7),18→?(+9)=27 → option 1. Fix a index to 1."},
-// Rebuild reasoning set cleanly to ensure correctness — it's getting messy. For clarity and to avoid errors, I'll supply a well-checked set below replacing the reasoning and earlier mixed ones.
-];
-
-// ***** NOTE *****
-// Above array editing got messy while composing — to ensure a correct, fully working test,
-// I will replace the entire questions array below with a clean, validated 60-question list.
-// (This is the actual array used by the quiz engine.)
-const data = [
-/* ========== MATHS 15 ========== */
+const data=[
 {section:"Maths",q:"2 + 7 = ?",o:["8","9","10","11"],a:1,e:"2 + 7 = 9."},
-{section:"Maths",q:"If 20% of a number is 40, the number is:",o:["80","120","200","160"],a:2,e:"0.2×x = 40 → x = 40/0.2 = 200."},
+{section:"Maths",q:"If 20% of a number is 40, the number is:",o:["80","120","200","160"],a:2,e:"0.2x=40, x=200."},
 {section:"Maths",q:"LCM of 6 and 8 is:",o:["12","24","18","48"],a:1,e:"LCM(6,8)=24."},
-{section:"Maths",q:"HCF of 14 and 21 is:",o:["3","7","14","21"],a:1,e:"Common factor = 7."},
-{section:"Maths",q:"Area of rectangle (8 by 5) is:",o:["40","13","30","80"],a:0,e:"Area = 8×5 = 40."},
-{section:"Maths",q:"Speed if 60 km is covered in 2 hours:",o:["20 km/h","30 km/h","15 km/h","40 km/h"],a:1,e:"Speed = distance/time = 60/2 = 30 km/h."},
-{section:"Maths",q:"Simple interest on ₹1000 at 5% for 2 years is:",o:["₹50","₹100","₹150","₹200"],a:1,e:"SI = 1000×5×2/100 = ₹100."},
-{section:"Maths",q:"(5 × 6) + 12 = ?",o:["42","32","40","48"],a:0,e:"5×6=30; +12=42."},
-{section:"Maths",q:"If x = 3, evaluate 2x + 5:",o:["11","8","10","7"],a:0,e:"2×3+5=11."},
-{section:"Maths",q:"Average of 4, 6 and 8 is:",o:["6","7","5","8"],a:0,e:"(4+6+8)/3 = 18/3 = 6."},
-{section:"Maths",q:"2^5 equals:",o:["32","16","64","8"],a:0,e:"2^5 = 32."},
-{section:"Maths",q:"What is 15% of 200?",o:["20","25","30","35"],a:2,e:"0.15×200 = 30."},
-{section:"Maths",q:"If ratio is 2:3 and total is 50, larger part is:",o:["20","30","25","35"],a:1,e:"Total parts=5; larger = 3/5×50 = 30."},
-{section:"Maths",q:"Perimeter of square with side 7 is:",o:["28","14","49","21"],a:0,e:"Perimeter = 4×7 = 28."},
-{section:"Maths",q:"Value of √81 is:",o:["7","8","9","10"],a:2,e:"√81 = 9."},
-
-/* ========== REASONING 15 ========== */
-{section:"Reasoning",q:"Complete series: 2, 4, 8, 16, ?",o:["18","24","32","36"],a:2,e:"Each term ×2 → next = 32."},
-{section:"Reasoning",q:"Find odd one: Dog, Cat, Cow, Car",o:["Dog","Cat","Cow","Car"],a:3,e:"Car is not an animal."},
-{section:"Reasoning",q:"If all Bloops are Razzies and all Razzies are Lazzies, then Bloops are:",o:["Razzies only","Lazzies","Neither","Both"],a:1,e:"Transitive relation → Bloops are Lazzies."},
-{section:"Reasoning",q:"Next: 3, 6, 11, 18, ?",o:["25","27","26","24"],a:1,e:"Differences: +3,+5,+7,next +9 →18+9=27."},
-{section:"Reasoning",q:"Which completes analogy: Hand is to Glove as Foot is to ?",o:["Sock","Shoe","Ring","Hat"],a:1,e:"Glove covers hand; Shoe covers foot."},
-{section:"Reasoning",q:"Direction: Start North, turn right -> face:",o:["East","West","South","North"],a:0,e:"North -> right = East."},
-{section:"Reasoning",q:"If A>B and B>C then A compared to C is:",o:["< C","= C","> C","Cannot say"],a:2,e:"Transitive inequality → A > C."},
-{section:"Reasoning",q:"Complete pattern: A, C, F, J, ?",o:["O","P","N","M"],a:0,e:"Positions: +2,+3,+4,+5 → J (10) +5 = 15 → O."},
-{section:"Reasoning",q:"Find odd number: 16, 18, 21, 24, 26",o:["16","18","21","24"],a:2,e:"21 is odd (others even)."},
-{section:"Reasoning",q:"If 7 is coded as 'SEVEN', then code for 4 is:",o:["FOUR","IV","FOUR","FOUR"],a:0,e:"Plain word 'FOUR'."},
-{section:"Reasoning",q:"Which is mirror image of 'bd' (simple letter pair)?",o:["db","bd","pq","qp"],a:0,e:"Mirror swaps order and flips b↔d."},
-{section:"Reasoning",q:"Syllogism: All cats are animals. Some animals are pets. Conclusion: Some cats are pets — True/False?",o:["True","False","Cannot say","Both"],a:2,e:"Not necessarily some cats are pets → Cannot say."},
-{section:"Reasoning",q:"If every X is Y and some Y are Z, then some X are Z — True/False?",o:["True","False","Cannot say","Sometimes"],a:2,e:"Cannot be certain; some Y that are Z may not include any X."},
-{section:"Reasoning",q:"Find next in numbers: 5, 10, 20, 40, ?",o:["60","80","70","100"],a:1,e:"×2 each time → 40×2=80."},
-{section:"Reasoning",q:"Which word does NOT belong: Apple, Orange, Carrot, Banana",o:["Apple","Orange","Carrot","Banana"],a:2,e:"Carrot is a vegetable; others are fruits."},
-
-/* ========== ENGLISH 15 ========== */
-{section:"English",q:"Choose synonym of 'Happy':",o:["Sad","Joyful","Angry","Tired"],a:1,e:"Joyful = Happy."},
-{section:"English",q:"Fill: She ___ to school every day.",o:["go","goes","gone","going"],a:1,e:"Third person singular present: goes."},
-{section:"English",q:"Opposite of 'Scarce' is:",o:["Rare","Plentiful","Little","Tiny"],a:1,e:"Plentiful = opposite of scarce."},
-{section:"English",q:"Choose correct sentence:",o:["He don't like tea.","He doesn't like tea.","He does not likes tea.","He don't likes tea."],a:1,e:"Correct: He doesn't like tea."},
-{section:"English",q:"Fill: She is the ___ girl in the class.",o:["tall","taller","tallest","most tall"],a:2,e:"Superlative = tallest."},
-{section:"English",q:"Pick synonym of 'Begin':",o:["Start","End","Finish","Close"],a:0,e:"Begin = Start."},
-{section:"English",q:"Choose correct spelling:",o:["Accomodate","Acommodate","Accommodate","Acomodate"],a:2,e:"Correct spelling: Accommodate."},
-{section:"English",q:"Fill: He has ___ apples than me.",o:["less","fewer","fewest","least"],a:1,e:"Countable → fewer."},
-{section:"English",q:"Choose antonym of 'Honest':",o:["Truthful","Sincere","Dishonest","Frank"],a:2,e:"Dishonest = opposite of honest."},
-{section:"English",q:"Pick the correct preposition: She is good ___ math.",o:["in","at","on","for"],a:1,e:"Good at math."},
-{section:"English",q:"Identify part of speech: 'Quickly' is a/an ___",o:["Noun","Verb","Adverb","Adjective"],a:2,e:"Quickly modifies verb → adverb."},
-{section:"English",q:"Choose correct form: I ___ seen that movie.",o:["have","has","had","having"],a:0,e:"I have seen."},
-{section:"English",q:"Fill: They ___ playing since morning.",o:["is","are","have been","has been"],a:2,e:"They have been playing."},
-{section:"English",q:"Synonym of 'Difficult':",o:["Easy","Hard","Simple","Light"],a:1,e:"Hard = Difficult."},
-{section:"English",q:"Choose correct article: ___ apple a day keeps doctor away.",o:["A","An","The","No article"],a:1,e:"Apple begins with vowel sound → 'An'."},
-
-/* ========== GK/GS 15 ========== */
-{section:"GK/GS",q:"Capital of India is:",o:["Mumbai","New Delhi","Kolkata","Chennai"],a:1,e:"New Delhi is capital of India."},
-{section:"GK/GS",q:"Who wrote 'Wings of Fire'?",o:["A.P.J. Abdul Kalam","R.K. Narayan","Chetan Bhagat","Arundhati Roy"],a:0,e:"Autobiography by A.P.J. Abdul Kalam."},
-{section:"GK/GS",q:"Which planet is known as the Red Planet?",o:["Venus","Mars","Jupiter","Saturn"],a:1,e:"Mars is the Red Planet."},
-{section:"GK/GS",q:"The currency of USA is:",o:["Dollar","Euro","Rupee","Yen"],a:0,e:"US Dollar."},
-{section:"GK/GS",q:"Who is the current Prime Minister of India? (as of 2024)",o:["Narendra Modi","Amit Shah","Rahul Gandhi","Unknown"],a:0,e:"Narendra Modi is the PM (verify if changed)."},
-{section:"GK/GS",q:"Which gas is essential for human respiration?",o:["Nitrogen","Oxygen","Carbon dioxide","Hydrogen"],a:1,e:"Oxygen is essential."},
-{section:"GK/GS",q:"National animal of India is:",o:["Tiger","Lion","Elephant","Peacock"],a:0,e:"Bengal Tiger."},
-{section:"GK/GS",q:"Which ocean is the largest?",o:["Atlantic","Indian","Pacific","Arctic"],a:2,e:"Pacific Ocean is largest."},
-{section:"GK/GS",q:"Who discovered gravity (apple anecdote)?",o:["Newton","Einstein","Galileo","Tesla"],a:0,e:"Sir Isaac Newton."},
+{section:"Maths",q:"HCF of 14 and 21 is:",o:["3","7","14","21"],a:1,e:"HCF=7."},
+{section:"Maths",q:"Area of rectangle (8 by 5):",o:["40","13","30","80"],a:0,e:"8x5=40."},
+{section:"Maths",q:"Speed if 60 km covered in 2 hours:",o:["20 km/h","30 km/h","15 km/h","40 km/h"],a:1,e:"60/2=30 km/h."},
+{section:"Maths",q:"Simple interest on Rs.1000 at 5% for 2 years:",o:["Rs.50","Rs.100","Rs.150","Rs.200"],a:1,e:"SI=1000x5x2/100=Rs.100."},
+{section:"Maths",q:"(5 x 6) + 12 = ?",o:["42","32","40","48"],a:0,e:"30+12=42."},
+{section:"Maths",q:"If x=3, evaluate 2x+5:",o:["11","8","10","7"],a:0,e:"2(3)+5=11."},
+{section:"Maths",q:"Average of 4, 6 and 8:",o:["6","7","5","8"],a:0,e:"18/3=6."},
+{section:"Maths",q:"2^5 equals:",o:["32","16","64","8"],a:0,e:"32."},
+{section:"Maths",q:"15% of 200:",o:["20","25","30","35"],a:2,e:"0.15x200=30."},
+{section:"Maths",q:"Ratio 2:3, total 50, larger part:",o:["20","30","25","35"],a:1,e:"3/5x50=30."},
+{section:"Maths",q:"Perimeter of square with side 7:",o:["28","14","49","21"],a:0,e:"4x7=28."},
+{section:"Maths",q:"Value of sqrt(81):",o:["7","8","9","10"],a:2,e:"9."},
+{section:"Reasoning",q:"Series: 2,4,8,16,?",o:["18","24","32","36"],a:2,e:"x2 each time = 32."},
+{section:"Reasoning",q:"Odd one: Dog, Cat, Cow, Car",o:["Dog","Cat","Cow","Car"],a:3,e:"Car is not an animal."},
+{section:"Reasoning",q:"All Bloops are Razzies. All Razzies are Lazzies. Bloops are:",o:["Razzies only","Lazzies","Neither","Both"],a:1,e:"Transitive: Bloops are Lazzies."},
+{section:"Reasoning",q:"Next: 3,6,11,18,?",o:["25","27","26","24"],a:1,e:"+3,+5,+7,+9 = 27."},
+{section:"Reasoning",q:"Hand:Glove as Foot:?",o:["Sock","Shoe","Ring","Hat"],a:1,e:"Shoe covers foot."},
+{section:"Reasoning",q:"Face North, turn right — you face:",o:["East","West","South","North"],a:0,e:"East."},
+{section:"Reasoning",q:"If A>B and B>C, then A vs C:",o:["Less","Equal","Greater","Cannot say"],a:2,e:"A > C."},
+{section:"Reasoning",q:"Pattern: A,C,F,J,?",o:["O","P","N","M"],a:0,e:"+2,+3,+4,+5 = O."},
+{section:"Reasoning",q:"Odd number: 16,18,21,24,26",o:["16","18","21","24"],a:2,e:"21 is odd."},
+{section:"Reasoning",q:"Series: 5,10,20,40,?",o:["60","80","70","100"],a:1,e:"x2=80."},
+{section:"Reasoning",q:"All cats are animals. Some animals are pets. Some cats are pets?",o:["True","False","Cannot say","Both"],a:2,e:"Cannot say."},
+{section:"Reasoning",q:"Odd one: Apple, Orange, Carrot, Banana",o:["Apple","Orange","Carrot","Banana"],a:2,e:"Carrot is vegetable."},
+{section:"Reasoning",q:"Mirror image of bd:",o:["db","bd","pq","qp"],a:0,e:"Mirror flips to db."},
+{section:"Reasoning",q:"Series: 1,4,9,16,?",o:["20","25","24","30"],a:1,e:"Perfect squares: 25."},
+{section:"Reasoning",q:"APPLE=50, average per letter:",o:["10","8","12","5"],a:0,e:"50/5=10."},
+{section:"English",q:"Synonym of Happy:",o:["Sad","Joyful","Angry","Tired"],a:1,e:"Joyful."},
+{section:"English",q:"She ___ to school every day.",o:["go","goes","gone","going"],a:1,e:"goes."},
+{section:"English",q:"Opposite of Scarce:",o:["Rare","Plentiful","Little","Tiny"],a:1,e:"Plentiful."},
+{section:"English",q:"Correct sentence:",o:["He don't like tea.","He doesn't like tea.","He does not likes tea.","He don't likes tea."],a:1,e:"He doesn't like tea."},
+{section:"English",q:"She is the ___ girl in class.",o:["tall","taller","tallest","most tall"],a:2,e:"tallest."},
+{section:"English",q:"Synonym of Begin:",o:["Start","End","Finish","Close"],a:0,e:"Start."},
+{section:"English",q:"Correct spelling:",o:["Accomodate","Acommodate","Accommodate","Acomodate"],a:2,e:"Accommodate."},
+{section:"English",q:"He has ___ apples than me.",o:["less","fewer","fewest","least"],a:1,e:"fewer."},
+{section:"English",q:"Antonym of Honest:",o:["Truthful","Sincere","Dishonest","Frank"],a:2,e:"Dishonest."},
+{section:"English",q:"She is good ___ math.",o:["in","at","on","for"],a:1,e:"at."},
+{section:"English",q:"Quickly is a/an:",o:["Noun","Verb","Adverb","Adjective"],a:2,e:"Adverb."},
+{section:"English",q:"I ___ seen that movie.",o:["have","has","had","having"],a:0,e:"have."},
+{section:"English",q:"They ___ playing since morning.",o:["is","are","have been","has been"],a:2,e:"have been."},
+{section:"English",q:"Synonym of Difficult:",o:["Easy","Hard","Simple","Light"],a:1,e:"Hard."},
+{section:"English",q:"___ apple a day keeps doctor away.",o:["A","An","The","No article"],a:1,e:"An (vowel sound)."},
+{section:"GK/GS",q:"Capital of India:",o:["Mumbai","New Delhi","Kolkata","Chennai"],a:1,e:"New Delhi."},
+{section:"GK/GS",q:"Who wrote Wings of Fire?",o:["A.P.J. Abdul Kalam","R.K. Narayan","Chetan Bhagat","Arundhati Roy"],a:0,e:"A.P.J. Abdul Kalam."},
+{section:"GK/GS",q:"Red Planet:",o:["Venus","Mars","Jupiter","Saturn"],a:1,e:"Mars."},
+{section:"GK/GS",q:"Currency of USA:",o:["Dollar","Euro","Rupee","Yen"],a:0,e:"Dollar."},
+{section:"GK/GS",q:"PM of India (2024):",o:["Narendra Modi","Amit Shah","Rahul Gandhi","Manmohan Singh"],a:0,e:"Narendra Modi."},
+{section:"GK/GS",q:"Gas essential for respiration:",o:["Nitrogen","Oxygen","Carbon dioxide","Hydrogen"],a:1,e:"Oxygen."},
+{section:"GK/GS",q:"National animal of India:",o:["Tiger","Lion","Elephant","Peacock"],a:0,e:"Bengal Tiger."},
+{section:"GK/GS",q:"Largest ocean:",o:["Atlantic","Indian","Pacific","Arctic"],a:2,e:"Pacific."},
+{section:"GK/GS",q:"Who discovered gravity?",o:["Newton","Einstein","Galileo","Tesla"],a:0,e:"Newton."},
 {section:"GK/GS",q:"UN stands for:",o:["United Nations","Universal Network","United Nationship","Union of Nations"],a:0,e:"United Nations."},
-{section:"GK/GS",q:"Which year did India gain independence?",o:["1945","1947","1950","1952"],a:1,e:"India gained independence in 1947."},
-{section:"GK/GS",q:"Largest continent by area is:",o:["Africa","Asia","Europe","Antarctica"],a:1,e:"Asia is largest."},
-{section:"GK/GS",q:"What is H2O commonly known as?",o:["Salt","Water","Hydrogen","Oxygen"],a:1,e:"H2O = Water."},
-{section:"GK/GS",q:"Chemical symbol for Gold is:",o:["Gd","Au","Ag","Go"],a:1,e:"Gold = Au."},
-{section:"GK/GS",q:"Earth completes one rotation in about:",o:["24 hours","12 hours","7 days","30 days"],a:0,e:"Approximately 24 hours."}
+{section:"GK/GS",q:"India independence year:",o:["1945","1947","1950","1952"],a:1,e:"1947."},
+{section:"GK/GS",q:"Largest continent:",o:["Africa","Asia","Europe","Antarctica"],a:1,e:"Asia."},
+{section:"GK/GS",q:"H2O is:",o:["Salt","Water","Hydrogen","Oxygen"],a:1,e:"Water."},
+{section:"GK/GS",q:"Chemical symbol for Gold:",o:["Gd","Au","Ag","Go"],a:1,e:"Au."},
+{section:"GK/GS",q:"Earth rotation time:",o:["24 hours","12 hours","7 days","30 days"],a:0,e:"24 hours."}
 ];
 
-// ====== Quiz engine ======
-let idx = 0;
-const total = data.length;
-const marked = new Array(total).fill(null);
-const startTime = Date.now();
-let remaining = 1800; // seconds (30 min)
-let timerInterval = null;
+const L=["A","B","C","D"];
+let idx=0,remaining=1800,timerInterval=null;
+const total=data.length;
+const marked=new Array(total).fill(null);
+document.getElementById('total').textContent=total;
+document.getElementById('totalQ').textContent=total;
+document.getElementById('timer').textContent="30:00";
 
-const qText = document.getElementById('qText');
-const optionsEl = document.getElementById('options');
-const currentEl = document.getElementById('current');
-const totalEl = document.getElementById('total');
-const sectionName = document.getElementById('sectionName');
-const palette = document.getElementById('palette');
-const ansCount = document.getElementById('ansCount');
-const remCount = document.getElementById('remCount');
-const explain = document.getElementById('explain');
-
-totalEl.textContent = total;
-document.getElementById('totalQ').textContent = total;
-
-function formatTime(s){
-  const mm = String(Math.floor(s/60)).padStart(2,'0');
-  const ss = String(s%60).padStart(2,'0');
-  return `${mm}:${ss}`;
-}
-document.getElementById('timer').textContent = formatTime(remaining);
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+":"+String(s%60).padStart(2,'0')}
 
 function startTimer(){
-  if(timerInterval) clearInterval(timerInterval);
-  timerInterval = setInterval(()=>{
+  if(timerInterval)clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
     remaining--;
-    document.getElementById('timer').textContent = formatTime(remaining);
-    if(remaining<=0){
-      clearInterval(timerInterval);
-      autoSubmit();
-    }
+    const el=document.getElementById('timer');
+    el.textContent=fmt(remaining);
+    if(remaining<=300)el.classList.add('urgent');
+    if(remaining<=0){clearInterval(timerInterval);alert("Time's up!");submitTest();}
   },1000);
 }
 
-function renderQuestion(i){
-  idx = i;
-  const item = data[idx];
-  currentEl.textContent = idx+1;
-  sectionName.textContent = item.section;
-  qText.textContent = item.q;
-  optionsEl.innerHTML = '';
-  for(let j=0;j<item.o.length;j++){
-    const label = document.createElement('label');
-    label.className = 'opt';
-    label.dataset.i = j;
-    label.innerHTML = `<input type="radio" name="opt" value="${j}"> <span>${item.o[j]}</span>`;
-    label.onclick = ()=>{ markAnswer(j); };
-    // mark checked if already selected
-    if(marked[idx]===j){
-      label.querySelector('input').checked = true;
-    }
-    optionsEl.appendChild(label);
-  }
-  explain.style.display = 'none';
+function renderQ(i){
+  idx=i;
+  const item=data[idx];
+  document.getElementById('current').textContent=idx+1;
+  document.getElementById('sectionName').textContent=item.section;
+  document.getElementById('qText').textContent="Q"+(idx+1)+". "+item.q;
+  document.getElementById('progressFill').style.width=((idx+1)/total*100).toFixed(1)+"%";
+  const optEl=document.getElementById('options');
+  optEl.innerHTML='';
+  item.o.forEach((opt,j)=>{
+    const label=document.createElement('label');
+    label.className='opt'+(marked[idx]===j?' selected':'');
+    label.innerHTML='<input type="radio" name="opt" value="'+j+'"><div class="opt-label">'+L[j]+'</div><span class="opt-text">'+opt+'</span>';
+    label.onclick=()=>selectAns(j);
+    optEl.appendChild(label);
+  });
+  document.getElementById('explain').style.display='none';
   updatePalette();
 }
 
-function markAnswer(choice){
-  marked[idx] = choice;
-  updatePalette();
-  updateCounts();
+function selectAns(j){
+  marked[idx]=j;
+  document.querySelectorAll('.opt').forEach((el,i)=>{
+    const sel=i===j;
+    el.classList.toggle('selected',sel);
+    const lbl=el.querySelector('.opt-label');
+    lbl.style.background=sel?'var(--blue)':'';
+    lbl.style.color=sel?'#fff':'';
+  });
+  updatePalette();updateCounts();
 }
 
 function updatePalette(){
-  palette.innerHTML = '';
-  for(let i=0;i<total;i++){
-    const d = document.createElement('div');
-    d.className = 'qnum' + (marked[i]!==null ? ' answered' : '') + (i===idx ? ' current' : '');
-    d.textContent = i+1;
-    d.onclick = ()=>{ renderQuestion(i); };
-    palette.appendChild(d);
-  }
+  const pal=document.getElementById('palette');
+  pal.innerHTML='';
+  data.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='qnum'+(marked[i]!==null?' answered':'')+(i===idx?' current':'');
+    d.textContent=i+1;
+    d.onclick=()=>renderQ(i);
+    pal.appendChild(d);
+  });
 }
 
 function updateCounts(){
-  const answered = marked.filter(v=>v!==null).length;
-  ansCount.textContent = answered;
-  remCount.textContent = total - answered;
+  const ans=marked.filter(v=>v!==null).length;
+  document.getElementById('ansCount').textContent=ans;
+  document.getElementById('remCount').textContent=total-ans;
 }
 
-document.getElementById('nextBtn').onclick = ()=>{ if(idx < total-1) renderQuestion(idx+1); };
-document.getElementById('prevBtn').onclick = ()=>{ if(idx > 0) renderQuestion(idx-1); };
-document.getElementById('clearBtn').onclick = ()=>{ marked[idx]=null; renderQuestion(idx); updateCounts(); };
-
-document.getElementById('submitBtn').onclick = ()=>{ if(confirm("Submit test now?")) submitTest(); };
+document.getElementById('nextBtn').onclick=()=>{if(idx<total-1)renderQ(idx+1)};
+document.getElementById('prevBtn').onclick=()=>{if(idx>0)renderQ(idx-1)};
+document.getElementById('clearBtn').onclick=()=>{marked[idx]=null;renderQ(idx);updateCounts()};
+document.getElementById('submitBtn').onclick=()=>{if(confirm("Submit test now?"))submitTest()};
 
 function submitTest(){
   clearInterval(timerInterval);
-  // calculate score
   let score=0;
-  const reviewList = document.getElementById('reviewList');
-  reviewList.innerHTML = '';
-  const sectionStats = {};
+  const sStats={};
+  const rl=document.getElementById('reviewList');
+  rl.innerHTML='';
   data.forEach((it,i)=>{
-    if(!sectionStats[it.section]) sectionStats[it.section] = {tot:0,correct:0};
-    sectionStats[it.section].tot++;
-    const li = document.createElement('li');
-    const your = marked[i]===null ? '—' : String.fromCharCode(65+marked[i]);
-    const correct = String.fromCharCode(65+it.a);
-    if(marked[i]===it.a){ score++; sectionStats[it.section].correct++; }
-    li.innerHTML = `<div><strong>Q${i+1} (${it.section}):</strong> ${it.q}</div>
-      <div style="color:var(--muted)">Your: <b>${your}</b> • Correct: <b>${correct}</b></div>
-      <div style="color:var(--muted);margin-top:4px">Explain: ${it.e}</div>`;
-    reviewList.appendChild(li);
+    if(!sStats[it.section])sStats[it.section]={tot:0,c:0};
+    sStats[it.section].tot++;
+    const ok=marked[i]===it.a;
+    if(ok){score++;sStats[it.section].c++;}
+    const div=document.createElement('div');
+    div.className='review-item '+(ok?'correct':'wrong');
+    const your=marked[i]===null?'—':L[marked[i]];
+    div.innerHTML='<div class="review-q">Q'+(i+1)+' ('+it.section+'): '+it.q+'</div><div class="review-ans">Your: <b>'+your+'</b> &bull; Correct: <b>'+L[it.a]+'</b> — '+it.o[it.a]+'</div>'+(ok?'':'<div class="review-exp">&#128161; '+it.e+'</div>');
+    rl.appendChild(div);
   });
-  // show results
-  document.getElementById('scoreVal').textContent = score;
-  document.getElementById('totalQ').textContent = total;
-  const msg = document.getElementById('msg');
-  if(score >= 48) msg.textContent = "Excellent!";
-  else if(score >= 36) msg.textContent = "Good job!";
-  else if(score >= 24) msg.textContent = "Fair, practice more.";
-  else msg.textContent = "Keep practicing!";
-  // section summary
-  const ss = document.getElementById('sectionSummary');
-  ss.innerHTML = '';
-  for(const s in sectionStats){
-    const c = sectionStats[s];
-    const el = document.createElement('div');
-    el.className = 'chip';
-    el.textContent = `${s}: ${c.correct}/${c.tot}`;
+  document.getElementById('scoreVal').textContent=score;
+  const msg=document.getElementById('msg');
+  if(score>=48)msg.textContent="&#127942; Excellent!";
+  else if(score>=36)msg.textContent="&#128077; Good Job!";
+  else if(score>=24)msg.textContent="&#128218; Fair — Keep Practising";
+  else msg.textContent="&#128170; Keep Going!";
+  const ss=document.getElementById('sectionSummary');
+  ss.innerHTML='';
+  for(const s in sStats){
+    const c=sStats[s];
+    const pct=Math.round(c.c/c.tot*100);
+    const el=document.createElement('div');
+    el.className='summary-chip';
+    el.innerHTML='<div class="summary-chip-num">'+c.c+'/'+c.tot+'</div><div class="summary-chip-label">'+s+' ('+pct+'%)</div>';
     ss.appendChild(el);
   }
-
-  // hide question area, show result area
-  document.getElementById('questionArea').style.display = 'none';
-  const res = document.getElementById('resultArea');
-  res.style.display = 'block';
+  document.getElementById('questionArea').style.display='none';
+  document.getElementById('resultArea').style.display='block';
   window.scrollTo(0,0);
 }
 
-function autoSubmit(){
-  alert("Time is up — submitting your test.");
-  submitTest();
-}
-
-document.getElementById('retakeBtn').onclick = ()=>{
-  // reset
-  for(let i=0;i<total;i++) marked[i]=null;
-  remaining = 1800;
-  document.getElementById('questionArea').style.display = 'block';
-  document.getElementById('resultArea').style.display = 'none';
-  renderQuestion(0);
-  updateCounts();
-  startTimer();
+document.getElementById('retakeBtn').onclick=()=>{
+  marked.fill(null);remaining=1800;
+  document.getElementById('timer').classList.remove('urgent');
+  document.getElementById('questionArea').style.display='block';
+  document.getElementById('resultArea').style.display='none';
+  renderQ(0);updateCounts();startTimer();
 };
+document.getElementById('goHome').onclick=()=>{window.location.href="/index.html"};
 
-document.getElementById('goHome').onclick = ()=>{ window.location.href = "/index.html"; };
-
-// init
-renderQuestion(0);
-updateCounts();
-startTimer();
+renderQ(0);updateCounts();startTimer();
 </script>
 </body>
 </html>
