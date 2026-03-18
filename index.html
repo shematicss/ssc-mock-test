@@ -3,22 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SheMatics — Mock Tests & Notes</title>
+
+<!-- ===== SEO META TAGS ===== -->
+<title>SheMatics — Free SSC Mock Tests, Notes & Practice Sets Online</title>
+<meta name="description" content="Prepare for SSC CGL, CHSL, MTS, Banking & Railway exams with free timed mock tests, topic-wise notes and practice sets. Designed by her, for every aspirant. Start free today!">
+<meta name="keywords" content="SSC mock test free, SSC CGL practice test, SSC CHSL mock test, free online mock test, SSC preparation, maths notes SSC, railway mock test, banking mock test, SheMatics, ssc mock test 2024, ssc mock test 2025">
+<meta name="author" content="SheMatics">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://shematicss.github.io/ssc-mock-test/">
+
+<!-- ===== OPEN GRAPH (Facebook, WhatsApp preview) ===== -->
+<meta property="og:title" content="SheMatics — Free SSC Mock Tests & Notes">
+<meta property="og:description" content="Free timed mock tests, topic-wise notes and practice sets for SSC, Banking & Railway. Start practising now!">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shematicss.github.io/ssc-mock-test/">
+<meta property="og:image" content="https://shematicss.github.io/ssc-mock-test/assets/img/hero-bg.jpg">
+<meta property="og:site_name" content="SheMatics">
+<meta property="og:locale" content="en_IN">
+
+<!-- ===== TWITTER CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SheMatics — Free SSC Mock Tests & Notes">
+<meta name="twitter:description" content="Free timed mock tests, topic-wise notes for SSC, Banking & Railway. Start free today!">
+<meta name="twitter:image" content="https://shematicss.github.io/ssc-mock-test/assets/img/hero-bg.jpg">
+
+<!-- ===== SCHEMA MARKUP (Google Rich Results) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "SheMatics",
+  "url": "https://shematicss.github.io/ssc-mock-test/",
+  "logo": "https://shematicss.github.io/ssc-mock-test/assets/img/logo.png",
+  "description": "Free SSC mock tests, notes and practice sets for Banking and Railway exams.",
+  "sameAs": ["https://www.youtube.com/@Shematicss"],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR",
+    "description": "Free Mock Tests for SSC, Banking, Railway"
+  }
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --red:#E53935;
-    --red-dark:#b71c1c;
-    --blue:#1E64C8;
-    --blue-dark:#0d3b7a;
-    --silver:#8a9ab0;
-    --silver-light:#c8d4e0;
-    --ink:#0B0F1A;
-    --ink-soft:#1e2535;
-    --muted:#6b7280;
-    --paper:#f4f7fc;
-    --card:#ffffff;
-    --ring:rgba(30,100,200,.22);
+    --red:#E53935;--red-dark:#b71c1c;
+    --blue:#1E64C8;--blue-dark:#0d3b7a;
+    --silver:#8a9ab0;--silver-light:#c8d4e0;
+    --ink:#0B0F1A;--ink-soft:#1e2535;
+    --muted:#6b7280;--paper:#f4f7fc;
+    --card:#ffffff;--ring:rgba(30,100,200,.22);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -38,9 +74,7 @@
   .hero{position:relative;overflow:hidden;min-height:560px;display:flex;align-items:center;background:url("assets/img/hero-bg.jpg") center 15%/cover no-repeat}
   .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(108deg,rgba(11,15,26,.90) 0%,rgba(13,59,122,.78) 38%,rgba(30,100,200,.38) 62%,rgba(11,15,26,.06) 100%);z-index:1}
   .hero::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px);z-index:1;pointer-events:none}
-
   .hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:72px 24px 88px;width:100%;display:grid;grid-template-columns:55% 45%;align-items:center;gap:40px}
-
   .hero-left>*{opacity:0;transform:translateY(22px);animation:fadeUp .7s forwards ease-out}
   .hero-left>*:nth-child(1){animation-delay:.10s}
   .hero-left>*:nth-child(2){animation-delay:.22s}
@@ -48,40 +82,26 @@
   .hero-left>*:nth-child(4){animation-delay:.46s}
   .hero-left>*:nth-child(5){animation-delay:.58s}
   @keyframes fadeUp{to{opacity:1;transform:none}}
-
   .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:var(--silver-light);font-size:11px;font-weight:700;letter-spacing:1.2px;padding:7px 18px;border-radius:999px;backdrop-filter:blur(10px);text-transform:uppercase;margin-bottom:22px}
   .badge-pulse{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2s infinite;flex-shrink:0}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
-
   .hero h1{font-family:"Playfair Display",serif;font-size:clamp(30px,4vw,52px);font-weight:800;line-height:1.15;color:#fff;letter-spacing:-.3px;margin-bottom:18px;text-shadow:0 2px 24px rgba(0,0,0,.3)}
   .hero h1 em{font-style:normal;background:linear-gradient(90deg,#f87171,#fb923c,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
   .hero-sub{color:rgba(200,212,224,.88);font-size:16px;line-height:1.75;margin-bottom:32px;max-width:430px}
-
   .cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
-
   .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;border:1px solid transparent;cursor:pointer;transition:.22s transform,.22s box-shadow,.22s background;white-space:nowrap}
   .btn:hover{transform:translateY(-3px)}
   .btn-primary{background:#fff;color:var(--ink);box-shadow:0 4px 20px rgba(0,0,0,.18)}
   .btn-primary:hover{box-shadow:0 8px 28px rgba(0,0,0,.26)}
   .btn-blue{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;box-shadow:0 4px 18px rgba(30,100,200,.45)}
-  .btn-blue:hover{box-shadow:0 8px 26px rgba(30,100,200,.55)}
   .btn-ghost{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.28);backdrop-filter:blur(8px)}
-  .btn-ghost:hover{background:rgba(255,255,255,.18)}
   .btn-yt{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff;box-shadow:0 4px 16px rgba(255,0,0,.35)}
-
   .hero-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;backdrop-filter:blur(10px);background:rgba(255,255,255,.07);width:fit-content}
   .stat{padding:14px 28px;text-align:center;border-right:1px solid rgba(255,255,255,.10)}
   .stat:last-child{border-right:none}
   .stat-num{font-size:24px;font-weight:800;color:#fff;font-family:"Playfair Display",serif;line-height:1}
   .stat-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;letter-spacing:.5px}
-
-  @media(max-width:860px){
-    .hero-inner{grid-template-columns:1fr;padding:56px 20px 70px}
-    .hero-right{display:none}
-    .hero-stats{width:100%}
-    .stat{flex:1;padding:12px 8px}
-  }
+  @media(max-width:860px){.hero-inner{grid-template-columns:1fr;padding:56px 20px 70px}.hero-right{display:none}.hero-stats{width:100%}.stat{flex:1;padding:12px 8px}}
 
   /* DIVIDER */
   .divider{height:4px;background:linear-gradient(90deg,var(--red),var(--silver),var(--blue))}
@@ -109,7 +129,6 @@
   .section-header{text-align:center;margin-bottom:36px}
   .section-header h2{font-family:"Playfair Display",serif;font-size:clamp(22px,3vw,32px);font-weight:700;margin-bottom:10px}
   .section-header p{color:var(--muted);font-size:15px}
-
   .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));max-width:1100px;margin:0 auto}
   .card{background:var(--card);border:1px solid rgba(11,15,26,.07);border-radius:20px;padding:24px;box-shadow:0 6px 24px rgba(11,15,26,.07);transition:.25s transform,.25s box-shadow,.25s border-color;position:relative;overflow:hidden}
   .card::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--blue));transform:scaleX(0);transform-origin:left;transition:.3s transform}
@@ -125,7 +144,6 @@
   .btn-outline:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}
   .btn-accent{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;padding:9px 16px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;box-shadow:0 3px 12px rgba(30,100,200,.3);transition:.2s transform,.2s box-shadow}
   .btn-accent:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(30,100,200,.4)}
-
   .note{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid rgba(30,100,200,.12);border-radius:14px;padding:16px 20px;max-width:1100px;margin:24px auto 0;box-shadow:0 2px 12px rgba(11,15,26,.05)}
   .note-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--red),var(--blue));box-shadow:0 0 0 6px rgba(30,100,200,.10)}
 
@@ -154,7 +172,7 @@
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-inner">
-    <img class="logo" src="assets/img/logo.png" alt="SheMatics">
+    <img class="logo" src="assets/img/logo.png" alt="SheMatics — Free SSC Mock Tests">
     <div class="brand">SheMatics</div>
     <div class="nav">
       <span class="nav-chip">Free forever</span>
@@ -173,7 +191,11 @@
         <div class="badge-pulse"></div>
         Live Now — Free Mock Tests
       </div>
-      <h1>Mock Tests &amp; Notes<br>for <em>SSC, Banking</em><br>Railway &amp; more</h1>
+      <h1>
+        Mock Tests &amp; Notes<br>
+        for <em>SSC, Banking</em><br>
+        Railway &amp; more
+      </h1>
       <p class="hero-sub">maths by her, ∞ — timed practice sets, topic-wise notes and a clean exam interface. 100% free, always.</p>
       <div class="cta">
         <a class="btn btn-primary" href="register.html">📅 Book Free Session</a>
@@ -192,13 +214,12 @@
   </div>
 </header>
 
-<!-- DIVIDER -->
 <div class="divider"></div>
 
 <!-- INTRO -->
 <section class="intro-section">
   <h2>Welcome to SheMatics</h2>
-  <p>Prepare for SSC, Banking and Railway exams with timed mock tests, topic-wise practice and crisp notes — designed with love, made for every aspirant. Start with SSC now, more exams coming soon.</p>
+  <p>Prepare for SSC CGL, CHSL, MTS, Banking and Railway exams with timed mock tests, topic-wise practice and crisp notes — designed with love, made for every aspirant. Start with SSC now, more exams coming soon.</p>
 </section>
 
 <!-- FEATURES -->
@@ -234,8 +255,8 @@
   <div class="grid">
     <article class="card">
       <span class="pill blue">Popular</span>
-      <h3>SSC</h3>
-      <p class="muted">Mock tests, topic-wise practice &amp; crisp notes for SSC CGL, CHSL, MTS.</p>
+      <h3>SSC Mock Tests</h3>
+      <p class="muted">Free mock tests, topic-wise practice &amp; crisp notes for SSC CGL, CHSL, MTS.</p>
       <div class="actions">
         <a class="btn-accent" href="exams/ssc/mock-tests/set-1.html">Set 1</a>
         <a class="btn-accent" href="exams/ssc/mock-tests/set-creative.html">Creative Set</a>
@@ -259,7 +280,7 @@
     <article class="card">
       <span class="pill blue">New</span>
       <h3>Blog</h3>
-      <p class="muted">Strategies, exam tips, notes &amp; updates.</p>
+      <p class="muted">SSC exam strategies, tips, notes &amp; updates.</p>
       <div class="actions">
         <a class="btn-accent" href="blog/index.html">Read Posts</a>
         <a class="btn-outline" href="blog/how-to-crack-ssc-cgl.html">60-Day Plan</a>
@@ -269,7 +290,7 @@
   </div>
   <div id="about" class="note">
     <div class="note-dot"></div>
-    <div><strong>Heads up!</strong> New exams and content are added regularly. Bookmark this page!</div>
+    <div><strong>Heads up!</strong> New exams and content added regularly. Bookmark this page!</div>
   </div>
 </section>
 
@@ -281,11 +302,11 @@
   </div>
   <div class="slider-container" role="region" aria-roledescription="carousel" aria-label="Highlights">
     <div class="slides" aria-live="polite">
-      <img src="assets/slider/img1.jpg" alt="Slide 1" fetchpriority="high">
-      <img src="assets/slider/img2.jpg" alt="Slide 2" loading="lazy">
-      <img src="assets/slider/img3.jpg" alt="Slide 3" loading="lazy">
-      <img src="assets/slider/img4.jpg" alt="Slide 4" loading="lazy">
-      <img src="assets/slider/img5.jpg" alt="Slide 5" loading="lazy">
+      <img src="assets/slider/img1.jpg" alt="SSC Mock Test Practice" fetchpriority="high">
+      <img src="assets/slider/img2.jpg" alt="SSC Notes and Study Material" loading="lazy">
+      <img src="assets/slider/img3.jpg" alt="Free Online Mock Tests" loading="lazy">
+      <img src="assets/slider/img4.jpg" alt="SheMatics Exam Preparation" loading="lazy">
+      <img src="assets/slider/img5.jpg" alt="SSC CGL CHSL Practice Sets" loading="lazy">
     </div>
     <button class="nav-btn prev" aria-label="Previous slide">&#10094;</button>
     <button class="nav-btn next" aria-label="Next slide">&#10095;</button>
@@ -297,7 +318,7 @@
 <footer>
   <span class="footer-brand">π SheMatics</span>
   maths by her, ∞ &nbsp;·&nbsp; © <span id="y"></span> SheMatics &nbsp;·&nbsp;
-  <a href="exams/ssc/mock-tests/set-creative.html">Start SSC Mock</a> &nbsp;·&nbsp;
+  <a href="exams/ssc/mock-tests/set-1.html">SSC Mock Test</a> &nbsp;·&nbsp;
   <a href="blog/index.html">Blog</a> &nbsp;·&nbsp;
   <a href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">YouTube</a>
 </footer>
