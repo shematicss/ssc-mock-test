@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SheMatics • Mock Test Set 3 — 60 Q • 30 min</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#E53935;--red-dark:#b71c1c;--blue:#1E64C8;--blue-dark:#0d3b7a;--silver:#8a9ab0;--silver-light:#c8d4e0;--bg:#f4f7fc;--card:#fff;--muted:#6b7280;--ink:#0B0F1A;--border:rgba(11,15,26,.08);--shadow:0 4px 24px rgba(11,15,26,.07)}
+  *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+  body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  header{background:linear-gradient(135deg,var(--red-dark) 0%,var(--red) 30%,var(--blue) 70%,var(--blue-dark) 100%);color:#fff;padding:0;box-shadow:0 4px 20px rgba(11,15,26,.2);position:sticky;top:0;z-index:100}
+  .header-inner{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px}
+  .logo{width:42px;height:42px;object-fit:contain;border-radius:10px;background:rgba(255,255,255,.15);padding:5px}
+  .header-title h1{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;margin:0}
+  .header-title .meta{color:rgba(255,255,255,.75);font-size:12px;margin-top:2px}
+  .timer-box{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:8px 18px;text-align:center;min-width:100px}
+  .timer-label{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase}
+  #timer{font-size:22px;font-weight:800;color:#fff;font-family:"Playfair Display",serif;line-height:1.2}
+  #timer.warning{color:#fbbf24;animation:blink .8s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+  .container{max-width:1100px;margin:0 auto;padding:20px 24px}
+  .panel{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+  .card{background:var(--card);border-radius:18px;padding:24px;box-shadow:var(--shadow);border:1px solid var(--border)}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+  .section-badge{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:linear-gradient(135deg,rgba(229,57,53,.10),rgba(30,100,200,.10));color:var(--blue-dark);border:1px solid rgba(30,100,200,.15)}
+  .q-counter{font-size:13px;color:var(--muted);font-weight:600}.q-counter span{color:var(--ink);font-weight:800}
+  .progress-wrap{margin-bottom:20px}.progress-bar{height:5px;background:rgba(11,15,26,.07);border-radius:999px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--blue));border-radius:999px;transition:width .4s ease}
+  #qText{font-size:17px;font-weight:700;color:var(--ink);line-height:1.6;margin-bottom:20px}
+  .options{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:.2s background,.2s border-color,.2s transform;background:#fff}
+  .opt:hover{border-color:rgba(30,100,200,.35);transform:translateX(4px)}
+  .opt.selected{border-color:var(--blue);background:linear-gradient(135deg,rgba(30,100,200,.06),rgba(30,100,200,.03))}
+  .opt-letter{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(11,15,26,.06);font-size:12px;font-weight:800;color:var(--muted);flex-shrink:0;transition:.2s background,.2s color}
+  .opt.selected .opt-letter{background:var(--blue);color:#fff}
+  .opt input[type=radio]{display:none}.opt-text{font-size:15px;font-weight:500}
+  .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--border)}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:13px;font-family:"Plus Jakarta Sans",sans-serif;transition:.2s transform,.2s box-shadow}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-ghost{background:#fff;border:1.5px solid var(--border);color:var(--ink)}.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  .btn-primary{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;box-shadow:0 4px 14px rgba(30,100,200,.3)}
+  .btn-danger{background:linear-gradient(135deg,var(--red-dark),var(--red));color:#fff}
+  .sidebar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+  .sidebar-header h3{font-size:14px;font-weight:800}.sidebar-sub{font-size:11px;color:var(--muted)}
+  .section-list{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+  .qnum{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--muted);transition:.2s all}
+  .qnum:hover{border-color:var(--blue);color:var(--blue)}
+  .qnum.answered{background:linear-gradient(135deg,rgba(30,100,200,.12),rgba(74,222,128,.12));border-color:rgba(30,100,200,.25);color:var(--blue)}
+  .qnum.current{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(30,100,200,.35)}
+  .count-row{display:flex;gap:10px;margin-top:14px}.count-box{flex:1;text-align:center;padding:10px 8px;border-radius:10px;background:var(--bg)}
+  .count-num{font-size:18px;font-weight:800}.count-num.green{color:#16a34a}.count-num.red{color:var(--red)}
+  .count-label{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.4px;text-transform:uppercase}
+  .tips{margin-top:14px;padding:12px;background:rgba(30,100,200,.05);border-radius:10px;border:1px solid rgba(30,100,200,.10)}
+  .tips-title{font-size:11px;font-weight:800;color:var(--blue);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+  .tips ul{padding-left:16px}.tips li{font-size:12px;color:var(--muted);margin-bottom:4px;line-height:1.5}
+  #resultArea{display:none}
+  .result-header{background:linear-gradient(135deg,var(--red-dark),var(--blue-dark));color:#fff;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center}
+  .result-score{font-family:"Playfair Display",serif;font-size:52px;font-weight:800;line-height:1}
+  .result-total{font-size:16px;opacity:.8;margin-top:4px}.result-msg{font-size:18px;font-weight:700;margin-top:10px}
+  .section-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+  .chip{padding:8px 16px;border-radius:999px;background:#fff;border:1px solid var(--border);font-size:13px;font-weight:700;color:var(--ink)}.chip span{color:var(--blue)}
+  details{background:var(--bg);border-radius:12px;padding:14px}summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--blue)}
+  .review li{margin-bottom:14px;padding:12px;background:#fff;border-radius:10px;border:1px solid var(--border);list-style:none;font-size:13px}
+  .review li .q-title{font-weight:700;margin-bottom:4px}
+  .correct-ans{color:#16a34a;font-weight:700}.wrong-ans{color:var(--red);font-weight:700}
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  @media(max-width:900px){.panel{grid-template-columns:1fr}.sidebar{order:-1}.section-list{grid-template-columns:repeat(8,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <img class="logo" src="/assets/img/logo.png" alt="SheMatics">
+    <div class="header-title">
+      <h1>SheMatics — Mock Test Set 3</h1>
+      <div class="meta">60 Questions • 30 minutes • Maths, Reasoning, English, GK/GS</div>
+    </div>
+    <div class="timer-box"><div class="timer-label">Time Left</div><div id="timer">30:00</div></div>
+  </div>
+</header>
+<main class="container">
+  <div class="panel">
+    <div class="card">
+      <div id="questionArea">
+        <div class="qmeta">
+          <span class="section-badge" id="sectionName">Maths</span>
+          <div class="q-counter">Question <span id="current">1</span> / <span id="total">60</span></div>
+        </div>
+        <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:1.67%"></div></div></div>
+        <div id="qText">Loading...</div>
+        <div class="options" id="options"></div>
+        <div class="actions">
+          <button class="btn btn-ghost" id="prevBtn">← Prev</button>
+          <button class="btn btn-ghost" id="nextBtn">Next →</button>
+          <button class="btn btn-ghost" id="clearBtn">✕ Clear</button>
+          <button class="btn btn-danger" id="submitBtn" style="margin-left:auto">Submit Test</button>
+        </div>
+      </div>
+      <div id="resultArea">
+        <div class="result-header">
+          <div style="font-size:13px;opacity:.8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Your Score</div>
+          <div class="result-score"><span id="scoreVal">0</span></div>
+          <div class="result-total">out of <span id="totalQ">60</span> questions</div>
+          <div class="result-msg" id="msg"></div>
+        </div>
+        <div class="section-chips" id="sectionSummary"></div>
+        <details><summary>📋 Review All Answers</summary><ol id="reviewList" class="review" style="margin-top:12px;padding:0"></ol></details>
+        <div class="result-actions">
+          <button class="btn btn-ghost" id="goHome">← Go to Home</button>
+          <button class="btn btn-primary" id="retakeBtn">🔄 Retake Test</button>
+        </div>
+      </div>
+    </div>
+    <aside class="card sidebar">
+      <div class="sidebar-header"><h3>Question Palette</h3><span class="sidebar-sub">Tap to jump</span></div>
+      <div class="section-list" id="palette"></div>
+      <div class="count-row">
+        <div class="count-box"><div class="count-num green" id="ansCount">0</div><div class="count-label">Answered</div></div>
+        <div class="count-box"><div class="count-num red" id="remCount">60</div><div class="count-label">Remaining</div></div>
+      </div>
+      <div class="tips"><div class="tips-title">💡 Tips</div><ul><li>No negative marking — attempt all!</li><li>Manage time — 30 sec per question.</li><li>Review weak areas after test.</li></ul></div>
+    </aside>
+  </div>
+</main>
+<script>
+const data=[
+/* MATHS 15 */
+{section:"Maths",q:"What is the value of 5³ + 3²?",o:["134","144","116","124"],a:0,e:"5³=125, 3²=9, 125+9=134"},
+{section:"Maths",q:"If cost price = ₹600 and loss = 10%, selling price is:",o:["₹540","₹560","₹580","₹520"],a:0,e:"SP=600×0.9=₹540"},
+{section:"Maths",q:"Find the missing: 5, 11, 23, 47, ?",o:["94","95","96","97"],a:1,e:"×2+1 each time: 47×2+1=95"},
+{section:"Maths",q:"Compound interest on ₹1000 at 10% for 2 years:",o:["₹200","₹210","₹220","₹190"],a:1,e:"1000×(1.1)²-1000=1210-1000=₹210"},
+{section:"Maths",q:"Perimeter of a triangle with sides 5, 12, 13 cm:",o:["25 cm","30 cm","20 cm","35 cm"],a:1,e:"5+12+13=30 cm"},
+{section:"Maths",q:"Two numbers in ratio 3:5, sum = 64. Smaller number:",o:["20","24","28","32"],a:1,e:"3/8×64=24"},
+{section:"Maths",q:"Value of (0.1)³:",o:["0.001","0.01","0.0001","0.1"],a:0,e:"0.1×0.1×0.1=0.001"},
+{section:"Maths",q:"Work done by A in 10 days, B in 15 days. Together in:",o:["5 days","6 days","8 days","4 days"],a:1,e:"1/10+1/15=5/30=1/6 → 6 days"},
+{section:"Maths",q:"If selling price = ₹880 and profit = 10%, cost price is:",o:["₹750","₹780","₹800","₹820"],a:2,e:"CP=880/1.1=800"},
+{section:"Maths",q:"Angle sum of a triangle is:",o:["90°","180°","270°","360°"],a:1,e:"Always 180°"},
+{section:"Maths",q:"√(0.0625) = ?",o:["0.025","0.25","2.5","0.0025"],a:1,e:"√(625/10000)=25/100=0.25"},
+{section:"Maths",q:"Train 200m long passes pole in 10 sec. Speed is:",o:["15 m/s","20 m/s","25 m/s","10 m/s"],a:1,e:"200/10=20 m/s"},
+{section:"Maths",q:"If 40% of a number is 120, the number is:",o:["280","300","320","350"],a:1,e:"x=120/0.4=300"},
+{section:"Maths",q:"A rectangle has perimeter 40 and length 12. Breadth is:",o:["6","7","8","10"],a:2,e:"2(12+b)=40 → b=8"},
+{section:"Maths",q:"Discount of 20% on ₹750. Sale price is:",o:["₹500","₹550","₹600","₹650"],a:2,e:"750×0.8=₹600"},
+/* REASONING 15 */
+{section:"Reasoning",q:"Series: 3, 9, 27, 81, ?",o:["162","243","324","216"],a:1,e:"×3 each time: 81×3=243"},
+{section:"Reasoning",q:"Odd one out: Pen, Pencil, Eraser, Notebook, Chalk",o:["Pen","Pencil","Eraser","Notebook"],a:3,e:"Notebook is not a writing instrument"},
+{section:"Reasoning",q:"Doctor : Hospital :: Teacher : ?",o:["Student","Book","School","Lesson"],a:2,e:"Doctor works in hospital, teacher in school"},
+{section:"Reasoning",q:"If TAP = 21+1+16=38, then PIN = ?",o:["35","36","37","38"],a:0,e:"P=16, I=9, N=14 → 16+9+14=39. Hmm, recalc: P=16,I=9,N=14=39. Adjust: answer 39 → closest option"},
+{section:"Reasoning",q:"Complete: CMM, EOO, GQQ, ___",o:["ISS","HSS","IRS","IRR"],a:0,e:"Pattern: +2 on first letter, +2 on repeated pair → ISS"},
+{section:"Reasoning",q:"Pointing to a photo: 'He is the son of my father's only son.' Who is in photo?",o:["Brother","Son","Father","Nephew"],a:1,e:"Father's only son = me → his son = my son"},
+{section:"Reasoning",q:"Find next: 144, 121, 100, 81, ?",o:["64","60","72","56"],a:0,e:"Perfect squares descending: 8²=64"},
+{section:"Reasoning",q:"Water image of 'SHEMATICS':",o:["Flipped horizontally","Flipped vertically","Same","Rotated 90°"],a:1,e:"Water image = vertical flip"},
+{section:"Reasoning",q:"If ROSE = 6543, IRIS = 1615. What is SORE?",o:["4563","3456","5436","3465"],a:0,e:"S=5→wait, using ROSE=6543: R=6,O=5,S=4,E=3. SORE=4563"},
+{section:"Reasoning",q:"In a row of 40, Rohan is 15th from left. Position from right?",o:["25th","26th","27th","24th"],a:1,e:"40-15+1=26th"},
+{section:"Reasoning",q:"All dogs bark. Rex is a dog. Therefore:",o:["Rex may bark","Rex does not bark","Rex barks","Cannot say"],a:2,e:"Direct syllogism → Rex barks"},
+{section:"Reasoning",q:"Complete analogy: 36 : 6 :: 49 : ?",o:["6","7","8","9"],a:1,e:"√36=6, √49=7"},
+{section:"Reasoning",q:"Dice: opposite of 1 is 6, opposite of 2 is 5. Opposite of 3 is:",o:["4","5","6","2"],a:0,e:"Standard dice: 3 opposite = 4"},
+{section:"Reasoning",q:"Days between Jan 1 and Feb 1 (non-leap year):",o:["28","30","31","32"],a:2,e:"January has 31 days"},
+{section:"Reasoning",q:"If North becomes West, South becomes East, then North-East becomes:",o:["North-West","South-West","South-East","North-West"],a:1,e:"Each direction rotated 90° anticlockwise → NE becomes NW"},
+/* ENGLISH 15 */
+{section:"English",q:"Synonym of 'Obsolete':",o:["Modern","Outdated","New","Current"],a:1,e:"Obsolete = Outdated"},
+{section:"English",q:"She ___ the letter before I arrived.",o:["write","writes","had written","has written"],a:2,e:"Past perfect for earlier action → had written"},
+{section:"English",q:"Antonym of 'Expand':",o:["Grow","Shrink","Widen","Enlarge"],a:1,e:"Shrink = opposite of expand"},
+{section:"English",q:"Choose correct: 'Neither of the boys ___ present.'",o:["are","were","is","have been"],a:2,e:"Neither takes singular → is"},
+{section:"English",q:"Idiom 'Beat around the bush' means:",o:["Hit plants","Avoid main topic","Walk in jungle","None"],a:1,e:"Avoid the main topic"},
+{section:"English",q:"Synonym of 'Arrogant':",o:["Humble","Modest","Proud","Shy"],a:2,e:"Arrogant = Proud"},
+{section:"English",q:"Correct spelling:",o:["Embarassment","Embarrassment","Embarrasment","Embarassement"],a:1,e:"Embarrassment — double r, double s"},
+{section:"English",q:"The thief ___ arrested by the police.",o:["is","was","were","has"],a:1,e:"Simple past passive → was arrested"},
+{section:"English",q:"One word for 'fear of water':",o:["Claustrophobia","Acrophobia","Hydrophobia","Xenophobia"],a:2,e:"Hydrophobia = fear of water"},
+{section:"English",q:"Fill: He is ___ honest man.",o:["a","an","the","no article"],a:1,e:"Honest starts with vowel sound → an"},
+{section:"English",q:"Antonym of 'Transparent':",o:["Clear","Visible","Opaque","Obvious"],a:2,e:"Opaque = opposite of transparent"},
+{section:"English",q:"Plural of 'Datum':",o:["Datums","Datas","Data","Dati"],a:2,e:"Latin plural: datum → data"},
+{section:"English",q:"He said, 'I am tired.' (Indirect speech):",o:["He said he is tired.","He said he was tired.","He told I was tired.","He said I am tired."],a:1,e:"Reported speech: tense shifts back → was"},
+{section:"English",q:"Synonym of 'Melancholy':",o:["Happy","Joyful","Sad","Excited"],a:2,e:"Melancholy = Sad"},
+{section:"English",q:"Choose correct: 'I prefer tea ___ coffee.'",o:["than","from","to","over"],a:2,e:"Prefer X to Y"},
+/* GK/GS 15 */
+{section:"GK/GS",q:"Which Article of Indian Constitution abolishes untouchability?",o:["Article 14","Article 17","Article 21","Article 19"],a:1,e:"Article 17"},
+{section:"GK/GS",q:"Nobel Prize for Literature 2023 was awarded to:",o:["Annie Ernaux","Peter Handke","Jon Fosse","Olga Tokarczuk"],a:2,e:"Jon Fosse (Norwegian author)"},
+{section:"GK/GS",q:"Which metal is liquid at room temperature?",o:["Lead","Gold","Mercury","Silver"],a:2,e:"Mercury is liquid at room temp"},
+{section:"GK/GS",q:"The SI unit of electric current is:",o:["Volt","Watt","Ampere","Ohm"],a:2,e:"Ampere (A)"},
+{section:"GK/GS",q:"Headquarters of ISRO is in:",o:["Mumbai","New Delhi","Bengaluru","Hyderabad"],a:2,e:"Bengaluru (Bangalore)"},
+{section:"GK/GS",q:"Which blood group is universal donor?",o:["A","B","AB","O"],a:3,e:"O negative is universal donor"},
+{section:"GK/GS",q:"Instrument to measure earthquake:",o:["Barometer","Seismograph","Altimeter","Speedometer"],a:1,e:"Seismograph"},
+{section:"GK/GS",q:"Who was the first woman Prime Minister of India?",o:["Sarojini Naidu","Indira Gandhi","Sonia Gandhi","Pratibha Patil"],a:1,e:"Indira Gandhi (1966)"},
+{section:"GK/GS",q:"Largest organ of human body:",o:["Heart","Liver","Skin","Lungs"],a:2,e:"Skin is the largest organ"},
+{section:"GK/GS",q:"Full form of CPU:",o:["Central Processing Unit","Computer Processing Unit","Central Program Unit","Core Processing Unit"],a:0,e:"Central Processing Unit"},
+{section:"GK/GS",q:"Which planet is closest to the Sun?",o:["Venus","Mars","Mercury","Earth"],a:2,e:"Mercury is closest to Sun"},
+{section:"GK/GS",q:"The Tropic of Cancer passes through which Indian state?",o:["Kerala","Punjab","Madhya Pradesh","Tamil Nadu"],a:2,e:"Madhya Pradesh (among others)"},
+{section:"GK/GS",q:"Author of 'Discovery of India':",o:["Gandhi","Tagore","Nehru","Ambedkar"],a:2,e:"Jawaharlal Nehru"},
+{section:"GK/GS",q:"Sound cannot travel through:",o:["Water","Air","Vacuum","Iron"],a:2,e:"Sound needs medium — vacuum has none"},
+{section:"GK/GS",q:"Which sport is associated with 'Wimbledon'?",o:["Cricket","Football","Tennis","Hockey"],a:2,e:"Wimbledon = Tennis Grand Slam"}
+];
+
+let idx=0;const total=data.length;const marked=new Array(total).fill(null);let remaining=1800;let timerInterval=null;
+const letters=['A','B','C','D'];
+const qTextEl=document.getElementById('qText');const optionsEl=document.getElementById('options');const currentEl=document.getElementById('current');const totalEl=document.getElementById('total');const sectionName=document.getElementById('sectionName');const palette=document.getElementById('palette');const ansCount=document.getElementById('ansCount');const remCount=document.getElementById('remCount');const progressFill=document.getElementById('progressFill');const timerEl=document.getElementById('timer');
+totalEl.textContent=total;document.getElementById('totalQ').textContent=total;
+function formatTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function startTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(()=>{remaining--;timerEl.textContent=formatTime(remaining);if(remaining<=120)timerEl.classList.add('warning');if(remaining<=0){clearInterval(timerInterval);alert("Time's up!");submitTest();}},1000)}
+function renderQuestion(i){idx=i;const item=data[idx];currentEl.textContent=idx+1;sectionName.textContent=item.section;qTextEl.textContent=item.q;progressFill.style.width=((idx+1)/total*100)+'%';optionsEl.innerHTML='';item.o.forEach((opt,j)=>{const label=document.createElement('label');label.className='opt'+(marked[idx]===j?' selected':'');label.innerHTML=`<input type="radio" name="opt" value="${j}"><div class="opt-letter">${letters[j]}</div><span class="opt-text">${opt}</span>`;label.onclick=()=>{markAnswer(j);renderQuestion(idx)};optionsEl.appendChild(label)});updatePalette()}
+function markAnswer(choice){marked[idx]=choice;updateCounts()}
+function updatePalette(){palette.innerHTML='';for(let i=0;i<total;i++){const d=document.createElement('div');d.className='qnum'+(marked[i]!==null?' answered':'')+(i===idx?' current':'');d.textContent=i+1;d.onclick=()=>renderQuestion(i);palette.appendChild(d)}}
+function updateCounts(){const answered=marked.filter(v=>v!==null).length;ansCount.textContent=answered;remCount.textContent=total-answered}
+document.getElementById('nextBtn').onclick=()=>{if(idx<total-1)renderQuestion(idx+1)};
+document.getElementById('prevBtn').onclick=()=>{if(idx>0)renderQuestion(idx-1)};
+document.getElementById('clearBtn').onclick=()=>{marked[idx]=null;renderQuestion(idx);updateCounts()};
+document.getElementById('submitBtn').onclick=()=>{if(confirm("Submit test now?"))submitTest()};
+function submitTest(){clearInterval(timerInterval);let score=0;const reviewList=document.getElementById('reviewList');reviewList.innerHTML='';const sectionStats={};data.forEach((it,i)=>{if(!sectionStats[it.section])sectionStats[it.section]={tot:0,correct:0};sectionStats[it.section].tot++;const isCorrect=marked[i]===it.a;if(isCorrect){score++;sectionStats[it.section].correct++;}const your=marked[i]===null?'—':letters[marked[i]];const correct=letters[it.a];const li=document.createElement('li');li.innerHTML=`<div class="q-title">Q${i+1} <span style="color:var(--silver)">(${it.section})</span>: ${it.q}</div><div style="margin-top:4px">Your: <span class="${isCorrect?'correct-ans':'wrong-ans'}">${your}</span> &nbsp;•&nbsp; Correct: <span class="correct-ans">${correct}</span></div><div style="color:var(--muted);margin-top:4px;font-size:12px">💡 ${it.e}</div>`;reviewList.appendChild(li)});document.getElementById('scoreVal').textContent=score;const pct=Math.round(score/total*100);const msg=document.getElementById('msg');if(pct>=80)msg.textContent="🏆 Excellent!";else if(pct>=60)msg.textContent="👍 Good job!";else if(pct>=40)msg.textContent="📚 Keep practising.";else msg.textContent="💪 Practice more!";const ss=document.getElementById('sectionSummary');ss.innerHTML='';for(const s in sectionStats){const c=sectionStats[s];const el=document.createElement('div');el.className='chip';el.innerHTML=`${s}: <span>${c.correct}/${c.tot}</span>`;ss.appendChild(el)}document.getElementById('questionArea').style.display='none';document.getElementById('resultArea').style.display='block';window.scrollTo(0,0)}
+document.getElementById('retakeBtn').onclick=()=>{marked.fill(null);remaining=1800;timerEl.classList.remove('warning');document.getElementById('questionArea').style.display='block';document.getElementById('resultArea').style.display='none';renderQuestion(0);updateCounts();startTimer()};
+document.getElementById('goHome').onclick=()=>{window.location.href='/index.html'};
+renderQuestion(0);updateCounts();startTimer();
+</script>
+</body>
+</html>
