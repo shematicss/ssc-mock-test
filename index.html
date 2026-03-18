@@ -29,35 +29,143 @@
   .nav{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
   .chip{font-size:12px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(2,6,23,.08);text-decoration:none;color:inherit}
 
-  /* ===== HERO */
+  /* ===== HERO ===== */
   .hero{
     color:#fff;
     position:relative;
     overflow:hidden;
-    min-height:420px;
-    padding:56px 16px 72px;
-    background:url("assets/img/hero-bg.jpg") center 30%/cover no-repeat;
+    min-height:520px;
+    display:flex;
+    align-items:center;
+    background:url("assets/img/hero-bg.jpg") center 15% / cover no-repeat;
   }
+
+  /* Dark overlay — left side darker for text readability, right side lighter to show face */
   .hero::before{
     content:"";
     position:absolute; inset:0;
-    background:linear-gradient(135deg, rgba(229,57,53,.32), rgba(30,100,200,.38));
+    background: linear-gradient(
+      105deg,
+      rgba(11,15,26,.82) 0%,
+      rgba(11,15,26,.75) 38%,
+      rgba(11,15,26,.35) 62%,
+      rgba(11,15,26,.10) 100%
+    );
     pointer-events:none;
-  }
-  .hero-inner{max-width:1100px;margin:0 auto;display:grid;gap:10px;position:relative}
-  .hero h1{margin:0;font-size:34px;letter-spacing:.3px;text-shadow:0 2px 14px rgba(0,0,0,.35)}
-  .sub{margin:6px 0 0;color:#e8eeff;text-shadow:0 1px 10px rgba(0,0,0,.3)}
-  .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
-
-  @media (max-width:640px){
-    .hero::before{ background:linear-gradient(135deg, rgba(229,57,53,.46), rgba(30,100,200,.52)); }
+    z-index:1;
   }
 
-  .btn{display:inline-block;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:700;border:1px solid transparent;transition:.2s transform,.2s box-shadow,.2s background,.2s border-color}
-  .btn-primary{background:#fff;color:var(--ink)}
-  .btn-primary:hover{transform:translateY(-2px)}
-  .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.4);backdrop-filter:blur(6px)}
-  .btn-yt{background:#ff0000;color:#fff}
+  .hero-inner{
+    max-width:1100px;
+    margin:0 auto;
+    padding:64px 24px 80px;
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+    position:relative;
+    z-index:2;
+  }
+
+  .hero-left{}
+
+  /* Badge */
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.22);
+    color:#e0e7ff;
+    font-size:12px;font-weight:600;letter-spacing:.8px;
+    padding:6px 16px;border-radius:999px;
+    margin-bottom:20px;
+    backdrop-filter:blur(8px);
+    text-transform:uppercase;
+  }
+  .badge-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:#4ade80;
+    box-shadow:0 0 8px #4ade80;
+    flex-shrink:0;
+  }
+
+  .hero h1{
+    margin:0 0 14px;
+    font-size:clamp(26px,3.5vw,42px);
+    font-weight:800;
+    line-height:1.18;
+    letter-spacing:-0.4px;
+    text-shadow:0 2px 20px rgba(0,0,0,.4);
+  }
+  .hero h1 .highlight{
+    background:linear-gradient(90deg,#f87171,#fb923c,#fbbf24);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+
+  .hero .sub{
+    margin:0 0 28px;
+    color:rgba(224,231,255,.85);
+    font-size:16px;
+    line-height:1.65;
+    text-shadow:0 1px 10px rgba(0,0,0,.3);
+    max-width:440px;
+  }
+
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+
+  /* Stats row */
+  .hero-stats{
+    display:flex;gap:32px;margin-top:32px;flex-wrap:wrap;
+    border-top:1px solid rgba(255,255,255,.12);
+    padding-top:24px;
+  }
+  .hero-stat-num{font-size:22px;font-weight:800;color:#fff;line-height:1}
+  .hero-stat-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+
+  /* Right side — empty, lets image show through */
+  .hero-right{display:block}
+
+  @media(max-width:768px){
+    .hero{
+      background-position:center 10%;
+      min-height:auto;
+    }
+    .hero-inner{
+      grid-template-columns:1fr;
+      padding:48px 20px 60px;
+    }
+    .hero-right{display:none}
+    .hero::before{
+      background:linear-gradient(180deg,rgba(11,15,26,.88) 0%,rgba(11,15,26,.65) 100%);
+    }
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 22px;border-radius:12px;
+    text-decoration:none;font-weight:700;font-size:14px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:.2s transform,.2s box-shadow,.2s opacity;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{
+    background:#fff;
+    color:var(--ink);
+    box-shadow:0 4px 18px rgba(0,0,0,.2);
+  }
+  .btn-primary:hover{box-shadow:0 8px 24px rgba(0,0,0,.28)}
+  .btn-ghost{
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    border-color:rgba(255,255,255,.32);
+    backdrop-filter:blur(8px);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.2)}
+  .btn-yt{background:#ff0000;color:#fff;box-shadow:0 4px 14px rgba(255,0,0,.35)}
   .btn-yt:hover{opacity:.9}
 
   /* ===== content section just below hero */
@@ -70,7 +178,7 @@
     background:#fff;
     border-radius:16px;
     padding:40px 20px;
-    margin-top:-40px;                 /* subtle overlap with hero */
+    margin-top:-40px;
     box-shadow:0 10px 24px rgba(2,6,23,.08);
   }
   .section.intro p{
@@ -80,7 +188,7 @@
     font-size:16px;
   }
 
-  /* ===== SLIDER (5 images, 1200x700) — autoplay + manual */
+  /* ===== SLIDER */
   .slider-wrap{margin-top:24px}
   .slider-container{
     position:relative;
@@ -97,7 +205,6 @@
     .slider-container{height:min(56vw,420px)}
   }
 
-  /* FIXED SLIDER CSS */
   .slides{
     display:flex;
     height:100%;
@@ -112,37 +219,20 @@
     object-fit:cover;
   }
 
-  /* Navigation buttons */
   .nav-btn{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    background:rgba(0,0,0,.5);
-    border:none;
-    color:#fff;
-    font-size:28px;
-    padding:10px 16px;
-    cursor:pointer;
-    border-radius:50%;
-    transition:.25s;
-    line-height:1;
+    position:absolute;top:50%;transform:translateY(-50%);
+    background:rgba(0,0,0,.5);border:none;color:#fff;
+    font-size:28px;padding:10px 16px;cursor:pointer;
+    border-radius:50%;transition:.25s;line-height:1;
   }
   .nav-btn:hover{background:rgba(0,0,0,.7)}
   .prev{left:14px}
   .next{right:14px}
 
-  /* Dots (renamed to avoid clash with info note dot) */
   .dots{
-    position:absolute;
-    bottom:16px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    gap:10px;
-    padding:6px 10px;
-    background:rgba(0,0,0,.25);
-    border-radius:999px;
-    backdrop-filter:blur(6px);
+    position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+    display:flex;gap:10px;padding:6px 10px;
+    background:rgba(0,0,0,.25);border-radius:999px;backdrop-filter:blur(6px);
   }
   .pager-dot{
     width:10px;height:10px;border-radius:50%;
@@ -152,7 +242,7 @@
   }
   .pager-dot.active{opacity:1;transform:scale(1.15);background:#1E64C8}
 
-  /* cards / grid */
+  /* cards */
   .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
   .card{background:var(--card);border:1px solid rgba(2,6,23,.06);border-radius:16px;padding:18px;box-shadow:0 10px 24px rgba(2,6,23,.06);transition:.2s transform,.2s box-shadow,.2s border-color}
   .card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(2,6,23,.1);border-color:var(--ring)}
@@ -165,7 +255,6 @@
   .btn-outline:hover{background:rgba(30,100,200,.06)}
   .btn-accent{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff}
 
-  /* info strip */
   .note{display:flex;align-items:center;gap:12px;margin-top:12px;background:#fff;border:1px solid rgba(2,6,23,.06);border-radius:12px;padding:14px}
   .note .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--blue));box-shadow:0 0 0 8px rgba(30,100,200,.10)}
 
@@ -189,20 +278,51 @@
   <!-- hero -->
   <header class="hero">
     <div class="hero-inner">
-      <h1>Mock Tests & Notes for SSC, Banking, Railway & more</h1>
-      <p class="sub">maths by her, ∞ — practice sets, quick notes and clean UI</p>
-      <div class="cta">
-        <!-- NEW BUTTON -->
-        <a class="btn btn-primary" href="register.html">Book Free Session</a>
-        <a class="btn btn-primary" href="#exams">Explore Exams</a>
-        <a class="btn btn-ghost" href="#about">About</a>
-        <a class="btn btn-yt" href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">Subscribe on YouTube</a>
+      <div class="hero-left">
+        <div class="hero-badge">
+          <div class="badge-dot"></div>
+          Live Now — Free Mock Tests
+        </div>
+
+        <h1>
+          Mock Tests &amp; Notes<br>
+          for <span class="highlight">SSC, Banking</span><br>
+          Railway &amp; more
+        </h1>
+
+        <p class="sub">
+          maths by her, ∞ — practice sets, quick notes and clean UI.
+          Start free, no signup needed.
+        </p>
+
+        <div class="cta">
+          <a class="btn btn-primary" href="register.html">📅 Book Free Session</a>
+          <a class="btn btn-primary" href="#exams">Explore Exams</a>
+          <a class="btn btn-ghost" href="#about">About</a>
+          <a class="btn btn-yt" href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">▶ YouTube</a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">500+</div>
+            <div class="hero-stat-label">Questions</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">3</div>
+            <div class="hero-stat-label">Exam Categories</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-label">Free Forever</div>
+          </div>
+        </div>
       </div>
+
+      <div class="hero-right"></div>
     </div>
   </header>
 
   <main>
-    <!-- content area just below banner -->
     <section class="section intro">
       <h2>Welcome to SheMatics</h2>
       <p>
@@ -211,7 +331,7 @@
       </p>
     </section>
 
-    <!-- 5-image slider (1200x700) -->
+    <!-- 5-image slider -->
     <section class="section slider-wrap" aria-label="Highlights">
       <div class="slider-container" role="region" aria-roledescription="carousel" aria-label="Highlights">
         <div class="slides" aria-live="polite">
@@ -221,12 +341,8 @@
           <img src="assets/slider/img4.jpg" alt="Slide 4" loading="lazy">
           <img src="assets/slider/img5.jpg" alt="Slide 5" loading="lazy">
         </div>
-
-        <!-- Buttons -->
         <button class="nav-btn prev" aria-label="Previous slide">&#10094;</button>
         <button class="nav-btn next" aria-label="Next slide">&#10095;</button>
-
-        <!-- Dots -->
         <div class="dots" aria-label="Slide selectors"></div>
       </div>
     </section>
@@ -266,7 +382,6 @@
           </div>
         </article>
 
-        <!-- New: Blog highlight card -->
         <article class="card">
           <span class="pill blue">New</span>
           <h3>Blog</h3>
@@ -281,7 +396,7 @@
 
       <div id="about" class="note">
         <div class="dot"></div>
-        <div><strong>Heads up!</strong> We’ll keep adding new exams. Bookmark this page.</div>
+        <div><strong>Heads up!</strong> We'll keep adding new exams. Bookmark this page.</div>
       </div>
     </section>
   </main>
@@ -294,10 +409,8 @@
   </footer>
 
 <script>
-  // Year in footer
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // ===== Slider: autoplay + manual =====
   const container = document.querySelector('.slider-container');
   const slides = document.querySelector('.slides');
   const imgs = document.querySelectorAll('.slides img');
@@ -361,7 +474,7 @@
   start();
 </script>
 
-<!-- ================= Chatbase Chatbot Widget (added) ================= -->
+<!-- Chatbase Widget -->
 <script>
 (function(){
   if(!window.chatbase || window.chatbase("getState") !== "initialized"){
@@ -379,7 +492,7 @@
   const onLoad = function(){
     const script = document.createElement("script");
     script.src = "https://www.chatbase.co/embed.min.js";
-    script.id = "TBt82mPInWqAUCZULZlpF";     /* your chatbotId */
+    script.id = "TBt82mPInWqAUCZULZlpF";
     script.domain = "www.chatbase.co";
     document.body.appendChild(script);
   };
@@ -387,7 +500,6 @@
   else { window.addEventListener("load", onLoad) }
 })();
 </script>
-<!-- ================================================================ -->
 
 </body>
 </html>
