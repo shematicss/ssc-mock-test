@@ -277,10 +277,241 @@ footer a:hover{color:#fff}
 <div class="divider"></div>
 
 <!-- INTRO -->
-<section class="intro-section reveal">
-  <h2>Welcome to SheMatics</h2>
-  <p>Prepare for SSC CGL, CHSL, MTS, Banking and Railway exams with timed mock tests, topic-wise practice and crisp notes — designed with love, made for every aspirant. Start with SSC now, more exams coming soon.</p>
+<!-- INTRO — Premium Section -->
+<section class="pw-section">
+<style>
+.pw-section{padding:80px 32px;background:#fff;position:relative;overflow:hidden;font-family:"Plus Jakarta Sans",system-ui,sans-serif}
+.pw-blob1{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(229,57,53,.04),transparent 70%);top:-100px;left:-100px;pointer-events:none}
+.pw-blob2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,.05),transparent 70%);bottom:-100px;right:-100px;pointer-events:none}
+.pw-accent{height:3px;background:linear-gradient(90deg,transparent 0%,#E53935 20%,#8a9ab0 50%,#1E64C8 80%,transparent 100%);margin-bottom:56px;position:relative;overflow:hidden}
+.pw-accent::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);animation:pwSweep 3s infinite}
+@keyframes pwSweep{to{left:120%}}
+
+.pw-inner{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}
+
+/* LEFT */
+.pw-left{animation:pwFadeL .9s ease both}
+@keyframes pwFadeL{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+.pw-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;padding:6px 14px 6px 6px;background:#f8f9fc;border:1px solid rgba(11,15,26,.07);border-radius:999px}
+.pw-dot{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#E53935,#1E64C8);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;font-weight:800}
+.pw-eyebrow-text{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6b7280}
+.pw-h{font-family:"Playfair Display",serif;font-size:42px;font-weight:800;line-height:1.12;color:#0B0F1A;margin-bottom:16px}
+.pw-h em{font-style:italic;font-weight:700;background:linear-gradient(135deg,#E53935 0%,#c8392b 40%,#1E64C8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-u{display:inline-block;position:relative}
+.pw-u::after{content:"";position:absolute;bottom:-6px;left:0;right:0;height:3px;background:linear-gradient(90deg,#E53935,#1E64C8);border-radius:2px;animation:pwULine 1.2s .5s ease both;transform-origin:left;transform:scaleX(0)}
+@keyframes pwULine{to{transform:scaleX(1)}}
+.pw-sub{font-size:15.5px;color:#6b7280;line-height:1.85;margin-bottom:30px;max-width:400px}
+.pw-sub strong{color:#0B0F1A;font-weight:700}
+.pw-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.pw-tag{padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;color:#1e2535;background:#f4f7fc;border:1px solid rgba(11,15,26,.09);cursor:default;transition:.25s all;animation:pwTagPop .4s ease both}
+.pw-tag:nth-child(1){animation-delay:.4s}
+.pw-tag:nth-child(2){animation-delay:.5s}
+.pw-tag:nth-child(3){animation-delay:.6s}
+.pw-tag:nth-child(4){animation-delay:.7s}
+.pw-tag:nth-child(5){animation-delay:.8s}
+@keyframes pwTagPop{from{opacity:0;transform:scale(.8) translateY(6px)}to{opacity:1;transform:none}}
+.pw-tag:hover{background:#0B0F1A;color:#fff;border-color:#0B0F1A;transform:translateY(-2px)}
+.pw-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pw-btn{padding:12px 26px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.25s all;position:relative;overflow:hidden;font-family:"Plus Jakarta Sans",system-ui,sans-serif}
+.pw-btn::before{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);transition:0s}
+.pw-btn:hover::before{left:125%;transition:.5s left}
+.pw-btn:hover{transform:translateY(-2px)}
+.pw-btn-p{background:linear-gradient(135deg,#E53935,#1E64C8);color:#fff;box-shadow:0 6px 20px rgba(30,100,200,.3)}
+.pw-btn-p:hover{box-shadow:0 10px 28px rgba(30,100,200,.45)}
+.pw-btn-g{color:#1E64C8;font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:5px;transition:.25s gap}
+.pw-btn-g:hover{gap:9px}
+
+/* RIGHT */
+.pw-right{animation:pwFadeR .9s .15s ease both}
+@keyframes pwFadeR{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+.pw-cards{display:flex;flex-direction:column;gap:14px}
+
+/* Bounce animation */
+.pw-card{display:flex;align-items:center;gap:18px;padding:20px 22px;border-radius:18px;border:1px solid rgba(11,15,26,.07);background:#fff;box-shadow:0 4px 18px rgba(11,15,26,.05);transition:.3s transform,.3s box-shadow,.3s border-color;cursor:default;opacity:0;transform:translateY(30px) scale(.95)}
+.pw-card.bounced{animation:pwBounce .7s ease forwards}
+.pw-card:nth-child(1){animation-delay:.2s}
+.pw-card:nth-child(2){animation-delay:.4s}
+.pw-card:nth-child(3){animation-delay:.6s}
+@keyframes pwBounce{
+  0%{opacity:0;transform:translateY(30px) scale(.95)}
+  50%{opacity:1;transform:translateY(-8px) scale(1.02)}
+  70%{transform:translateY(4px) scale(.99)}
+  85%{transform:translateY(-3px) scale(1.005)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.pw-card:hover{transform:translateY(-5px) translateX(-3px);box-shadow:0 18px 38px rgba(11,15,26,.11);border-color:rgba(30,100,200,.2)}
+.pw-card-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;transition:.3s transform}
+.pw-card:hover .pw-card-icon{transform:scale(1.12) rotate(-7deg)}
+.pw-card:nth-child(1) .pw-card-icon{background:linear-gradient(135deg,rgba(229,57,53,.12),rgba(229,57,53,.04))}
+.pw-card:nth-child(2) .pw-card-icon{background:linear-gradient(135deg,rgba(30,100,200,.12),rgba(30,100,200,.04))}
+.pw-card:nth-child(3) .pw-card-icon{background:linear-gradient(135deg,rgba(138,154,176,.16),rgba(138,154,176,.06))}
+.pw-card-body{flex:1}
+.pw-card-title{font-size:14px;font-weight:700;color:#0B0F1A;margin-bottom:3px}
+.pw-card-desc{font-size:12px;color:#9ca3af;line-height:1.5}
+.pw-card-badge{font-family:"Playfair Display",serif;font-size:24px;font-weight:800;white-space:nowrap}
+.pw-card:nth-child(1) .pw-card-badge{background:linear-gradient(135deg,#E53935,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-card:nth-child(2) .pw-card-badge{background:linear-gradient(135deg,#1E64C8,#0d3b7a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-card:nth-child(3) .pw-card-badge{background:linear-gradient(135deg,#8a9ab0,#4a5568);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* Mobile cards row */
+.pw-mobile-cards{display:none;gap:12px;flex-direction:column;margin-top:32px}
+.pw-mobile-card{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:16px;border:1px solid rgba(11,15,26,.07);background:#fff;box-shadow:0 4px 16px rgba(11,15,26,.05);opacity:0;transform:translateY(24px) scale(.96)}
+.pw-mobile-card.bounced{animation:pwBounce .7s ease forwards}
+.pw-mobile-card:nth-child(1){animation-delay:.3s}
+.pw-mobile-card:nth-child(2){animation-delay:.5s}
+.pw-mobile-card:nth-child(3){animation-delay:.7s}
+.pw-mobile-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.pw-mc1 .pw-mobile-icon{background:rgba(229,57,53,.10)}
+.pw-mc2 .pw-mobile-icon{background:rgba(30,100,200,.10)}
+.pw-mc3 .pw-mobile-icon{background:rgba(138,154,176,.12)}
+.pw-mobile-body{flex:1}
+.pw-mobile-title{font-size:13px;font-weight:700;color:#0B0F1A}
+.pw-mobile-desc{font-size:11px;color:#9ca3af;margin-top:2px}
+.pw-mobile-num{font-family:"Playfair Display",serif;font-size:20px;font-weight:800}
+.pw-mc1 .pw-mobile-num{background:linear-gradient(135deg,#E53935,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-mc2 .pw-mobile-num{background:linear-gradient(135deg,#1E64C8,#0d3b7a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-mc3 .pw-mobile-num{background:linear-gradient(135deg,#8a9ab0,#4a5568);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* Bottom */
+.pw-bottom{max-width:1040px;margin:52px auto 0;padding-top:28px;border-top:1px solid rgba(11,15,26,.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.pw-live{display:flex;align-items:center;gap:8px;font-size:13px;color:#6b7280}
+.pw-live-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:pwLivePulse 2s infinite}
+@keyframes pwLivePulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 7px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+.pw-quote{font-family:"Playfair Display",serif;font-size:13px;font-style:italic;color:#c8d4e0}
+
+@media(max-width:720px){
+  .pw-section{padding:52px 20px}
+  .pw-inner{grid-template-columns:1fr;gap:0}
+  .pw-right{display:none}
+  .pw-h{font-size:30px}
+  .pw-mobile-cards{display:flex}
+  .pw-bottom{margin-top:28px}
+}
+</style>
+
+<div class="pw-blob1"></div>
+<div class="pw-blob2"></div>
+<div class="pw-accent"></div>
+
+<div class="pw-inner">
+  <!-- LEFT -->
+  <div class="pw-left">
+    <div class="pw-eyebrow">
+      <div class="pw-dot">π</div>
+      <span class="pw-eyebrow-text">About SheMatics</span>
+    </div>
+    <h2 class="pw-h">
+      Your <span class="pw-u">free</span> gateway<br>
+      to <em>exam success</em>
+    </h2>
+    <p class="pw-sub">
+      Prepare for <strong>SSC, Banking &amp; Railway</strong> with timed mock tests,
+      topic-wise practice and crisp notes —
+      crafted with care, built for every aspirant.
+    </p>
+    <div class="pw-tags">
+      <span class="pw-tag">SSC CGL</span>
+      <span class="pw-tag">SSC CHSL</span>
+      <span class="pw-tag">SSC MTS</span>
+      <span class="pw-tag">Banking</span>
+      <span class="pw-tag">Railway</span>
+    </div>
+    <div class="pw-cta">
+      <a class="pw-btn pw-btn-p" href="exams/ssc/mock-tests/set-1.html">Start Free Test</a>
+      <a class="pw-btn-g" href="#exams">Explore all exams →</a>
+    </div>
+
+    <!-- Mobile cards — shown only on mobile -->
+    <div class="pw-mobile-cards" id="pwMobileCards">
+      <div class="pw-mobile-card pw-mc1">
+        <div class="pw-mobile-icon">⏱️</div>
+        <div class="pw-mobile-body">
+          <div class="pw-mobile-title">Timed Mock Tests</div>
+          <div class="pw-mobile-desc">Real exam feel, instant results</div>
+        </div>
+        <div class="pw-mobile-num">500+</div>
+      </div>
+      <div class="pw-mobile-card pw-mc2">
+        <div class="pw-mobile-icon">📊</div>
+        <div class="pw-mobile-body">
+          <div class="pw-mobile-title">Score Analysis</div>
+          <div class="pw-mobile-desc">Know your weak areas</div>
+        </div>
+        <div class="pw-mobile-num">4 Sets</div>
+      </div>
+      <div class="pw-mobile-card pw-mc3">
+        <div class="pw-mobile-icon">📝</div>
+        <div class="pw-mobile-body">
+          <div class="pw-mobile-title">Crisp Notes</div>
+          <div class="pw-mobile-desc">Quick revision anytime</div>
+        </div>
+        <div class="pw-mobile-num">∞</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT (desktop) -->
+  <div class="pw-right">
+    <div class="pw-cards" id="pwDesktopCards">
+      <div class="pw-card">
+        <div class="pw-card-icon">⏱️</div>
+        <div class="pw-card-body">
+          <div class="pw-card-title">Timed Mock Tests</div>
+          <div class="pw-card-desc">Real exam feel with instant results</div>
+        </div>
+        <div class="pw-card-badge">500+</div>
+      </div>
+      <div class="pw-card">
+        <div class="pw-card-icon">📊</div>
+        <div class="pw-card-body">
+          <div class="pw-card-title">Score Analysis</div>
+          <div class="pw-card-desc">Detailed weak area breakdown</div>
+        </div>
+        <div class="pw-card-badge">4 Sets</div>
+      </div>
+      <div class="pw-card">
+        <div class="pw-card-icon">📝</div>
+        <div class="pw-card-body">
+          <div class="pw-card-title">Crisp Notes</div>
+          <div class="pw-card-desc">Quick revision, anytime anywhere</div>
+        </div>
+        <div class="pw-card-badge">∞</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pw-bottom">
+  <div class="pw-live">
+    <span class="pw-live-dot"></span>
+    New content added regularly — bookmark us!
+  </div>
+  <div class="pw-quote">"maths by her, ∞"</div>
+</div>
+
+<script>
+(function(){
+  function triggerBounce(cards){
+    cards.forEach(function(card){card.classList.add('bounced')});
+  }
+  function checkCards(){
+    var dc=document.querySelectorAll('#pwDesktopCards .pw-card');
+    var mc=document.querySelectorAll('#pwMobileCards .pw-mobile-card');
+    var section=document.querySelector('.pw-section');
+    if(!section)return;
+    var rect=section.getBoundingClientRect();
+    if(rect.top<window.innerHeight-60){
+      triggerBounce(dc);
+      triggerBounce(mc);
+      window.removeEventListener('scroll',checkCards);
+    }
+  }
+  window.addEventListener('scroll',checkCards,{passive:true});
+  setTimeout(checkCards,400);
+})();
+</script>
 </section>
+<!-- END INTRO -->
 
 <!-- FEATURES -->
 <div class="features">
