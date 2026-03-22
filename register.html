@@ -185,8 +185,7 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 
           <input id="phone" type="tel" placeholder="10-digit number 📱" maxlength="10">
           <button class="otp-b" id="sendOtpBtn">Send OTP</button>
         </div>
-        <div id="recaptcha-container"></div>
-        <div id="otpArea">
+              <div id="otpArea">
           <div class="otp-r">
             <input id="otpCode" type="text" placeholder="Enter OTP 🔐" maxlength="6">
             <button class="otp-b" id="verifyOtpBtn">Verify</button>
@@ -233,6 +232,7 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 
     </div>
   </div>
 </main>
+<div id="recaptcha-container" style="display:none"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
@@ -261,8 +261,19 @@ function showErr(msg){var e=q("msgErr");e.textContent="⚠️ "+msg;e.style.disp
 function showOk(msg){var e=q("msgOk");e.textContent=msg;e.style.display="block"}
 
 async function ensureRecaptcha(){
-  if(window.recaptchaVerifier){try{await window.recaptchaVerifier.clear()}catch(e){}window.recaptchaVerifier=null}
-  window.recaptchaVerifier=new RecaptchaVerifier("recaptcha-container",{size:"invisible"},auth);
+  // Clear old verifier
+  if(window.recaptchaVerifier){
+    try{await window.recaptchaVerifier.clear()}catch(e){}
+    window.recaptchaVerifier=null;
+  }
+  // Clear old recaptcha iframe if any
+  var rc=document.getElementById("recaptcha-container");
+  rc.innerHTML="";
+  window.recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{
+    size:"invisible",
+    callback:()=>{},
+    "expired-callback":()=>{}
+  });
   await window.recaptchaVerifier.render();
 }
 
