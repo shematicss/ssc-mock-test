@@ -261,19 +261,12 @@ function showErr(msg){var e=q("msgErr");e.textContent="⚠️ "+msg;e.style.disp
 function showOk(msg){var e=q("msgOk");e.textContent=msg;e.style.display="block"}
 
 async function ensureRecaptcha(){
-  // Clear old verifier
   if(window.recaptchaVerifier){
-    try{await window.recaptchaVerifier.clear()}catch(e){}
+    try{window.recaptchaVerifier.clear()}catch(e){}
     window.recaptchaVerifier=null;
   }
-  // Clear old recaptcha iframe if any
-  var rc=document.getElementById("recaptcha-container");
-  rc.innerHTML="";
-  window.recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{
-    size:"invisible",
-    callback:()=>{},
-    "expired-callback":()=>{}
-  });
+  document.getElementById("recaptcha-container").innerHTML="";
+  window.recaptchaVerifier=new RecaptchaVerifier('recaptcha-container',{size:'invisible'},auth);
   await window.recaptchaVerifier.render();
 }
 
