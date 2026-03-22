@@ -387,12 +387,32 @@ footer a:hover{color:#fff}
       ctx.restore();
     });
 
-    // Logo
+    // Logo — clockwise circular spin then settle
     var logo=document.getElementById('lsLogo');
     if(logo && e>=T.logoIn){
-      var t=easeOut(Math.min((e-T.logoIn)/600,1));
-      logo.style.opacity=t;
-      logo.style.transform='scale('+(0.7+0.3*t)+')';
+      var elapsed=e-T.logoIn;
+      var dur=900; // spin duration
+      var t=Math.min(elapsed/dur,1);
+      var tEase=easeOut(t);
+
+      // Opacity: fade in
+      logo.style.opacity=tEase;
+
+      if(t<1){
+        // Clockwise rotation: 0 -> 360 with easeOut (fast start, slow stop)
+        var spinT=1-Math.pow(1-t,2); // easeOut quad
+        var deg=spinT*360;
+        // Scale: start small, grow to 1
+        var sc=0.5+0.5*tEase;
+        logo.style.transform='rotate('+deg+'deg) scale('+sc+')';
+      } else {
+        // Settled — no transform
+        logo.style.transform='rotate(360deg) scale(1)';
+        // Subtle glow pulse after settle
+        if(elapsed>dur+200){
+          logo.style.filter='drop-shadow(0 0 40px rgba(229,57,53,.5)) drop-shadow(0 0 20px rgba(30,100,200,.4))';
+        }
+      }
     }
 
     // Brand
