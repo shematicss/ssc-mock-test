@@ -271,57 +271,169 @@ footer a:hover{color:#fff}
 </head>
 <body>
 <!-- LOADING SCREEN -->
-<div id="lsScreen" style="position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<div id="lsScreen" style="position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 100%);display:flex;align-items:center;justify-content:center;overflow:hidden">
 <style>
-#lsScreen video{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-}
-#lsScreen.hide{
-  animation:lsHide .6s ease forwards;
-}
-@keyframes lsHide{
-  0%{opacity:1}
-  100%{opacity:0;pointer-events:none}
-}
-#lsSkip{
-  position:absolute;
-  bottom:24px;right:24px;
-  padding:8px 20px;
-  border-radius:999px;
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.25);
-  color:rgba(255,255,255,.7);
-  font-size:12px;font-weight:600;
-  cursor:pointer;
-  font-family:"Plus Jakarta Sans",sans-serif;
-  backdrop-filter:blur(8px);
-  transition:.2s all;
-  opacity:0;
-  animation:lsSkipIn .4s 1s ease forwards;
-}
-#lsSkip:hover{background:rgba(255,255,255,.22);color:#fff}
+#lsScreen *{box-sizing:border-box}
+#lsCanvas{position:absolute;inset:0;width:100%;height:100%}
+#lsCenter{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center}
+#lsLogo{width:170px;height:170px;object-fit:contain;opacity:0;filter:drop-shadow(0 0 40px rgba(229,57,53,.4)) drop-shadow(0 0 20px rgba(30,100,200,.3))}
+#lsBrand{font-family:"Playfair Display",serif;font-size:26px;font-weight:800;background:linear-gradient(135deg,#E53935,#8a9ab0,#1E64C8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;margin-top:10px;transform:translateY(10px);transition:opacity .6s,transform .6s}
+#lsTagline{font-family:"Playfair Display",serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.45);opacity:0;margin-top:5px;transform:translateY(6px);transition:opacity .5s,transform .5s}
+#lsLine{width:0;height:1px;background:linear-gradient(90deg,#E53935,#1E64C8);margin:16px auto 0;border-radius:999px;opacity:0;transition:width .8s ease,opacity .3s}
+#lsSkip{position:absolute;bottom:20px;right:20px;padding:7px 18px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;backdrop-filter:blur(6px);transition:.2s all;opacity:0;animation:lsSkipIn .4s 1.5s ease forwards}
+#lsSkip:hover{background:rgba(255,255,255,.18);color:#fff}
 @keyframes lsSkipIn{to{opacity:1}}
+#lsScreen.ls-hide{animation:lsFadeOut .7s ease forwards}
+@keyframes lsFadeOut{to{opacity:0;pointer-events:none}}
 </style>
-<video id="lsVideo" src="assets/intro.mp4" autoplay muted playsinline></video>
-<button id="lsSkip" onclick="hideLs()">Skip ›</button>
+
+<canvas id="lsCanvas"></canvas>
+
+<div id="lsCenter">
+  <img id="lsLogo" src="assets/img/logo.png" alt="SheMatics">
+  <div id="lsBrand">SheMatics</div>
+  <div id="lsTagline">maths by her.....∞</div>
+  <div id="lsLine"></div>
 </div>
+
+<button id="lsSkip" onclick="lsHide()">Skip ›</button>
+
 <script>
-function hideLs(){
-  var ls=document.getElementById('lsScreen');
-  ls.classList.add('hide');
-  setTimeout(function(){ls.style.display='none'},600);
-}
-document.getElementById('lsVideo').addEventListener('ended',function(){
-  hideLs();
-});
-// Fallback — hide after 8 seconds if video doesn't end
-setTimeout(function(){
-  var ls=document.getElementById('lsScreen');
-  if(ls && ls.style.display!=='none'){hideLs()}
-},8000);
+(function(){
+  var canvas=document.getElementById('lsCanvas');
+  var ctx=canvas.getContext('2d');
+  var W,H,cx,cy;
+  var particles=[];
+  var raf=null;
+  var startTime=null;
+
+  var symbols=['π','∑','∫','√','∞','α','β','θ','Δ','∂','sin','cos','log','tan','f(x)','x²','n','=','±','÷','×','%','0','1','2','3','7','9'];
+  var clrs=['rgba(229,57,53,','rgba(30,100,200,','rgba(138,154,176,','rgba(200,210,230,','rgba(180,60,60,'];
+
+  var T={symShow:0,converge:1100,fade:1900,logoIn:2000,brandIn:2550,tagIn:2950,lineIn:3250,total:4500};
+
+  function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+    cx=W/2;cy=H/2;
+  }
+
+  function makeParticles(){
+    particles=[];
+    var count=window.innerWidth<480?20:32;
+    for(var i=0;i<count;i++){
+      var angle=(i/count)*Math.PI*2+Math.random()*.4;
+      var dist=90+Math.random()*Math.min(W,H)*.35;
+      particles.push({
+        sym:symbols[Math.floor(Math.random()*symbols.length)],
+        x:cx+Math.cos(angle)*dist,
+        y:cy+Math.sin(angle)*dist,
+        size:11+Math.random()*16,
+        clr:clrs[Math.floor(Math.random()*clrs.length)],
+        maxA:.45+Math.random()*.45,
+        alpha:0,
+        delay:Math.random()*.6
+      });
+    }
+  }
+
+  function easeOut(t){return 1-Math.pow(1-t,3)}
+  function easeInOut(t){return t<.5?4*t*t*t:(t-1)*(2*t-2)*(2*t-2)+1}
+
+  function setEl(id,opacity,ty){
+    var el=document.getElementById(id);
+    if(!el)return;
+    el.style.opacity=opacity;
+    if(ty!==undefined)el.style.transform='translateY('+ty+'px)';
+  }
+
+  function animate(ts){
+    if(!startTime)startTime=ts;
+    var e=ts-startTime;
+    ctx.clearRect(0,0,W,H);
+
+    // Draw particles
+    particles.forEach(function(p){
+      var pd=p.delay*1000;
+      var pe=e-pd;
+      if(pe<0)return;
+      var x=p.x,y=p.y,a=0;
+
+      if(e<T.converge){
+        // appear scattered
+        var t=Math.min(pe/500,1);
+        a=easeOut(t)*p.maxA;
+      } else if(e<T.fade){
+        // converge
+        var t=Math.min((e-T.converge)/700,1);
+        t=easeInOut(t);
+        x=p.x+(cx-p.x)*t;
+        y=p.y+(cy-p.y)*t;
+        a=p.maxA*(1-t*.75);
+      } else if(e<T.fade+300){
+        // fade
+        var t=(e-T.fade)/300;
+        a=p.maxA*.25*(1-t);
+        x=cx;y=cy;
+      } else {a=0}
+
+      if(a<.01)return;
+      ctx.save();
+      ctx.globalAlpha=a;
+      ctx.fillStyle=p.clr+a+')';
+      ctx.font='700 '+p.size+'px "Times New Roman",serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(p.sym,x,y);
+      ctx.restore();
+    });
+
+    // Logo
+    var logo=document.getElementById('lsLogo');
+    if(logo && e>=T.logoIn){
+      var t=easeOut(Math.min((e-T.logoIn)/600,1));
+      logo.style.opacity=t;
+      logo.style.transform='scale('+(0.7+0.3*t)+')';
+    }
+
+    // Brand
+    if(e>=T.brandIn){
+      var t=easeOut(Math.min((e-T.brandIn)/500,1));
+      setEl('lsBrand',t,8*(1-t));
+    }
+    // Tagline
+    if(e>=T.tagIn){
+      var t=easeOut(Math.min((e-T.tagIn)/400,1));
+      setEl('lsTagline',t*.85,6*(1-t));
+    }
+    // Line
+    if(e>=T.lineIn){
+      var t=easeOut(Math.min((e-T.lineIn)/700,1));
+      var line=document.getElementById('lsLine');
+      if(line){line.style.opacity='1';line.style.width=(t*110)+'px'}
+    }
+
+    if(e>=T.total){
+      cancelAnimationFrame(raf);
+      lsHide();
+      return;
+    }
+    raf=requestAnimationFrame(animate);
+  }
+
+  window.lsHide=function(){
+    var ls=document.getElementById('lsScreen');
+    if(!ls)return;
+    ls.classList.add('ls-hide');
+    setTimeout(function(){ls.style.display='none'},700);
+    if(raf)cancelAnimationFrame(raf);
+  };
+
+  window.addEventListener('resize',resize);
+  resize();makeParticles();
+  raf=requestAnimationFrame(animate);
+})();
 </script>
+</div>
 <!-- END LOADING SCREEN -->
 
 <!-- TOPBAR -->
