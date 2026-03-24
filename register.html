@@ -1,102 +1,29 @@
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-
-// ✅ EmailJS Config
-const EJS_PUBLIC_KEY   = "j__EYAy1xhWlxnATm";
-const EJS_SERVICE_ID   = "service_rd9dicx";
-const EJS_TEMPLATE_ID  = "cetjf04";
-
-// ✅ Google Sheet URL (already added)
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbyPeQ3UZ7jjpAhBnM3SaxKFxLU8X0-vSABwoQ3df0qgERVahDtz-PV_PUTG0u5QXtXq1Q/exec";
-
-emailjs.init(EJS_PUBLIC_KEY);
 
 const q = id => document.getElementById(id);
 
 let sessionMode = "Online";
-let emailVerified = false;
-let generatedOTP = "";
-let otpExpiry = null;
 
 // Mode toggle
 q("modeOnline").onclick = () => {
-  sessionMode="Online";
+  sessionMode = "Online";
   q("modeOnline").classList.add("active");
   q("modeOffline").classList.remove("active");
 };
 
 q("modeOffline").onclick = () => {
-  sessionMode="Offline";
+  sessionMode = "Offline";
   q("modeOffline").classList.add("active");
   q("modeOnline").classList.remove("active");
 };
 
-// Error show
-function showErr(msg){
-  const e = q("msgErr");
-  e.textContent = "⚠️ " + msg;
-  e.style.display = "block";
-  setTimeout(()=>e.style.display="none",4000);
-}
+// Enable submit directly
+q("submitBtn").disabled = false;
+q("btnText").innerText = "🚀 Book My Free Session";
 
-// OTP generate
-function generateOTP(){
-  return Math.floor(100000 + Math.random()*900000).toString();
-}
-
-// SEND OTP
-q("sendOtpBtn").onclick = async () => {
-
-  const email = q("uemail").value.trim();
-  const name = q("uname").value.trim() || "Student";
-
-  if(!email){
-    showErr("Enter email first");
-    return;
-  }
-
-  generatedOTP = generateOTP();
-  otpExpiry = Date.now() + (10*60*1000);
-
-  try{
-    await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, {
-      email: email,
-      passcode: generatedOTP,
-      time: "10 minutes",
-      to_name: name
-    });
-
-    q("otpArea").style.display = "block";
-    q("otpMsg").innerText = "✅ OTP sent to email";
-
-  }catch(e){
-    showErr("OTP failed");
-  }
-};
-
-// VERIFY OTP
-q("verifyOtpBtn").onclick = () => {
-
-  const entered = q("otpCode").value.trim();
-
-  if(entered === generatedOTP && Date.now() < otpExpiry){
-    emailVerified = true;
-    q("verifiedBadge").style.display = "flex";
-    q("submitBtn").disabled = false;
-    q("btnText").innerText = "🚀 Book My Free Session";
-    q("otpArea").style.display = "none";
-  }else{
-    q("otpMsg").innerText = "❌ Wrong or expired OTP";
-  }
-};
-
-// SUBMIT
+// Submit
 q("submitBtn").onclick = async () => {
-
-  if(!emailVerified){
-    showErr("Verify email first");
-    return;
-  }
 
   const data = {
     name: q("uname").value,
@@ -104,29 +31,26 @@ q("submitBtn").onclick = async () => {
     phone: q("uphone").value,
     exam: q("uexam").value,
     state: q("ustate").value,
-    mode: sessionMode,
-    time: new Date().toLocaleString()
+    mode: sessionMode
   };
 
-  if(!data.name || !data.phone || !data.exam || !data.state){
-    showErr("Fill all details");
+  if (!data.name || !data.phone || !data.exam || !data.state) {
+    alert("Please fill all details");
     return;
   }
 
-  try{
+  try {
     await fetch(SHEET_URL, {
       method: "POST",
       mode: "no-cors",
       body: JSON.stringify(data)
     });
 
-    // SUCCESS UI
     q("formContent").style.display = "none";
     q("successView").style.display = "block";
 
-  }catch(e){
-    showErr("Submission failed");
+  } catch (error) {
+    alert("Error submitting form");
   }
 };
-
 </script>
