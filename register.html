@@ -1,56 +1,318 @@
-<script>
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbyPeQ3UZ7jjpAhBnM3SaxKFxLU8X0-vSABwoQ3df0qgERVahDtz-PV_PUTG0u5QXtXq1Q/exec";
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Book Free Session – SheMatics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{
+  font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+  background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 50%,#0d1117 100%);
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  position:relative;overflow-x:hidden;
+}
 
-const q = id => document.getElementById(id);
+/* Floating math bg */
+.fm{position:fixed;font-family:serif;font-weight:700;pointer-events:none;animation:fmFloat var(--dur) ease-in-out infinite;opacity:.08;color:#fff;font-size:var(--sz);z-index:0}
+@keyframes fmFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(6deg)}}
 
-let sessionMode = "Online";
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07);padding:12px 24px;display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;object-fit:contain}
+.brand{font-family:"Playfair Display",serif;font-weight:800;font-size:18px;background:linear-gradient(135deg,#E53935,#1E64C8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.back-btn{margin-left:auto;padding:7px 16px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:12px;font-weight:600;text-decoration:none;transition:.2s all}
+.back-btn:hover{background:rgba(255,255,255,.18);color:#fff}
 
-// Mode toggle
-q("modeOnline").onclick = () => {
-  sessionMode = "Online";
-  q("modeOnline").classList.add("active");
-  q("modeOffline").classList.remove("active");
+/* MAIN */
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 16px;position:relative;z-index:1}
+
+.rp-card{
+  width:100%;max-width:500px;
+  background:rgba(255,255,255,.97);
+  border-radius:28px;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.5);
+  animation:cardIn .7s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
+
+/* Banner */
+.rp-banner{
+  background:linear-gradient(135deg,#E53935 0%,#c8392b 30%,#1E64C8 70%,#0d3b7a 100%);
+  padding:28px 28px 22px;position:relative;overflow:hidden;
+}
+.rp-banner::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.07)}
+.rp-banner::after{content:"";position:absolute;bottom:-25px;left:-25px;width:100px;height:100px;border-radius:50%;background:rgba(0,0,0,.08)}
+.rp-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:10px}
+.rp-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:rpPulse 2s infinite}
+@keyframes rpPulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 6px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+.rp-banner h2{font-family:"Playfair Display",serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:4px;position:relative;z-index:1}
+.rp-banner p{font-size:12px;color:rgba(255,255,255,.75);position:relative;z-index:1}
+.rp-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+.rp-pill{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:10px;font-weight:600;color:#fff}
+
+/* Form */
+.rp-form{padding:24px 28px}
+
+/* Emoji row */
+.rp-emoji-row{display:flex;justify-content:center;gap:14px;margin-bottom:18px}
+.rp-emoji{font-size:22px;animation:emojiFloat var(--ef) ease-in-out infinite;display:inline-block}
+@keyframes emojiFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* Tabs */
+.rp-tabs{display:flex;gap:6px;margin-bottom:20px;background:#f4f7fc;border-radius:14px;padding:4px}
+.rp-tab{flex:1;padding:9px 12px;border-radius:10px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:#6b7280;transition:.2s all;border:none;background:transparent;font-family:"Plus Jakarta Sans",sans-serif}
+.rp-tab.active{background:#fff;color:#1E64C8;box-shadow:0 2px 8px rgba(11,15,26,.08)}
+
+/* Fields */
+.rf{margin-bottom:16px}
+.rf label{display:block;font-size:10px;font-weight:700;color:#0B0F1A;margin-bottom:6px;letter-spacing:.8px;text-transform:uppercase}
+.rf input,.rf select{
+  width:100%;padding:12px 14px;
+  border:1.5px solid rgba(11,15,26,.09);
+  border-radius:12px;font-size:13px;font-weight:500;
+  color:#0B0F1A;font-family:"Plus Jakarta Sans",sans-serif;
+  background:#fff;outline:none;transition:.2s all;
+}
+.rf input:focus,.rf select:focus{border-color:#1E64C8;box-shadow:0 0 0 3px rgba(30,100,200,.08)}
+.rf input::placeholder{color:#c4cad4}
+.rf select{color:#6b7280;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+
+/* OTP row */
+.otp-r{display:flex;gap:8px}
+.otp-r input{flex:1}
+.otp-b{padding:12px 14px;border-radius:12px;border:1.5px solid #1E64C8;background:#fff;color:#1E64C8;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s all;font-family:"Plus Jakarta Sans",sans-serif}
+.otp-b:hover{background:#1E64C8;color:#fff}
+.otp-b:disabled{opacity:.5;cursor:not-allowed}
+#otpArea{display:none;margin-top:12px}
+#otpMsg{font-size:12px;margin-top:6px;color:#6b7280}
+
+/* Submit */
+.rp-submit{
+  width:100%;padding:14px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,#E53935,#1E64C8);
+  color:#fff;font-size:15px;font-weight:800;cursor:pointer;
+  font-family:"Plus Jakarta Sans",sans-serif;
+  box-shadow:0 6px 20px rgba(30,100,200,.3);
+  transition:.25s all;position:relative;overflow:hidden;margin-top:4px;
+}
+.rp-submit::before{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:skewX(-20deg);transition:0s}
+.rp-submit:hover::before{left:125%;transition:.5s left}
+.rp-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(30,100,200,.4)}
+.rp-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* Messages */
+.msg-ok{font-size:13px;color:#16a34a;margin-top:12px;padding:12px 14px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);border-radius:12px;display:none;text-align:center}
+.msg-err{font-size:13px;color:#E53935;margin-top:12px;padding:12px 14px;background:rgba(229,57,53,.06);border:1px solid rgba(229,57,53,.2);border-radius:12px;display:none}
+.rp-privacy{font-size:10px;color:#9ca3af;text-align:center;margin-top:14px;line-height:1.6}
+
+#recaptcha-container{margin-top:8px}
+
+@media(max-width:520px){
+  .rp-form{padding:20px 18px}
+  .rp-banner{padding:22px 20px 18px}
+  .rp-banner h2{font-size:20px}
+  main{padding:16px;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating math symbols -->
+<div class="fm" style="top:5%;left:3%;--dur:4s;--sz:32px">π</div>
+<div class="fm" style="top:12%;right:5%;--dur:5s;--sz:24px;animation-delay:.5s">∑</div>
+<div class="fm" style="bottom:25%;left:5%;--dur:6s;--sz:22px;animation-delay:1s">∫</div>
+<div class="fm" style="bottom:12%;right:7%;--dur:4.5s;--sz:28px;animation-delay:1.5s">√</div>
+<div class="fm" style="top:45%;left:1%;--dur:5.5s;--sz:20px;animation-delay:2s">∞</div>
+<div class="fm" style="top:65%;right:2%;--dur:4s;--sz:22px;animation-delay:.8s">θ</div>
+<div class="fm" style="top:30%;right:1%;--dur:6s;--sz:18px;animation-delay:2.5s">Δ</div>
+<div class="fm" style="bottom:40%;left:2%;--dur:5s;--sz:20px;animation-delay:1.8s">α</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <img class="logo" src="assets/img/logo.png" alt="SheMatics">
+  <div class="brand">SheMatics</div>
+  <a class="back-btn" href="index.html">← Back to Home</a>
+</div>
+
+<main>
+  <div class="rp-card">
+
+    <!-- Banner -->
+    <div class="rp-banner">
+      <div class="rp-badge"><div class="rp-dot"></div>100% Free</div>
+      <h2>Book Your Free Session! 🎯</h2>
+      <p>Join SheMatics & crack your dream exam with expert guidance</p>
+      <div class="rp-pills">
+        <span class="rp-pill">⏱️ Timed Tests</span>
+        <span class="rp-pill">📊 Score Analysis</span>
+        <span class="rp-pill">📝 Crisp Notes</span>
+        <span class="rp-pill">🎓 SSC · Banking · Railway</span>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="rp-form">
+
+      <!-- Emoji row -->
+      <div class="rp-emoji-row">
+        <span class="rp-emoji" style="--ef:3s">📚</span>
+        <span class="rp-emoji" style="--ef:3.5s;animation-delay:.3s">✏️</span>
+        <span class="rp-emoji" style="--ef:4s;animation-delay:.6s">🏆</span>
+        <span class="rp-emoji" style="--ef:3.2s;animation-delay:.9s">🎯</span>
+        <span class="rp-emoji" style="--ef:3.8s;animation-delay:1.2s">💡</span>
+      </div>
+
+      <!-- Mode tabs -->
+      <div class="rp-tabs">
+        <button class="rp-tab active" id="modeOnline">🖥️ Online Session</button>
+        <button class="rp-tab" id="modeOffline">🏫 Offline Session</button>
+      </div>
+
+      <!-- Name -->
+      <div class="rf">
+        <label>Your Name</label>
+        <input id="name" type="text" placeholder="Enter your full name ✨">
+      </div>
+
+      <!-- Phone + OTP -->
+      <div class="rf">
+        <label>Mobile Number</label>
+        <div class="otp-r">
+          <input id="phone" type="tel" placeholder="10-digit number 📱" maxlength="10">
+          <button class="otp-b" id="sendOtpBtn">Send OTP</button>
+        </div>
+              <div id="otpArea">
+          <div class="otp-r">
+            <input id="otpCode" type="text" placeholder="Enter OTP 🔐" maxlength="6">
+            <button class="otp-b" id="verifyOtpBtn">Verify</button>
+          </div>
+          <div id="otpMsg"></div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="rf">
+        <label>Email Address</label>
+        <input id="email" type="email" placeholder="your@email.com 📧">
+      </div>
+
+      <!-- State -->
+      <div class="rf">
+        <label>State / UT</label>
+        <select id="state">
+          <option value="">Select your state 🗺️</option>
+          <option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
+          <option>Assam</option><option>Bihar</option><option>Chhattisgarh</option>
+          <option>Goa</option><option>Gujarat</option><option>Haryana</option>
+          <option>Himachal Pradesh</option><option>Jharkhand</option>
+          <option>Karnataka</option><option>Kerala</option>
+          <option>Madhya Pradesh</option><option>Maharashtra</option>
+          <option>Manipur</option><option>Meghalaya</option><option>Mizoram</option>
+          <option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+          <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option>
+          <option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option>
+          <option>Uttarakhand</option><option>West Bengal</option>
+          <option>Andaman & Nicobar Islands</option><option>Chandigarh</option>
+          <option>Dadra & Nagar Haveli and Daman & Diu</option><option>Delhi</option>
+          <option>Jammu & Kashmir</option><option>Ladakh</option>
+          <option>Lakshadweep</option><option>Puducherry</option>
+        </select>
+      </div>
+
+      <button class="rp-submit" id="submitBtn" disabled>🚀 Continue to Schedule</button>
+
+      <div class="msg-ok" id="msgOk">🎉 Woohoo! Your free session is booked. We'll contact you soon!</div>
+      <div class="msg-err" id="msgErr"></div>
+
+      <div class="rp-privacy">🔒 Your data is 100% safe · No spam ever · maths by her.....∞</div>
+    </div>
+  </div>
+</main>
+<div id="recaptcha-container" style="display:none"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyDqoIldbsh3SjZCidOKc_yfw2oqFGpipWM",
+  authDomain:"shematics-50191.firebaseapp.com",
+  projectId:"shematics-50191",
+  storageBucket:"shematics-50191.firebasestorage.app",
+  messagingSenderId:"534175088985",
+  appId:"1:534175088985:web:3e6bf95d3e82bbd20b8c48",
+  measurementId:"G-RP4L649FKB"
 };
 
-q("modeOffline").onclick = () => {
-  sessionMode = "Offline";
-  q("modeOffline").classList.add("active");
-  q("modeOnline").classList.remove("active");
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const q=id=>document.getElementById(id);
+let sessionMode="Online",confirmationResult=null,phoneVerified=false;
+
+// Mode tabs
+q("modeOnline").onclick=()=>{sessionMode="Online";q("modeOnline").classList.add("active");q("modeOffline").classList.remove("active")};
+q("modeOffline").onclick=()=>{sessionMode="Offline";q("modeOffline").classList.add("active");q("modeOnline").classList.remove("active")};
+
+function showErr(msg){var e=q("msgErr");e.textContent="⚠️ "+msg;e.style.display="block";setTimeout(()=>e.style.display="none",4000)}
+function showOk(msg){var e=q("msgOk");e.textContent=msg;e.style.display="block"}
+
+async function ensureRecaptcha(){
+  if(window.recaptchaVerifier){
+    try{window.recaptchaVerifier.clear()}catch(e){}
+    window.recaptchaVerifier=null;
+  }
+  document.getElementById("recaptcha-container").innerHTML="";
+  window.recaptchaVerifier=new RecaptchaVerifier('recaptcha-container',{size:'invisible'},auth);
+  await window.recaptchaVerifier.render();
+}
+
+q("sendOtpBtn").onclick=async()=>{
+  var raw=q("phone").value.trim();
+  if(!/^\d{10}$/.test(raw)){showErr("Please enter a valid 10-digit mobile number");return}
+  q("sendOtpBtn").textContent="Sending...";q("sendOtpBtn").disabled=true;
+  try{
+    await ensureRecaptcha();
+    confirmationResult=await signInWithPhoneNumber(auth,"+91"+raw,window.recaptchaVerifier);
+    q("otpArea").style.display="block";
+    q("otpMsg").textContent="✅ OTP sent! Check your phone.";
+    q("otpMsg").style.color="#16a34a";
+    q("sendOtpBtn").textContent="Resend OTP";q("sendOtpBtn").disabled=false;
+  }catch(e){
+    showErr(e.message||"Failed to send OTP");
+    q("sendOtpBtn").textContent="Send OTP";q("sendOtpBtn").disabled=false;
+  }
 };
 
-// Enable submit directly
-q("submitBtn").disabled = false;
-q("btnText").innerText = "🚀 Book My Free Session";
-
-// Submit
-q("submitBtn").onclick = async () => {
-
-  const data = {
-    name: q("uname").value,
-    email: q("uemail").value,
-    phone: q("uphone").value,
-    exam: q("uexam").value,
-    state: q("ustate").value,
-    mode: sessionMode
-  };
-
-  if (!data.name || !data.phone || !data.exam || !data.state) {
-    alert("Please fill all details");
-    return;
+q("verifyOtpBtn").onclick=async()=>{
+  if(!confirmationResult){showErr("Send OTP first");return}
+  var code=q("otpCode").value.trim();
+  q("verifyOtpBtn").textContent="Verifying...";q("verifyOtpBtn").disabled=true;
+  try{
+    await confirmationResult.confirm(code);
+    phoneVerified=true;
+    q("otpMsg").textContent="✅ Mobile verified!";
+    q("otpMsg").style.color="#16a34a";
+    q("submitBtn").disabled=false;
+    q("verifyOtpBtn").textContent="✓ Verified";
+  }catch(e){
+    q("otpMsg").textContent="❌ Wrong OTP. Try again.";
+    q("otpMsg").style.color="#E53935";
+    q("verifyOtpBtn").textContent="Verify";q("verifyOtpBtn").disabled=false;
   }
+};
 
-  try {
-    await fetch(SHEET_URL, {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify(data)
-    });
-
-    q("formContent").style.display = "none";
-    q("successView").style.display = "block";
-
-  } catch (error) {
-    alert("Error submitting form");
-  }
+q("submitBtn").onclick=()=>{
+  if(!phoneVerified){showErr("Please verify your mobile first");return}
+  const p={name:q("name").value.trim(),phone:q("phone").value.trim(),email:q("email").value.trim(),state:q("state").value,mode:sessionMode,ts:new Date().toISOString()};
+  if(!p.name||!p.phone||!p.state){showErr("Name, Phone and State are required");return}
+  showOk("🎉 Woohoo! Your free session is booked. We'll contact you soon!");
+  q("submitBtn").disabled=true;
+  console.log("Form data:",p);
 };
 </script>
+</body>
+</html>
