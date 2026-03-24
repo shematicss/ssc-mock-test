@@ -1,437 +1,132 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Book Free Session – SheMatics</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100%}
-body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 50%,#0d1117 100%);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow-x:hidden}
-.fm{position:fixed;font-family:serif;font-weight:700;pointer-events:none;animation:fmFloat var(--dur) ease-in-out infinite;opacity:.08;color:#fff;font-size:var(--sz);z-index:0}
-@keyframes fmFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(6deg)}}
-.topbar{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07);padding:12px 24px;display:flex;align-items:center;gap:12px}
-.logo{width:38px;height:38px;object-fit:contain}
-.brand{font-family:"Playfair Display",serif;font-weight:800;font-size:18px;background:linear-gradient(135deg,#E53935,#1E64C8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.back-btn{margin-left:auto;padding:7px 16px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:12px;font-weight:600;text-decoration:none;transition:.2s all}
-.back-btn:hover{background:rgba(255,255,255,.18);color:#fff}
-main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 16px;position:relative;z-index:1}
-.rp-card{width:100%;max-width:500px;background:rgba(255,255,255,.97);border-radius:28px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);animation:cardIn .7s cubic-bezier(.34,1.56,.64,1) both}
-@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
-.rp-banner{background:linear-gradient(135deg,#E53935 0%,#c8392b 30%,#1E64C8 70%,#0d3b7a 100%);padding:28px 28px 22px;position:relative;overflow:hidden}
-.rp-banner::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.07)}
-.rp-banner::after{content:"";position:absolute;bottom:-25px;left:-25px;width:100px;height:100px;border-radius:50%;background:rgba(0,0,0,.08)}
-.rp-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:10px}
-.rp-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:rpPulse 2s infinite}
-@keyframes rpPulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 6px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
-.rp-banner h2{font-family:"Playfair Display",serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:4px;position:relative;z-index:1}
-.rp-banner p{font-size:12px;color:rgba(255,255,255,.75);position:relative;z-index:1}
-.rp-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
-.rp-pill{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:10px;font-weight:600;color:#fff}
-.rp-form{padding:24px 28px}
-.rp-emoji-row{display:flex;justify-content:center;gap:14px;margin-bottom:18px}
-.rp-emoji{font-size:22px;animation:emojiFloat var(--ef) ease-in-out infinite;display:inline-block}
-@keyframes emojiFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
-/* Steps */
-.steps{display:flex;align-items:center;gap:4px;margin-bottom:20px}
-.step{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:#9ca3af;white-space:nowrap}
-.step.active{color:#1E64C8}
-.step.done{color:#16a34a}
-.step-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;background:#f0f4f8;color:#9ca3af;flex-shrink:0}
-.step.active .step-num{background:#1E64C8;color:#fff}
-.step.done .step-num{background:#16a34a;color:#fff}
-.step-line{flex:1;height:1.5px;background:#e5e7eb;min-width:8px}
-
-.rp-tabs{display:flex;gap:6px;margin-bottom:20px;background:#f4f7fc;border-radius:14px;padding:4px}
-.rp-tab{flex:1;padding:9px 12px;border-radius:10px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:#6b7280;transition:.2s all;border:none;background:transparent;font-family:"Plus Jakarta Sans",sans-serif}
-.rp-tab.active{background:#fff;color:#1E64C8;box-shadow:0 2px 8px rgba(11,15,26,.08)}
-.rf{margin-bottom:16px}
-.rf label{display:block;font-size:10px;font-weight:700;color:#0B0F1A;margin-bottom:6px;letter-spacing:.8px;text-transform:uppercase}
-.rf input,.rf select{width:100%;padding:12px 14px;border:1.5px solid rgba(11,15,26,.09);border-radius:12px;font-size:13px;font-weight:500;color:#0B0F1A;font-family:"Plus Jakarta Sans",sans-serif;background:#fff;outline:none;transition:.2s all}
-.rf input:focus,.rf select:focus{border-color:#1E64C8;box-shadow:0 0 0 3px rgba(30,100,200,.08)}
-.rf input::placeholder{color:#c4cad4}
-.rf select{color:#6b7280;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-.rf select option{color:#0B0F1A}
-
-/* OTP row */
-.otp-r{display:flex;gap:8px}
-.otp-r input{flex:1}
-.otp-b{padding:12px 14px;border-radius:12px;border:1.5px solid #1E64C8;background:#fff;color:#1E64C8;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s all;font-family:"Plus Jakarta Sans",sans-serif}
-.otp-b:hover:not(:disabled){background:#1E64C8;color:#fff}
-.otp-b:disabled{opacity:.5;cursor:not-allowed}
-#otpArea{display:none;margin-top:10px}
-#otpMsg{font-size:12px;margin-top:6px;font-weight:600}
-
-/* Verified badge */
-.verified-badge{display:none;align-items:center;gap:5px;font-size:12px;color:#16a34a;font-weight:700;margin-top:8px;padding:8px 12px;background:rgba(22,163,74,.08);border-radius:10px;border:1px solid rgba(22,163,74,.2)}
-
-/* Countdown */
-.countdown{font-size:11px;color:#6b7280;margin-top:4px}
-.countdown span{color:#E53935;font-weight:700}
-
-.rp-submit{width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,#E53935,#1E64C8);color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;box-shadow:0 6px 20px rgba(30,100,200,.3);transition:.25s all;position:relative;overflow:hidden;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
-.rp-submit::before{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:skewX(-20deg);transition:0s}
-.rp-submit:hover:not(:disabled)::before{left:125%;transition:.5s left}
-.rp-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 28px rgba(30,100,200,.4)}
-.rp-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.btn-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-.msg-err{font-size:13px;color:#E53935;margin-top:12px;padding:12px 14px;background:rgba(229,57,53,.06);border:1px solid rgba(229,57,53,.2);border-radius:12px;display:none}
-.rp-privacy{font-size:10px;color:#9ca3af;text-align:center;margin-top:14px;line-height:1.6}
-
-/* Success */
-.success-view{display:none;text-align:center;padding:10px 0}
-.success-icon{font-size:56px;margin-bottom:12px;animation:successPop .6s cubic-bezier(.34,1.56,.64,1)}
-@keyframes successPop{from{transform:scale(0) rotate(-10deg)}to{transform:scale(1) rotate(0deg)}}
-.success-view h3{font-family:"Playfair Display",serif;font-size:22px;color:#0B0F1A;margin-bottom:8px}
-.success-view p{font-size:13px;color:#6b7280;line-height:1.7}
-.success-details{background:#f4f7fc;border-radius:14px;padding:14px;margin:16px 0;text-align:left}
-.sd-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.05)}
-.sd-row:last-child{border:none}
-.sd-label{color:#6b7280;font-weight:500}
-.sd-val{color:#0B0F1A;font-weight:700}
-
-@media(max-width:520px){
-  .rp-form{padding:20px 18px}
-  .rp-banner{padding:22px 20px 18px}
-  .rp-banner h2{font-size:20px}
-  main{padding:16px;align-items:flex-start}
-}
-</style>
-</head>
-<body>
-
-<div class="fm" style="top:5%;left:3%;--dur:4s;--sz:32px">π</div>
-<div class="fm" style="top:12%;right:5%;--dur:5s;--sz:24px;animation-delay:.5s">∑</div>
-<div class="fm" style="bottom:25%;left:5%;--dur:6s;--sz:22px;animation-delay:1s">∫</div>
-<div class="fm" style="bottom:12%;right:7%;--dur:4.5s;--sz:28px;animation-delay:1.5s">√</div>
-<div class="fm" style="top:45%;left:1%;--dur:5.5s;--sz:20px;animation-delay:2s">∞</div>
-<div class="fm" style="top:65%;right:2%;--dur:4s;--sz:22px;animation-delay:.8s">θ</div>
-<div class="fm" style="top:30%;right:1%;--dur:6s;--sz:18px;animation-delay:2.5s">Δ</div>
-<div class="fm" style="bottom:40%;left:2%;--dur:5s;--sz:20px;animation-delay:1.8s">α</div>
-
-<div class="topbar">
-  <img class="logo" src="assets/img/logo.png" alt="SheMatics">
-  <div class="brand">SheMatics</div>
-  <a class="back-btn" href="index.html">← Back to Home</a>
-</div>
-
-<main>
-  <div class="rp-card">
-    <div class="rp-banner">
-      <div class="rp-badge"><div class="rp-dot"></div>100% Free</div>
-      <h2>Book Your Free Session! 🎯</h2>
-      <p>Join SheMatics & crack your dream exam with expert guidance</p>
-      <div class="rp-pills">
-        <span class="rp-pill">⏱️ Timed Tests</span>
-        <span class="rp-pill">📊 Score Analysis</span>
-        <span class="rp-pill">📝 Crisp Notes</span>
-        <span class="rp-pill">🎓 SSC · Banking · Railway</span>
-      </div>
-    </div>
-
-    <div class="rp-form">
-      <div class="rp-emoji-row">
-        <span class="rp-emoji" style="--ef:3s">📚</span>
-        <span class="rp-emoji" style="--ef:3.5s;animation-delay:.3s">✏️</span>
-        <span class="rp-emoji" style="--ef:4s;animation-delay:.6s">🏆</span>
-        <span class="rp-emoji" style="--ef:3.2s;animation-delay:.9s">🎯</span>
-        <span class="rp-emoji" style="--ef:3.8s;animation-delay:1.2s">💡</span>
-      </div>
-
-      <div id="formContent">
-        <!-- Steps -->
-        <div class="steps">
-          <div class="step active" id="s1"><div class="step-num">1</div> Email OTP</div>
-          <div class="step-line"></div>
-          <div class="step" id="s2"><div class="step-num">2</div> Your Details</div>
-          <div class="step-line"></div>
-          <div class="step" id="s3"><div class="step-num">3</div> Done! 🎉</div>
-        </div>
-
-        <!-- Mode tabs -->
-        <div class="rp-tabs">
-          <button class="rp-tab active" id="modeOnline">🖥️ Online Session</button>
-          <button class="rp-tab" id="modeOffline">🏫 Offline Session</button>
-        </div>
-
-        <!-- Name -->
-        <div class="rf">
-          <label>Your Name *</label>
-          <input id="uname" type="text" placeholder="Enter your full name ✨">
-        </div>
-
-        <!-- Email + OTP -->
-        <div class="rf">
-          <label>Email Address * (OTP will be sent here)</label>
-          <div class="otp-r">
-            <input id="uemail" type="email" placeholder="your@email.com 📧">
-            <button class="otp-b" id="sendOtpBtn">Send OTP</button>
-          </div>
-          <div id="otpArea">
-            <div class="otp-r" style="margin-top:10px">
-              <input id="otpCode" type="text" placeholder="Enter 6-digit OTP 🔐" maxlength="6" inputmode="numeric">
-              <button class="otp-b" id="verifyOtpBtn">Verify</button>
-            </div>
-            <div id="otpMsg"></div>
-            <div class="countdown" id="countdown"></div>
-          </div>
-          <div class="verified-badge" id="verifiedBadge">✅ Email Verified!</div>
-        </div>
-
-        <!-- Phone -->
-        <div class="rf">
-          <label>WhatsApp Number *</label>
-          <input id="uphone" type="tel" placeholder="10-digit number 📱" maxlength="10" inputmode="numeric">
-        </div>
-
-        <!-- Target Exam -->
-        <div class="rf">
-          <label>Target Exam *</label>
-          <select id="uexam">
-            <option value="">Select your target exam 🎯</option>
-            <option>SSC CGL</option>
-            <option>SSC CHSL</option>
-            <option>SSC MTS</option>
-            <option>SSC CPO</option>
-            <option>RRB NTPC</option>
-            <option>RRB Group D</option>
-            <option>Banking (IBPS/SBI)</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <!-- State -->
-        <div class="rf">
-          <label>State / UT *</label>
-          <select id="ustate">
-            <option value="">Select your state 🗺️</option>
-            <option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
-            <option>Assam</option><option>Bihar</option><option>Chhattisgarh</option>
-            <option>Goa</option><option>Gujarat</option><option>Haryana</option>
-            <option>Himachal Pradesh</option><option>Jharkhand</option>
-            <option>Karnataka</option><option>Kerala</option>
-            <option>Madhya Pradesh</option><option>Maharashtra</option>
-            <option>Manipur</option><option>Meghalaya</option><option>Mizoram</option>
-            <option>Nagaland</option><option>Odisha</option><option>Punjab</option>
-            <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option>
-            <option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option>
-            <option>Uttarakhand</option><option>West Bengal</option>
-            <option>Delhi</option><option>Jammu & Kashmir</option>
-            <option>Chandigarh</option><option>Puducherry</option>
-          </select>
-        </div>
-
-        <button class="rp-submit" id="submitBtn" disabled>
-          <span id="btnText">🔒 Verify Email First</span>
-          <div class="btn-spinner" id="btnSpinner"></div>
-        </button>
-        <div class="msg-err" id="msgErr"></div>
-        <div class="rp-privacy">🔒 Your data is 100% safe · No spam ever · maths by her.....∞</div>
-      </div>
-
-      <!-- Success view -->
-      <div class="success-view" id="successView">
-        <div class="success-icon">🎉</div>
-        <h3>Woohoo! Session Booked!</h3>
-        <p>We've received your request! Our team will contact you on WhatsApp within <strong>24 hours</strong>. Check your email too! 📧</p>
-        <div class="success-details" id="successDetails"></div>
-        <p style="font-size:11px;color:#9ca3af;margin-top:8px">maths by her.....∞ · SheMatics</p>
-      </div>
-    </div>
-  </div>
-</main>
-
-<!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-// ── EmailJS Config ──────────────────────────────────────
+
+// ✅ EmailJS Config
 const EJS_PUBLIC_KEY   = "j__EYAy1xhWlxnATm";
 const EJS_SERVICE_ID   = "service_rd9dicx";
 const EJS_TEMPLATE_ID  = "cetjf04";
 
-// ── Google Sheet URL (Step 2 mein add karna) ────────────
-// Abhi empty rakho — baad mein add karenge
-const SHEET_URL = "";
-// ────────────────────────────────────────────────────────
+// ✅ Google Sheet URL (already added)
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyPeQ3UZ7jjpAhBnM3SaxKFxLU8X0-vSABwoQ3df0qgERVahDtz-PV_PUTG0u5QXtXq1Q/exec";
 
 emailjs.init(EJS_PUBLIC_KEY);
 
 const q = id => document.getElementById(id);
+
 let sessionMode = "Online";
 let emailVerified = false;
 let generatedOTP = "";
 let otpExpiry = null;
-let countdownTimer = null;
 
-// Mode tabs
-q("modeOnline").onclick = () => { sessionMode="Online"; q("modeOnline").classList.add("active"); q("modeOffline").classList.remove("active"); };
-q("modeOffline").onclick = () => { sessionMode="Offline"; q("modeOffline").classList.add("active"); q("modeOnline").classList.remove("active"); };
+// Mode toggle
+q("modeOnline").onclick = () => {
+  sessionMode="Online";
+  q("modeOnline").classList.add("active");
+  q("modeOffline").classList.remove("active");
+};
 
-function showErr(msg) {
+q("modeOffline").onclick = () => {
+  sessionMode="Offline";
+  q("modeOffline").classList.add("active");
+  q("modeOnline").classList.remove("active");
+};
+
+// Error show
+function showErr(msg){
   const e = q("msgErr");
   e.textContent = "⚠️ " + msg;
   e.style.display = "block";
-  setTimeout(() => e.style.display = "none", 5000);
+  setTimeout(()=>e.style.display="none",4000);
 }
 
-function setOtpMsg(msg, ok) {
-  const el = q("otpMsg");
-  el.textContent = msg;
-  el.style.color = ok ? "#16a34a" : "#E53935";
+// OTP generate
+function generateOTP(){
+  return Math.floor(100000 + Math.random()*900000).toString();
 }
 
-function generateOTP() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-}
-
-function startCountdown(seconds) {
-  if (countdownTimer) clearInterval(countdownTimer);
-  const el = q("countdown");
-  let remaining = seconds;
-  el.innerHTML = `OTP valid for <span>${remaining}s</span>`;
-  countdownTimer = setInterval(() => {
-    remaining--;
-    if (remaining <= 0) {
-      clearInterval(countdownTimer);
-      el.innerHTML = `<span style="color:#E53935">OTP expired. Please resend.</span>`;
-      q("sendOtpBtn").disabled = false;
-      q("sendOtpBtn").textContent = "Resend OTP";
-    } else {
-      el.innerHTML = `OTP valid for <span>${remaining}s</span>`;
-    }
-  }, 1000);
-}
-
-// Send OTP
+// SEND OTP
 q("sendOtpBtn").onclick = async () => {
+
   const email = q("uemail").value.trim();
   const name = q("uname").value.trim() || "Student";
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showErr("Please enter a valid email address");
+
+  if(!email){
+    showErr("Enter email first");
     return;
   }
 
-  const btn = q("sendOtpBtn");
-  btn.disabled = true;
-  btn.textContent = "Sending...";
-
   generatedOTP = generateOTP();
-  otpExpiry = Date.now() + 10 * 60 * 1000; // 10 min
+  otpExpiry = Date.now() + (10*60*1000);
 
-  const expireTime = new Date(otpExpiry).toLocaleTimeString("en-IN");
-
-  try {
+  try{
     await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, {
       email: email,
       passcode: generatedOTP,
-      time: expireTime,
+      time: "10 minutes",
       to_name: name
     });
 
     q("otpArea").style.display = "block";
-    setOtpMsg("✅ OTP sent to " + email, true);
-    btn.textContent = "Resend OTP";
-    btn.disabled = false;
-    startCountdown(600);
+    q("otpMsg").innerText = "✅ OTP sent to email";
 
-    // Step indicator
-    q("s1").classList.add("done");
-    q("s1").classList.remove("active");
-    q("s2").classList.add("active");
-
-  } catch(err) {
-    console.error(err);
-    showErr("Failed to send OTP. Please try again.");
-    btn.textContent = "Send OTP";
-    btn.disabled = false;
+  }catch(e){
+    showErr("OTP failed");
   }
 };
 
-// Verify OTP
+// VERIFY OTP
 q("verifyOtpBtn").onclick = () => {
+
   const entered = q("otpCode").value.trim();
-  if (!entered || entered.length < 6) {
-    setOtpMsg("❌ Please enter the 6-digit OTP", false);
-    return;
-  }
-  if (Date.now() > otpExpiry) {
-    setOtpMsg("❌ OTP expired. Please resend.", false);
-    return;
-  }
-  if (entered === generatedOTP) {
+
+  if(entered === generatedOTP && Date.now() < otpExpiry){
     emailVerified = true;
-    if (countdownTimer) clearInterval(countdownTimer);
-    q("otpArea").style.display = "none";
-    q("countdown").innerHTML = "";
     q("verifiedBadge").style.display = "flex";
     q("submitBtn").disabled = false;
-    q("btnText").textContent = "🚀 Book My Free Session";
-    q("s2").classList.add("done");
-    q("s2").classList.remove("active");
-    q("s3").classList.add("active");
-  } else {
-    setOtpMsg("❌ Wrong OTP. Please try again.", false);
-    q("otpCode").value = "";
-    q("otpCode").focus();
+    q("btnText").innerText = "🚀 Book My Free Session";
+    q("otpArea").style.display = "none";
+  }else{
+    q("otpMsg").innerText = "❌ Wrong or expired OTP";
   }
 };
 
-// Submit
+// SUBMIT
 q("submitBtn").onclick = async () => {
-  if (!emailVerified) { showErr("Please verify your email first"); return; }
 
-  const name  = q("uname").value.trim();
-  const email = q("uemail").value.trim();
-  const phone = q("uphone").value.trim();
-  const exam  = q("uexam").value;
-  const state = q("ustate").value;
-
-  if (!name)  { showErr("Please enter your name"); return; }
-  if (!/^\d{10}$/.test(phone)) { showErr("Please enter a valid 10-digit WhatsApp number"); return; }
-  if (!exam)  { showErr("Please select your target exam"); return; }
-  if (!state) { showErr("Please select your state"); return; }
-
-  // Show spinner
-  q("btnText").style.display = "none";
-  q("btnSpinner").style.display = "block";
-  q("submitBtn").disabled = true;
+  if(!emailVerified){
+    showErr("Verify email first");
+    return;
+  }
 
   const data = {
-    name, email, phone, exam, state,
+    name: q("uname").value,
+    email: q("uemail").value,
+    phone: q("uphone").value,
+    exam: q("uexam").value,
+    state: q("ustate").value,
     mode: sessionMode,
-    timestamp: new Date().toLocaleString("en-IN", {timeZone:"Asia/Kolkata"})
+    time: new Date().toLocaleString()
   };
 
-  // Save to Google Sheet (if URL set)
-  if (SHEET_URL) {
-    try {
-      await fetch(SHEET_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-    } catch(e) { console.warn("Sheet save failed", e); }
+  if(!data.name || !data.phone || !data.exam || !data.state){
+    showErr("Fill all details");
+    return;
   }
 
-  // Show success
-  setTimeout(() => {
+  try{
+    await fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(data)
+    });
+
+    // SUCCESS UI
     q("formContent").style.display = "none";
     q("successView").style.display = "block";
-    q("successDetails").innerHTML = `
-      <div class="sd-row"><span class="sd-label">Name</span><span class="sd-val">${name}</span></div>
-      <div class="sd-row"><span class="sd-label">Email</span><span class="sd-val">${email} ✅</span></div>
-      <div class="sd-row"><span class="sd-label">WhatsApp</span><span class="sd-val">${phone}</span></div>
-      <div class="sd-row"><span class="sd-label">Exam</span><span class="sd-val">${exam}</span></div>
-      <div class="sd-row"><span class="sd-label">Mode</span><span class="sd-val">${sessionMode}</span></div>
-      <div class="sd-row"><span class="sd-label">State</span><span class="sd-val">${state}</span></div>
-    `;
-  }, 800);
+
+  }catch(e){
+    showErr("Submission failed");
+  }
 };
+
 </script>
-</body>
-</html>
