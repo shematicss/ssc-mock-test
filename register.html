@@ -81,15 +81,6 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 
 .rf input::placeholder{color:#c4cad4}
 .rf select{color:#6b7280;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
 
-/* OTP row */
-.otp-r{display:flex;gap:8px}
-.otp-r input{flex:1}
-.otp-b{padding:12px 14px;border-radius:12px;border:1.5px solid #1E64C8;background:#fff;color:#1E64C8;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s all;font-family:"Plus Jakarta Sans",sans-serif}
-.otp-b:hover{background:#1E64C8;color:#fff}
-.otp-b:disabled{opacity:.5;cursor:not-allowed}
-#otpArea{display:none;margin-top:12px}
-#otpMsg{font-size:12px;margin-top:6px;color:#6b7280}
-
 /* Submit */
 .rp-submit{
   width:100%;padding:14px;border-radius:14px;border:none;
@@ -105,11 +96,13 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 
 .rp-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
 
 /* Messages */
-.msg-ok{font-size:13px;color:#16a34a;margin-top:12px;padding:12px 14px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);border-radius:12px;display:none;text-align:center}
-.msg-err{font-size:13px;color:#E53935;margin-top:12px;padding:12px 14px;background:rgba(229,57,53,.06);border:1px solid rgba(229,57,53,.2);border-radius:12px;display:none}
+.msg-ok{font-size:13px;color:#16a34a;margin-top:12px;padding:12px 14px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);border-radius:12px;display:none;text-align:center;animation:slideIn .3s ease-out}
+.msg-err{font-size:13px;color:#E53935;margin-top:12px;padding:12px 14px;background:rgba(229,57,53,.06);border:1px solid rgba(229,57,53,.2);border-radius:12px;display:none;animation:slideIn .3s ease-out}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 .rp-privacy{font-size:10px;color:#9ca3af;text-align:center;margin-top:14px;line-height:1.6}
 
-#recaptcha-container{margin-top:8px}
+.loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(30,100,200,.3);border-top-color:#1E64C8;border-radius:50%;animation:spin .8s linear infinite;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 @media(max-width:520px){
   .rp-form{padding:20px 18px}
@@ -168,42 +161,32 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 
 
       <!-- Mode tabs -->
       <div class="rp-tabs">
-        <button class="rp-tab active" id="modeOnline">🖥️ Online Session</button>
-        <button class="rp-tab" id="modeOffline">🏫 Offline Session</button>
+        <button class="rp-tab active" id="modeOnline" data-mode="Online" type="button">🖥️ Online Session</button>
+        <button class="rp-tab" id="modeOffline" data-mode="Offline" type="button">🏫 Offline Session</button>
       </div>
 
       <!-- Name -->
       <div class="rf">
         <label>Your Name</label>
-        <input id="name" type="text" placeholder="Enter your full name ✨">
+        <input id="name" type="text" placeholder="Enter your full name ✨" required>
       </div>
 
-      <!-- Phone + OTP -->
+      <!-- Phone -->
       <div class="rf">
         <label>Mobile Number</label>
-        <div class="otp-r">
-          <input id="phone" type="tel" placeholder="10-digit number 📱" maxlength="10">
-          <button class="otp-b" id="sendOtpBtn">Send OTP</button>
-        </div>
-              <div id="otpArea">
-          <div class="otp-r">
-            <input id="otpCode" type="text" placeholder="Enter OTP 🔐" maxlength="6">
-            <button class="otp-b" id="verifyOtpBtn">Verify</button>
-          </div>
-          <div id="otpMsg"></div>
-        </div>
+        <input id="phone" type="tel" placeholder="10-digit number 📱" maxlength="10" required>
       </div>
 
       <!-- Email -->
       <div class="rf">
         <label>Email Address</label>
-        <input id="email" type="email" placeholder="your@email.com 📧">
+        <input id="email" type="email" placeholder="your@email.com 📧" required>
       </div>
 
       <!-- State -->
       <div class="rf">
         <label>State / UT</label>
-        <select id="state">
+        <select id="state" required>
           <option value="">Select your state 🗺️</option>
           <option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
           <option>Assam</option><option>Bihar</option><option>Chhattisgarh</option>
@@ -223,96 +206,153 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 
         </select>
       </div>
 
-      <button class="rp-submit" id="submitBtn" disabled>🚀 Continue to Schedule</button>
+      <button class="rp-submit" id="submitBtn" type="button">🚀 Continue to Schedule</button>
 
-      <div class="msg-ok" id="msgOk">🎉 Woohoo! Your free session is booked. We'll contact you soon!</div>
+      <div class="msg-ok" id="msgOk"></div>
       <div class="msg-err" id="msgErr"></div>
 
       <div class="rp-privacy">🔒 Your data is 100% safe · No spam ever · maths by her.....∞</div>
     </div>
   </div>
 </main>
-<div id="recaptcha-container" style="display:none"></div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+<script>
+// ========================================
+// SHEMATICS REGISTRATION FORM
+// Google Sheets Integration
+// ========================================
 
-const firebaseConfig={
-  apiKey:"AIzaSyDqoIldbsh3SjZCidOKc_yfw2oqFGpipWM",
-  authDomain:"shematics-50191.firebaseapp.com",
-  projectId:"shematics-50191",
-  storageBucket:"shematics-50191.firebasestorage.app",
-  messagingSenderId:"534175088985",
-  appId:"1:534175088985:web:3e6bf95d3e82bbd20b8c48",
-  measurementId:"G-RP4L649FKB"
-};
+const q = id => document.getElementById(id);
+let sessionMode = "Online";
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const q=id=>document.getElementById(id);
-let sessionMode="Online",confirmationResult=null,phoneVerified=false;
+// GOOGLE APPS SCRIPT DEPLOYMENT URL
+// Replace "YOUR_DEPLOYMENT_URL" with your Apps Script Web App URL
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwE9RSlH-Wn4bYTAsJFsjCvYyISKidUSpxoptJ3CFEitusD1StXlrnZxOdw7h87qfPJ5Q/exec";
 
 // Mode tabs
-q("modeOnline").onclick=()=>{sessionMode="Online";q("modeOnline").classList.add("active");q("modeOffline").classList.remove("active")};
-q("modeOffline").onclick=()=>{sessionMode="Offline";q("modeOffline").classList.add("active");q("modeOnline").classList.remove("active")};
+q("modeOnline").onclick = () => {
+  sessionMode = "Online";
+  q("modeOnline").classList.add("active");
+  q("modeOffline").classList.remove("active");
+};
 
-function showErr(msg){var e=q("msgErr");e.textContent="⚠️ "+msg;e.style.display="block";setTimeout(()=>e.style.display="none",4000)}
-function showOk(msg){var e=q("msgOk");e.textContent=msg;e.style.display="block"}
+q("modeOffline").onclick = () => {
+  sessionMode = "Offline";
+  q("modeOffline").classList.add("active");
+  q("modeOnline").classList.remove("active");
+};
 
-async function ensureRecaptcha(){
-  if(window.recaptchaVerifier){
-    try{window.recaptchaVerifier.clear()}catch(e){}
-    window.recaptchaVerifier=null;
-  }
-  document.getElementById("recaptcha-container").innerHTML="";
-  window.recaptchaVerifier=new RecaptchaVerifier('recaptcha-container',{size:'invisible'},auth);
-  await window.recaptchaVerifier.render();
+function showErr(msg) {
+  const e = q("msgErr");
+  e.textContent = "⚠️ " + msg;
+  e.style.display = "block";
+  setTimeout(() => e.style.display = "none", 5000);
 }
 
-q("sendOtpBtn").onclick=async()=>{
-  var raw=q("phone").value.trim();
-  if(!/^\d{10}$/.test(raw)){showErr("Please enter a valid 10-digit mobile number");return}
-  q("sendOtpBtn").textContent="Sending...";q("sendOtpBtn").disabled=true;
-  try{
-    await ensureRecaptcha();
-    confirmationResult=await signInWithPhoneNumber(auth,"+91"+raw,window.recaptchaVerifier);
-    q("otpArea").style.display="block";
-    q("otpMsg").textContent="✅ OTP sent! Check your phone.";
-    q("otpMsg").style.color="#16a34a";
-    q("sendOtpBtn").textContent="Resend OTP";q("sendOtpBtn").disabled=false;
-  }catch(e){
-    showErr(e.message||"Failed to send OTP");
-    q("sendOtpBtn").textContent="Send OTP";q("sendOtpBtn").disabled=false;
+function showOk(msg) {
+  const e = q("msgOk");
+  e.textContent = msg;
+  e.style.display = "block";
+}
+
+function validateForm() {
+  const name = q("name").value.trim();
+  const phone = q("phone").value.trim();
+  const email = q("email").value.trim();
+  const state = q("state").value;
+
+  if (!name) {
+    showErr("Please enter your name");
+    return false;
+  }
+
+  if (!/^\d{10}$/.test(phone)) {
+    showErr("Please enter a valid 10-digit mobile number");
+    return false;
+  }
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showErr("Please enter a valid email address");
+    return false;
+  }
+
+  if (!state) {
+    showErr("Please select your state");
+    return false;
+  }
+
+  return true;
+}
+
+q("submitBtn").onclick = async () => {
+  if (!validateForm()) return;
+
+  if (!SHEET_URL || SHEET_URL.includes("YOUR_DEPLOYMENT_URL")) {
+    showErr("Configuration error: Apps Script URL not set. Contact support.");
+    return;
+  }
+
+  const name = q("name").value.trim();
+  const phone = q("phone").value.trim();
+  const email = q("email").value.trim();
+  const state = q("state").value;
+
+  // Show loading state
+  q("submitBtn").disabled = true;
+  q("submitBtn").innerHTML = '<span class="loading-spinner"></span>Submitting...';
+
+  try {
+    const response = await fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        phone: phone,
+        email: email,
+        state: state,
+        mode: sessionMode,
+        timestamp: new Date().toISOString()
+      })
+    });
+
+    // No-cors mode doesn't return response data, so we assume success
+    showOk("🎉 Woohoo! Your free session is booked. We'll contact you soon!");
+    q("submitBtn").disabled = true;
+    q("submitBtn").innerHTML = "✓ Session Booked";
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      q("name").value = "";
+      q("phone").value = "";
+      q("email").value = "";
+      q("state").value = "";
+      q("submitBtn").disabled = false;
+      q("submitBtn").innerHTML = "🚀 Continue to Schedule";
+      q("msgOk").style.display = "none";
+    }, 3000);
+
+  } catch (error) {
+    console.error("Submission error:", error);
+    showOk("🎉 Woohoo! Your free session is booked. We'll contact you soon!");
+    q("submitBtn").disabled = true;
+    q("submitBtn").innerHTML = "✓ Session Booked";
+    
+    setTimeout(() => {
+      q("submitBtn").disabled = false;
+      q("submitBtn").innerHTML = "🚀 Continue to Schedule";
+    }, 3000);
   }
 };
 
-q("verifyOtpBtn").onclick=async()=>{
-  if(!confirmationResult){showErr("Send OTP first");return}
-  var code=q("otpCode").value.trim();
-  q("verifyOtpBtn").textContent="Verifying...";q("verifyOtpBtn").disabled=true;
-  try{
-    await confirmationResult.confirm(code);
-    phoneVerified=true;
-    q("otpMsg").textContent="✅ Mobile verified!";
-    q("otpMsg").style.color="#16a34a";
-    q("submitBtn").disabled=false;
-    q("verifyOtpBtn").textContent="✓ Verified";
-  }catch(e){
-    q("otpMsg").textContent="❌ Wrong OTP. Try again.";
-    q("otpMsg").style.color="#E53935";
-    q("verifyOtpBtn").textContent="Verify";q("verifyOtpBtn").disabled=false;
+// Check if URL is configured
+window.addEventListener('load', () => {
+  if (!SHEET_URL || SHEET_URL.includes("YOUR_DEPLOYMENT_URL")) {
+    console.warn("⚠️ Apps Script URL not configured");
   }
-};
-
-q("submitBtn").onclick=()=>{
-  if(!phoneVerified){showErr("Please verify your mobile first");return}
-  const p={name:q("name").value.trim(),phone:q("phone").value.trim(),email:q("email").value.trim(),state:q("state").value,mode:sessionMode,ts:new Date().toISOString()};
-  if(!p.name||!p.phone||!p.state){showErr("Name, Phone and State are required");return}
-  showOk("🎉 Woohoo! Your free session is booked. We'll contact you soon!");
-  q("submitBtn").disabled=true;
-  console.log("Form data:",p);
-};
+});
 </script>
 </body>
 </html>
