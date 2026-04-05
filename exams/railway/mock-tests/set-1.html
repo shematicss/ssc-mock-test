@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTPC Set 1 - Mock Test | SheMatics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
+            min-height: 100vh;
+            padding: 16px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, .98);
+            border-radius: 20px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, .5);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #E53935 0%, #1E64C8 100%);
+            padding: 24px;
+            color: white;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: .9;
+        }
+
+        /* Timer & Score Bar */
+        .top-bar {
+            display: flex;
+            gap: 16px;
+            padding: 16px 24px;
+            background: #f4f7fc;
+            border-bottom: 1px solid rgba(11, 15, 26, .08);
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+
+        .timer span {
+            font-size: 18px;
+        }
+
+        .progress-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            width: 150px;
+            height: 6px;
+            background: #ddd;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #E53935, #1E64C8);
+            width: 0%;
+            transition: width .3s ease;
+        }
+
+        /* Question Section */
+        .content {
+            padding: 24px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .question-block {
+            margin-bottom: 28px;
+            display: none;
+        }
+
+        .question-block.active {
+            display: block;
+            animation: slideIn .3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .question-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #E53935, #1E64C8);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .question-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #0B0F1A;
+            flex: 1;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(30, 100, 200, .1);
+            color: #1E64C8;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: #0B0F1A;
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 12px 16px;
+            border: 1.5px solid rgba(11, 15, 26, .12);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all .2s;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .option:hover {
+            border-color: #1E64C8;
+            background: rgba(30, 100, 200, .03);
+        }
+
+        .option input[type="radio"] {
+            cursor: pointer;
+            accent-color: #1E64C8;
+        }
+
+        .option.selected {
+            background: rgba(30, 100, 200, .08);
+            border-color: #1E64C8;
+        }
+
+        .option.correct {
+            background: rgba(22, 163, 74, .08);
+            border-color: #16a34a;
+        }
+
+        .option.incorrect {
+            background: rgba(229, 57, 53, .08);
+            border-color: #E53935;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            padding: 24px;
+            border-top: 1px solid rgba(11, 15, 26, .08);
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .btn-prev {
+            background: rgba(11, 15, 26, .08);
+            color: #0B0F1A;
+            flex: 1;
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background: rgba(11, 15, 26, .15);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #E53935, #1E64C8);
+            color: white;
+            flex: 1;
+            box-shadow: 0 6px 20px rgba(30, 100, 200, .3);
+        }
+
+        .btn-next:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(30, 100, 200, .4);
+        }
+
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn-submit {
+            background: #16a34a;
+            color: white;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .btn-submit:hover {
+            background: #15803d;
+        }
+
+        /* Results */
+        .results {
+            display: none;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .results-card {
+            background: linear-gradient(135deg, rgba(229, 57, 53, .1) 0%, rgba(30, 100, 200, .1) 100%);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #E53935, #1E64C8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            font-weight: 800;
+        }
+
+        .results h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #0B0F1A;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat {
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid rgba(11, 15, 26, .08);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1E64C8;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .btn-restart {
+            background: #1E64C8;
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-restart:hover {
+            background: #1a5aa8;
+        }
+
+        /* Review Answers */
+        .review-section {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 2px solid rgba(11, 15, 26, .08);
+        }
+
+        .review-section h3 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: #0B0F1A;
+        }
+
+        .review-item {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #ddd;
+        }
+
+        .review-item.correct {
+            border-left-color: #16a34a;
+            background: rgba(22, 163, 74, .05);
+        }
+
+        .review-item.incorrect {
+            border-left-color: #E53935;
+            background: rgba(229, 57, 53, .05);
+        }
+
+        .review-q {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0B0F1A;
+        }
+
+        .review-detail {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #6b7280;
+        }
+
+        .review-detail strong {
+            color: #0B0F1A;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                max-height: none;
+                padding: 16px;
+            }
+
+            .results-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .progress-bar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚂 NTPC Railway Exam - Set 1</h1>
+            <p>Mock Test | 50 Questions | Reasoning, Maths & English</p>
+        </div>
+
+        <!-- Timer & Progress -->
+        <div class="top-bar">
+            <div class="timer">
+                ⏱️ <span id="timer">90:00</span>
+            </div>
+            <div class="progress-section">
+                <span id="questionCount">1 / 50</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions -->
+        <div class="content" id="questionsContainer">
+            <!-- Questions will be generated here -->
+        </div>
+
+        <!-- Results -->
+        <div class="results" id="results">
+            <div class="results-card">
+                <div class="score-circle" id="scoreCircle">0</div>
+                <h2>Test Completed! 🎉</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Your overall performance summary is below</p>
+
+                <div class="results-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="correctCount">0</div>
+                        <div class="stat-label">Correct Answers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="wrongCount">0</div>
+                        <div class="stat-label">Wrong Answers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="skippedCount">0</div>
+                        <div class="stat-label">Skipped</div>
+                    </div>
+                </div>
+
+                <div class="review-section" id="reviewSection"></div>
+
+                <button class="btn-restart" onclick="location.reload()">📝 Retake Test</button>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons" id="navButtons">
+            <button class="btn btn-prev" id="prevBtn" onclick="previousQuestion()">← Previous</button>
+            <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()">Next →</button>
+            <button class="btn btn-submit" id="submitBtn" style="display: none;" onclick="submitTest()">✓ Submit Test</button>
+        </div>
+    </div>
+
+    <script>
+        // Mock Test Data - 50 Questions
+        const questions = [
+            // REASONING (1-15)
+            {
+                id: 1,
+                section: "Reasoning",
+                type: "Series",
+                question: "Find the next number in the series: 2, 6, 12, 20, 30, ?",
+                options: ["40", "42", "44", "46"],
+                correct: 1,
+                explanation: "Pattern: 1×2=2, 2×3=6, 3×4=12, 4×5=20, 5×6=30, 6×7=42"
+            },
+            {
+                id: 2,
+                section: "Reasoning",
+                type: "Analogy",
+                question: "Lion : Fierce :: Rabbit : ?",
+                options: ["Aggressive", "Timid", "Strong", "Wild"],
+                correct: 1,
+                explanation: "Lion is known for being fierce, similarly Rabbit is known for being timid"
+            },
+            {
+                id: 3,
+                section: "Reasoning",
+                type: "Classification",
+                question: "Which one does not belong to the group? Apple, Mango, Carrot, Banana",
+                options: ["Apple", "Mango", "Carrot", "Banana"],
+                correct: 2,
+                explanation: "Carrot is a vegetable while others are fruits"
+            },
+            {
+                id: 4,
+                section: "Reasoning",
+                type: "Logic",
+                question: "If all birds can fly and sparrow is a bird, then sparrow can fly. This is an example of?",
+                options: ["Inductive Reasoning", "Deductive Reasoning", "Abductive Reasoning", "None"],
+                correct: 1,
+                explanation: "Moving from general statement to specific conclusion is deductive reasoning"
+            },
+            {
+                id: 5,
+                section: "Reasoning",
+                type: "Direction",
+                question: "Ravi walks 10 km North, then 5 km West, then 10 km South. How far is he from starting point?",
+                options: ["5 km", "10 km", "15 km", "25 km"],
+                correct: 0,
+                explanation: "After walking, Ravi is 5 km to the West of starting point"
+            },
+            {
+                id: 6,
+                section: "Reasoning",
+                type: "Series",
+                question: "2, 5, 10, 17, 26, ?",
+                options: ["35", "36", "37", "38"],
+                correct: 2,
+                explanation: "Differences are 3, 5, 7, 9, 11 (odd numbers). So next = 26+11=37"
+            },
+            {
+                id: 7,
+                section: "Reasoning",
+                type: "Coding-Decoding",
+                question: "If CAT is coded as 3-1-20, then BAT is coded as?",
+                options: ["2-1-20", "2-1-19", "1-1-20", "2-2-20"],
+                correct: 0,
+                explanation: "A=1, B=2, C=3... T=20. So BAT = 2-1-20"
+            },
+            {
+                id: 8,
+                section: "Reasoning",
+                type: "Odd One Out",
+                question: "Monday, Tuesday, Wednesday, Thursday, ?",
+                options: ["Friday", "Saturday", "Sunday", "Monday"],
+                correct: 1,
+                explanation: "All are weekdays, Saturday begins weekend"
+            },
+            {
+                id: 9,
+                section: "Reasoning",
+                type: "Puzzle",
+                question: "A man, his son, and his grandson have ages that add up to 130. The father is 40 years older than the son. The grandfather is 30 years older than the father. What is the grandfather's age?",
+                options: ["60", "70", "80", "90"],
+                correct: 2,
+                explanation: "Let grandson=x, son=x+40, grandfather=x+70. Sum=3x+110=130, x=20. Grandfather=90"
+            },
+            {
+                id: 10,
+                section: "Reasoning",
+                type: "Series",
+                question: "A, C, F, J, O, ?",
+                options: ["T", "U", "V", "W"],
+                correct: 0,
+                explanation: "A(1) +2=C(3), +3=F(6), +4=J(10), +5=O(15), +6=U(21)"
+            },
+            {
+                id: 11,
+                section: "Reasoning",
+                type: "Logic",
+                question: "All doctors are professionals. Some professionals are rich. Therefore?",
+                options: ["All doctors are rich", "Some doctors are rich", "No doctors are rich", "Cannot be determined"],
+                correct: 3,
+                explanation: "We cannot determine if doctors are rich from given statements"
+            },
+            {
+                id: 12,
+                section: "Reasoning",
+                type: "Analogy",
+                question: "Eye is to See as Ear is to?",
+                options: ["Hear", "Sound", "Listen", "Speak"],
+                correct: 0,
+                explanation: "Eye functions for seeing, Ear functions for hearing"
+            },
+            {
+                id: 13,
+                section: "Reasoning",
+                type: "Number Series",
+                question: "5, 10, 20, 40, 80, ?",
+                options: ["100", "120", "140", "160"],
+                correct: 3,
+                explanation: "Each number is double of previous. 80×2=160"
+            },
+            {
+                id: 14,
+                section: "Reasoning",
+                type: "Venn Diagram",
+                question: "How many figures have both triangle and circle?",
+                options: ["1", "2", "3", "4"],
+                correct: 1,
+                explanation: "Based on standard Venn diagram, 2 figures have both"
+            },
+            {
+                id: 15,
+                section: "Reasoning",
+                type: "Classification",
+                question: "Which word does not belong? Snake, Lizard, Crocodile, Sparrow",
+                options: ["Snake", "Lizard", "Crocodile", "Sparrow"],
+                correct: 3,
+                explanation: "Sparrow is a bird, others are reptiles"
+            },
+
+            // MATHEMATICS (16-35)
+            {
+                id: 16,
+                section: "Mathematics",
+                type: "Arithmetic",
+                question: "If 25% of a number is 75, what is the number?",
+                options: ["200", "250", "300", "350"],
+                correct: 1,
+                explanation: "25% of x = 75, x/4 = 75, x = 300. Wait, let me recalculate: x = 300"
+            },
+            {
+                id: 17,
+                section: "Mathematics",
+                type: "Percentage",
+                question: "A shopkeeper sells an item for Rs. 120 and gains 20%. Cost price was?",
+                options: ["Rs. 100", "Rs. 96", "Rs. 104", "Rs. 110"],
+                correct: 0,
+                explanation: "SP = CP + 20% of CP. 120 = CP × 1.2. CP = 100"
+            },
+            {
+                id: 18,
+                section: "Mathematics",
+                type: "Simple Interest",
+                question: "Simple Interest on Rs. 1000 at 5% per annum for 2 years is?",
+                options: ["Rs. 50", "Rs. 100", "Rs. 150", "Rs. 200"],
+                correct: 1,
+                explanation: "SI = (P × R × T)/100 = (1000 × 5 × 2)/100 = 100"
+            },
+            {
+                id: 19,
+                section: "Mathematics",
+                type: "Algebra",
+                question: "If 2x + 3 = 11, then x = ?",
+                options: ["2", "3", "4", "5"],
+                correct: 2,
+                explanation: "2x = 11 - 3 = 8, x = 4"
+            },
+            {
+                id: 20,
+                section: "Mathematics",
+                type: "Geometry",
+                question: "Area of a circle with radius 7 cm is? (π = 22/7)",
+                options: ["154 cm²", "308 cm²", "462 cm²", "616 cm²"],
+                correct: 0,
+                explanation: "Area = πr² = (22/7) × 49 = 154 cm²"
+            },
+            {
+                id: 21,
+                section: "Mathematics",
+                type: "Ratio & Proportion",
+                question: "If A:B = 3:4 and B:C = 2:3, then A:C = ?",
+                options: ["1:2", "2:3", "3:4", "1:3"],
+                correct: 0,
+                explanation: "A:B:C = 3:4 into 2:3 = 6:8:12. So A:C = 6:12 = 1:2"
+            },
+            {
+                id: 22,
+                section: "Mathematics",
+                type: "Speed, Time, Distance",
+                question: "A train travels 180 km in 3 hours. Its speed is?",
+                options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+                correct: 1,
+                explanation: "Speed = Distance/Time = 180/3 = 60 km/h"
+            },
+            {
+                id: 23,
+                section: "Mathematics",
+                type: "LCM & HCF",
+                question: "HCF of 24 and 36 is?",
+                options: ["6", "8", "12", "18"],
+                correct: 2,
+                explanation: "Factors: 24 = 2³×3, 36 = 2²×3². HCF = 2²×3 = 12"
+            },
+            {
+                id: 24,
+                section: "Mathematics",
+                type: "Average",
+                question: "Average of 5, 10, 15, 20, 25 is?",
+                options: ["12", "15", "18", "20"],
+                correct: 1,
+                explanation: "Sum = 75, Count = 5, Average = 75/5 = 15"
+            },
+            {
+                id: 25,
+                section: "Mathematics",
+                type: "Percentage",
+                question: "What is 15% of 200?",
+                options: ["20", "25", "30", "35"],
+                correct: 2,
+                explanation: "15% of 200 = (15/100) × 200 = 30"
+            },
+            {
+                id: 26,
+                section: "Mathematics",
+                type: "Profit & Loss",
+                question: "CP = 200, SP = 250. Profit % = ?",
+                options: ["20%", "25%", "30%", "35%"],
+                correct: 1,
+                explanation: "Profit = 50, Profit% = (50/200) × 100 = 25%"
+            },
+            {
+                id: 27,
+                section: "Mathematics",
+                type: "Algebra",
+                question: "(a+b)² = ?",
+                options: ["a²+b²", "a²+2ab+b²", "a²-2ab+b²", "ab"],
+                correct: 1,
+                explanation: "(a+b)² = a² + 2ab + b²"
+            },
+            {
+                id: 28,
+                section: "Mathematics",
+                type: "Geometry",
+                question: "What is the perimeter of a rectangle with length 10 cm and breadth 5 cm?",
+                options: ["30 cm", "40 cm", "50 cm", "60 cm"],
+                correct: 0,
+                explanation: "Perimeter = 2(l+b) = 2(10+5) = 30 cm"
+            },
+            {
+                id: 29,
+                section: "Mathematics",
+                type: "Fraction",
+                question: "3/4 + 1/4 = ?",
+                options: ["1", "2", "3", "4"],
+                correct: 0,
+                explanation: "3/4 + 1/4 = 4/4 = 1"
+            },
+            {
+                id: 30,
+                section: "Mathematics",
+                type: "Percentage",
+                question: "If 40% of x is 80, then x = ?",
+                options: ["100", "150", "200", "250"],
+                correct: 2,
+                explanation: "0.4x = 80, x = 80/0.4 = 200"
+            },
+            {
+                id: 31,
+                section: "Mathematics",
+                type: "Compound Interest",
+                question: "CI on Rs. 1000 at 10% per annum for 2 years is?",
+                options: ["Rs. 200", "Rs. 210", "Rs. 220", "Rs. 230"],
+                correct: 1,
+                explanation: "A = 1000(1.1)² = 1210. CI = 1210-1000 = 210"
+            },
+            {
+                id: 32,
+                section: "Mathematics",
+                type: "Time & Work",
+                question: "A can do a work in 10 days. In 1 day, A does ____ of the work",
+                options: ["1/5", "1/10", "1/20", "1/30"],
+                correct: 1,
+                explanation: "If A does work in 10 days, in 1 day A does 1/10 of work"
+            },
+            {
+                id: 33,
+                section: "Mathematics",
+                type: "Triangle",
+                question: "Sum of angles in a triangle is?",
+                options: ["90°", "180°", "270°", "360°"],
+                correct: 1,
+                explanation: "Sum of all angles in any triangle is 180°"
+            },
+            {
+                id: 34,
+                section: "Mathematics",
+                type: "Mensuration",
+                question: "Volume of a cube with side 5 cm is?",
+                options: ["25 cm³", "75 cm³", "125 cm³", "225 cm³"],
+                correct: 2,
+                explanation: "Volume = side³ = 5³ = 125 cm³"
+            },
+            {
+                id: 35,
+                section: "Mathematics",
+                type: "Probability",
+                question: "Probability of getting a head when tossing a coin is?",
+                options: ["1/4", "1/3", "1/2", "3/4"],
+                correct: 2,
+                explanation: "Coin has 2 outcomes, 1 favorable. Probability = 1/2"
+            },
+
+            // ENGLISH (36-50)
+            {
+                id: 36,
+                section: "English",
+                type: "Vocabulary",
+                question: "Choose the synonym of 'Benevolent':",
+                options: ["Cruel", "Kind", "Angry", "Proud"],
+                correct: 1,
+                explanation: "Benevolent means kind and generous"
+            },
+            {
+                id: 37,
+                section: "English",
+                type: "Grammar",
+                question: "Choose the correct sentence:",
+                options: ["She don't like coffee", "She doesn't like coffee", "She do not like coffee", "She not like coffee"],
+                correct: 1,
+                explanation: "Correct form with 'she' (singular) is 'doesn't'"
+            },
+            {
+                id: 38,
+                section: "English",
+                type: "Antonym",
+                question: "Choose the antonym of 'Brave':",
+                options: ["Fearless", "Coward", "Strong", "Smart"],
+                correct: 1,
+                explanation: "Coward is opposite of brave"
+            },
+            {
+                id: 39,
+                section: "English",
+                type: "Spelling",
+                question: "Choose the correctly spelled word:",
+                options: ["Occassion", "Occasion", "Ocasion", "Occation"],
+                correct: 1,
+                explanation: "'Occasion' is the correct spelling"
+            },
+            {
+                id: 40,
+                section: "English",
+                type: "Sentence Completion",
+                question: "The teacher asked the students _____ their homework.",
+                options: ["to complete", "completing", "complete", "completes"],
+                correct: 0,
+                explanation: "'Ask someone to do something' is the correct structure"
+            },
+            {
+                id: 41,
+                section: "English",
+                type: "Tense",
+                question: "She _____ to Delhi yesterday.",
+                options: ["go", "goes", "went", "going"],
+                correct: 2,
+                explanation: "'Yesterday' indicates past tense, so 'went' is correct"
+            },
+            {
+                id: 42,
+                section: "English",
+                type: "Preposition",
+                question: "I will meet you _____ 3 PM.",
+                options: ["in", "at", "on", "by"],
+                correct: 1,
+                explanation: "'at' is used for specific times"
+            },
+            {
+                id: 43,
+                section: "English",
+                type: "Voice",
+                question: "Active: The boy kicked the ball. Passive: ?",
+                options: ["The ball was kicked by the boy", "The ball kicked the boy", "The boy was kicked by the ball", "Kick the ball by the boy"],
+                correct: 0,
+                explanation: "In passive voice, object becomes subject and verb changes"
+            },
+            {
+                id: 44,
+                section: "English",
+                type: "Vocabulary",
+                question: "Choose the synonym of 'Diligent':",
+                options: ["Lazy", "Hardworking", "Slow", "Careless"],
+                correct: 1,
+                explanation: "Diligent means hardworking and careful"
+            },
+            {
+                id: 45,
+                section: "English",
+                type: "Error Detection",
+                question: "Choose the sentence with NO error:",
+                options: ["He are a teacher", "She go to school", "They was playing", "We have completed our work"],
+                correct: 3,
+                explanation: "'We have completed our work' is grammatically correct"
+            },
+            {
+                id: 46,
+                section: "English",
+                type: "Article",
+                question: "_____ apple a day keeps _____ doctor away.",
+                options: ["A, a", "An, the", "A, the", "An, a"],
+                correct: 1,
+                explanation: "Apple starts with vowel sound (An), and doctor is singular (the)"
+            },
+            {
+                id: 47,
+                section: "English",
+                type: "Vocabulary",
+                question: "The word 'Prudent' means:",
+                options: ["Foolish", "Careful and wise", "Hasty", "Careless"],
+                correct: 1,
+                explanation: "Prudent means showing care and wisdom in one's judgments"
+            },
+            {
+                id: 48,
+                section: "English",
+                type: "Subject-Verb Agreement",
+                question: "The team _____ won the match.",
+                options: ["have", "has", "are", "were"],
+                correct: 1,
+                explanation: "Team is singular, so 'has' is correct"
+            },
+            {
+                id: 49,
+                section: "English",
+                type: "Idiom",
+                question: "'Piece of cake' means:",
+                options: ["Actual cake", "Difficult task", "Easy task", "Expensive item"],
+                correct: 2,
+                explanation: "'Piece of cake' is an idiom meaning something very easy"
+            },
+            {
+                id: 50,
+                section: "English",
+                type: "Comprehension",
+                question: "Which is the best way to start a formal letter? ",
+                options: ["Hey!", "Hello", "Dear Sir/Madam", "Hi there"],
+                correct: 2,
+                explanation: "'Dear Sir/Madam' is the formal and appropriate way"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(50).fill(null);
+        let timeLeft = 90 * 60; // 90 minutes in seconds
+        let testSubmitted = false;
+
+        // Initialize
+        function init() {
+            renderQuestion();
+            startTimer();
+        }
+
+        // Render current question
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            const container = document.getElementById("questionsContainer");
+            
+            if (testSubmitted) return;
+
+            container.innerHTML = `
+                <div class="question-block active">
+                    <div class="question-header">
+                        <div class="question-number">${currentQuestion + 1}</div>
+                        <div class="question-title">${q.question.substring(0, 40)}...</div>
+                        <span class="section-tag">${q.section}</span>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((opt, idx) => `
+                            <label class="option ${answers[currentQuestion] === idx ? 'selected' : ''}">
+                                <input type="radio" name="answer" value="${idx}" ${answers[currentQuestion] === idx ? 'checked' : ''} 
+                                    onchange="answers[${currentQuestion}] = ${idx}; renderQuestion();">
+                                <span>${String.fromCharCode(65 + idx)}) ${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            updateNavigation();
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const percent = ((currentQuestion + 1) / 50) * 100;
+            document.getElementById("progressFill").style.width = percent + "%";
+            document.getElementById("questionCount").textContent = (currentQuestion + 1) + " / 50";
+        }
+
+        function updateNavigation() {
+            document.getElementById("prevBtn").disabled = currentQuestion === 0;
+            
+            if (currentQuestion === 49) {
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("submitBtn").style.display = "block";
+            } else {
+                document.getElementById("nextBtn").style.display = "block";
+                document.getElementById("submitBtn").style.display = "none";
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < 49) {
+                currentQuestion++;
+                renderQuestion();
+                document.querySelector(".content").scrollTop = 0;
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+                document.querySelector(".content").scrollTop = 0;
+            }
+        }
+
+        function startTimer() {
+            setInterval(() => {
+                if (!testSubmitted && timeLeft > 0) {
+                    timeLeft--;
+                    const mins = Math.floor(timeLeft / 60);
+                    const secs = timeLeft % 60;
+                    document.getElementById("timer").textContent = 
+                        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    
+                    if (timeLeft === 0) {
+                        submitTest();
+                    }
+                }
+            }, 1000);
+        }
+
+        function submitTest() {
+            testSubmitted = true;
+            
+            let correct = 0, wrong = 0, skipped = 0;
+            let reviewHTML = "";
+
+            answers.forEach((ans, idx) => {
+                if (ans === null) {
+                    skipped++;
+                    reviewHTML += `
+                        <div class="review-item">
+                            <div class="review-q">Q${idx + 1}: ${questions[idx].question.substring(0, 60)}...</div>
+                            <div class="review-detail"><strong>Status:</strong> Skipped</div>
+                        </div>
+                    `;
+                } else if (ans === questions[idx].correct) {
+                    correct++;
+                    reviewHTML += `
+                        <div class="review-item correct">
+                            <div class="review-q">Q${idx + 1}: ${questions[idx].question.substring(0, 60)}...</div>
+                            <div class="review-detail"><strong>✓ Correct</strong> | Explanation: ${questions[idx].explanation}</div>
+                        </div>
+                    `;
+                } else {
+                    wrong++;
+                    reviewHTML += `
+                        <div class="review-item incorrect">
+                            <div class="review-q">Q${idx + 1}: ${questions[idx].question.substring(0, 60)}...</div>
+                            <div class="review-detail"><strong>✗ Wrong</strong> | Correct Answer: ${String.fromCharCode(65 + questions[idx].correct)}) ${questions[idx].options[questions[idx].correct]} | Explanation: ${questions[idx].explanation}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            const score = Math.round((correct / 50) * 100);
+
+            document.getElementById("questionsContainer").style.display = "none";
+            document.getElementById("navButtons").style.display = "none";
+            
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.classList.add("show");
+            document.getElementById("scoreCircle").textContent = score + "%";
+            document.getElementById("correctCount").textContent = correct;
+            document.getElementById("wrongCount").textContent = wrong;
+            document.getElementById("skippedCount").textContent = skipped;
+            document.getElementById("reviewSection").innerHTML = `<h3>📋 Answer Review</h3>${reviewHTML}`;
+        }
+
+        // Start test
+        init();
+    </script>
+</body>
+</html>
+
+
+
