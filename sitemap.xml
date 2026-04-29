@@ -1,44 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
+  <!-- Homepage -->
   <url>
     <loc>https://shematicss.github.io/ssc-mock-test/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Mock Test Sets -->
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/set-1.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc/mock-tests/set-1.html</loc>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/set-2.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc/mock-tests/set-2.html</loc>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/set-3.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc/mock-tests/set-3.html</loc>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/creative-set.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
+  <!-- Registration/Booking Page -->
   <url>
-    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc/mock-tests/set-creative.html</loc>
+    <loc>https://shematicss.github.io/ssc-mock-test/register.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
-  <url>
-    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc/notes.html</loc>
-  </url>
-
+  <!-- Blog Posts (if any) -->
   <url>
     <loc>https://shematicss.github.io/ssc-mock-test/blog/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://shematicss.github.io/ssc-mock-test/blog/how-to-crack-ssc-cgl.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- About/Info Pages -->
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/about.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://shematicss.github.io/ssc-mock-test/blog/number-system-notes.html</loc>
+    <loc>https://shematicss.github.io/ssc-mock-test/contact.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- FAQ Pages -->
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/faq.html</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- SSC Exam Specific Pages -->
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc-cgl/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://shematicss.github.io/ssc-mock-test/register.html</loc>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc-chsl/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/ssc-mts/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/banking/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/exams/railway/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Study Material Pages -->
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/notes/maths/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/notes/reasoning/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/notes/english/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://shematicss.github.io/ssc-mock-test/notes/gk/</loc>
+    <lastmod>2025-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
