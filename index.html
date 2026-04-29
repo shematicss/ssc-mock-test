@@ -16,25 +16,6 @@
 <meta property="og:image" content="https://shematicss.github.io/ssc-mock-test/assets/img/hero-bg.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"SheMatics","url":"https://shematicss.github.io/ssc-mock-test/","description":"Free SSC mock tests and notes."}</script>
-
-<!-- ========== META PIXEL CODE - FACEBOOK ADS TRACKING ========== -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1660939315042029');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1660939315042029&ev=PageView&noscript=1"
-/></noscript>
-<!-- ========== END META PIXEL CODE ========== -->
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -222,9 +203,737 @@ body.dark-mode .dm-knob{left:18px}
 .feat-icon.silver{background:rgba(138,154,176,.12)}
 .feature-card h3{font-size:16px;font-weight:700;margin-bottom:8px;position:relative;z-index:1}
 .feature-card p{font-size:14px;color:var(--muted);line-height:1.65;position:relative;z-index:1}
+.sample-section{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue) 60%,#1a5fb4 100%);padding:56px 24px;position:relative;overflow:hidden}
+.sample-section::before{content:"";position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+.sample-section::after{content:"";position:absolute;bottom:-80px;left:-40px;width:250px;height:250px;border-radius:50%;background:rgba(229,57,53,.08);pointer-events:none}
+.sample-inner{max-width:680px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.sample-inner h2{font-family:"Playfair Display",serif;font-size:clamp(20px,3vw,30px);font-weight:700;color:#fff;margin-bottom:8px}
+.sample-inner p{color:rgba(255,255,255,.7);font-size:14px;margin-bottom:28px}
+.quiz-widget{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:28px;backdrop-filter:blur(12px);text-align:left;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.qw-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.qw-badge{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);padding:4px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.15)}
+.qw-num{font-size:12px;color:rgba(255,255,255,.5)}
+.qw-question{font-size:17px;font-weight:700;color:#fff;margin-bottom:18px;line-height:1.55}
+.qw-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.qw-opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);cursor:pointer;transition:.2s all;color:#fff;font-size:14px;font-weight:500}
+.qw-opt:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);transform:translateX(5px)}
+.qw-opt.correct{background:rgba(74,222,128,.18);border-color:rgba(74,222,128,.5);color:#4ade80}
+.qw-opt.wrong{background:rgba(229,57,53,.18);border-color:rgba(229,57,53,.4);color:#f87171}
+.qw-letter{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;transition:.2s}
+.qw-opt.correct .qw-letter{background:rgba(74,222,128,.3)}
+.qw-opt.wrong .qw-letter{background:rgba(229,57,53,.3)}
+.qw-explain{display:none;margin-top:8px;padding:12px 14px;background:rgba(74,222,128,.10);border:1px solid rgba(74,222,128,.25);border-radius:10px;font-size:13px;color:#86efac;line-height:1.5}
+.qw-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.qw-btn{padding:11px 22px;border-radius:10px;border:none;font-weight:700;font-size:13px;cursor:pointer;transition:.25s transform,.25s box-shadow;font-family:"Plus Jakarta Sans",sans-serif}
+.qw-btn:hover{transform:translateY(-2px)}
+.qw-btn-check{background:linear-gradient(135deg,#4ade80,#16a34a);color:#fff;box-shadow:0 4px 14px rgba(74,222,128,.3)}
+.qw-btn-next{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;display:none;box-shadow:0 4px 14px rgba(30,100,200,.3)}
+.qw-btn-start{background:#fff;color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.exams-section{background:linear-gradient(180deg,var(--paper) 0%,#e8f0f8 100%);padding:56px 24px 68px;transition:.3s background}
+body.dark-mode .exams-section{background:linear-gradient(180deg,#0d1117 0%,#111827 100%)}
+.section-header{text-align:center;margin-bottom:36px}
+.section-header h2{font-family:"Playfair Display",serif;font-size:clamp(22px,3vw,34px);font-weight:700;margin-bottom:10px}
+.section-header p{color:var(--muted);font-size:15px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));max-width:1100px;margin:0 auto}
+.card{background:var(--card);border:1px solid rgba(11,15,26,.07);border-radius:20px;padding:26px;box-shadow:0 6px 26px rgba(11,15,26,.07);transition:.3s transform,.3s box-shadow,.3s border-color,.3s background;position:relative;overflow:hidden;cursor:default}
+.card::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--blue));transform:scaleX(0);transform-origin:left;transition:.35s transform}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(11,15,26,.13);border-color:var(--ring)}
+.card:hover::after{transform:scaleX(1)}
+.pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;display:inline-block;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
+.pill.blue{background:rgba(30,100,200,.10);color:#1045a0}
+.pill.red{background:rgba(229,57,53,.10);color:#b71c1c}
+.card h3{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.muted{color:var(--muted);font-size:14px;line-height:1.6}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.btn-outline{border:1.5px solid var(--blue);color:var(--blue);background:var(--card);padding:9px 16px;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;transition:.2s all}
+.btn-outline:hover{background:var(--blue);color:#fff;transform:translateY(-2px);box-shadow:0 4px 14px rgba(30,100,200,.3)}
+.btn-accent{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff;padding:9px 16px;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none;display:inline-flex;box-shadow:0 3px 12px rgba(30,100,200,.3);transition:.2s all}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(30,100,200,.45)}
+.note{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid rgba(30,100,200,.12);border-radius:14px;padding:16px 20px;max-width:1100px;margin:24px auto 0;box-shadow:0 2px 12px rgba(11,15,26,.05);transition:.3s background}
+.note-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--red),var(--blue));box-shadow:0 0 0 6px rgba(30,100,200,.10)}
+.slider-section{background:var(--card);padding:52px 24px;border-top:1px solid rgba(11,15,26,.06);transition:.3s background,.3s border-color}
+.slider-container{position:relative;width:100%;max-width:1100px;height:480px;margin:0 auto;overflow:hidden;border-radius:20px;box-shadow:0 20px 52px rgba(11,15,26,.15);background:#000}
+@media(max-width:768px){.slider-container{height:min(60vw,300px)}}
+.slides{display:flex;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1);will-change:transform;width:calc(100% * var(--total,5))}
+.slides img{flex:0 0 calc(100% / var(--total,5));width:calc(100% / var(--total,5));height:100%;object-fit:cover}
+.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(11,15,26,.55);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;padding:11px 15px;cursor:pointer;border-radius:50%;transition:.25s;backdrop-filter:blur(8px)}
+.nav-btn:hover{background:rgba(11,15,26,.8);transform:translateY(-50%) scale(1.1)}
+.prev{left:14px}.next{right:14px}
+.dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;padding:7px 14px;background:rgba(0,0,0,.3);border-radius:999px;backdrop-filter:blur(8px)}
+.pager-dot{width:9px;height:9px;border-radius:50%;background:#cfd8e3;opacity:.7;cursor:pointer;border:1px solid rgba(255,255,255,.5);transition:.2s all}
+.pager-dot.active{opacity:1;transform:scale(1.35);background:var(--blue)}
+footer{background:var(--ink);color:rgba(255,255,255,.5);text-align:center;padding:32px 24px;font-size:13px;line-height:2.2;transition:.3s background}
+footer a{color:rgba(255,255,255,.65);text-decoration:none;transition:.2s color}
+footer a:hover{color:#fff}
+.footer-brand{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--red),var(--silver-light),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:8px}
 </style>
 </head>
 <body>
-<!-- Rest of HTML content goes here -->
+<!-- LOADING SCREEN -->
+<div id="lsScreen" style="position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 100%);display:flex;align-items:center;justify-content:center;overflow:hidden">
+<style>
+#lsScreen *{box-sizing:border-box}
+#lsCanvas{position:absolute;inset:0;width:100%;height:100%}
+#lsCenter{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center}
+#lsLogo{width:170px;height:170px;object-fit:contain;opacity:0;filter:drop-shadow(0 0 40px rgba(229,57,53,.4)) drop-shadow(0 0 20px rgba(30,100,200,.3))}
+#lsBrand{font-family:"Playfair Display",serif;font-size:26px;font-weight:800;background:linear-gradient(135deg,#E53935,#8a9ab0,#1E64C8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;margin-top:10px;transform:translateY(10px);transition:opacity .6s,transform .6s}
+#lsTagline{font-family:"Playfair Display",serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.45);opacity:0;margin-top:5px;transform:translateY(6px);transition:opacity .5s,transform .5s}
+#lsLine{width:0;height:1px;background:linear-gradient(90deg,#E53935,#1E64C8);margin:16px auto 0;border-radius:999px;opacity:0;transition:width .8s ease,opacity .3s}
+#lsSkip{position:absolute;bottom:20px;right:20px;padding:7px 18px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;backdrop-filter:blur(6px);transition:.2s all;opacity:0;animation:lsSkipIn .4s 1.5s ease forwards}
+#lsSkip:hover{background:rgba(255,255,255,.18);color:#fff}
+@keyframes lsSkipIn{to{opacity:1}}
+#lsScreen.ls-hide{animation:lsFadeOut .7s ease forwards}
+@keyframes lsFadeOut{to{opacity:0;pointer-events:none}}
+</style>
+
+<canvas id="lsCanvas"></canvas>
+
+<div id="lsCenter">
+  <img id="lsLogo" src="assets/img/logo.png" alt="SheMatics">
+  <div id="lsBrand">SheMatics</div>
+  <div id="lsTagline">maths by her.....∞</div>
+  <div id="lsLine"></div>
+</div>
+
+<button id="lsSkip" onclick="lsHide()">Skip ›</button>
+
+<script>
+(function(){
+  var canvas=document.getElementById('lsCanvas');
+  var ctx=canvas.getContext('2d');
+  var W,H,cx,cy;
+  var particles=[];
+  var raf=null;
+  var startTime=null;
+
+  var symbols=['π','∑','∫','√','∞','α','β','θ','Δ','∂','sin','cos','log','tan','f(x)','x²','n','=','±','÷','×','%','0','1','2','3','7','9'];
+  var clrs=['rgba(229,57,53,','rgba(30,100,200,','rgba(138,154,176,','rgba(200,210,230,','rgba(180,60,60,'];
+
+  var T={symShow:0,converge:1100,fade:1900,logoIn:2000,brandIn:2550,tagIn:2950,lineIn:3250,total:4500};
+
+  function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+    cx=W/2;cy=H/2;
+  }
+
+  function makeParticles(){
+    particles=[];
+    var count=window.innerWidth<480?20:32;
+    for(var i=0;i<count;i++){
+      var angle=(i/count)*Math.PI*2+Math.random()*.4;
+      var dist=90+Math.random()*Math.min(W,H)*.35;
+      particles.push({
+        sym:symbols[Math.floor(Math.random()*symbols.length)],
+        x:cx+Math.cos(angle)*dist,
+        y:cy+Math.sin(angle)*dist,
+        size:11+Math.random()*16,
+        clr:clrs[Math.floor(Math.random()*clrs.length)],
+        maxA:.45+Math.random()*.45,
+        alpha:0,
+        delay:Math.random()*.6
+      });
+    }
+  }
+
+  function easeOut(t){return 1-Math.pow(1-t,3)}
+  function easeInOut(t){return t<.5?4*t*t*t:(t-1)*(2*t-2)*(2*t-2)+1}
+
+  function setEl(id,opacity,ty){
+    var el=document.getElementById(id);
+    if(!el)return;
+    el.style.opacity=opacity;
+    if(ty!==undefined)el.style.transform='translateY('+ty+'px)';
+  }
+
+  function animate(ts){
+    if(!startTime)startTime=ts;
+    var e=ts-startTime;
+    ctx.clearRect(0,0,W,H);
+
+    // Draw particles
+    particles.forEach(function(p){
+      var pd=p.delay*1000;
+      var pe=e-pd;
+      if(pe<0)return;
+      var x=p.x,y=p.y,a=0;
+
+      if(e<T.converge){
+        // appear scattered
+        var t=Math.min(pe/500,1);
+        a=easeOut(t)*p.maxA;
+      } else if(e<T.fade){
+        // converge
+        var t=Math.min((e-T.converge)/700,1);
+        t=easeInOut(t);
+        x=p.x+(cx-p.x)*t;
+        y=p.y+(cy-p.y)*t;
+        a=p.maxA*(1-t*.75);
+      } else if(e<T.fade+300){
+        // fade
+        var t=(e-T.fade)/300;
+        a=p.maxA*.25*(1-t);
+        x=cx;y=cy;
+      } else {a=0}
+
+      if(a<.01)return;
+      ctx.save();
+      ctx.globalAlpha=a;
+      ctx.fillStyle=p.clr+a+')';
+      ctx.font='700 '+p.size+'px "Times New Roman",serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(p.sym,x,y);
+      ctx.restore();
+    });
+
+    // Logo — clockwise circular spin then settle
+    var logo=document.getElementById('lsLogo');
+    if(logo && e>=T.logoIn){
+      var elapsed=e-T.logoIn;
+      var dur=900; // spin duration
+      var t=Math.min(elapsed/dur,1);
+      var tEase=easeOut(t);
+
+      // Opacity: fade in
+      logo.style.opacity=tEase;
+
+      if(t<1){
+        // Clockwise rotation: 0 -> 360 with easeOut (fast start, slow stop)
+        var spinT=1-Math.pow(1-t,2); // easeOut quad
+        var deg=spinT*360;
+        // Scale: start small, grow to 1
+        var sc=0.5+0.5*tEase;
+        logo.style.transform='rotate('+deg+'deg) scale('+sc+')';
+      } else {
+        // Settled — no transform
+        logo.style.transform='rotate(360deg) scale(1)';
+        // Subtle glow pulse after settle
+        if(elapsed>dur+200){
+          logo.style.filter='drop-shadow(0 0 40px rgba(229,57,53,.5)) drop-shadow(0 0 20px rgba(30,100,200,.4))';
+        }
+      }
+    }
+
+    // Brand
+    if(e>=T.brandIn){
+      var t=easeOut(Math.min((e-T.brandIn)/500,1));
+      setEl('lsBrand',t,8*(1-t));
+    }
+    // Tagline
+    if(e>=T.tagIn){
+      var t=easeOut(Math.min((e-T.tagIn)/400,1));
+      setEl('lsTagline',t*.85,6*(1-t));
+    }
+    // Line
+    if(e>=T.lineIn){
+      var t=easeOut(Math.min((e-T.lineIn)/700,1));
+      var line=document.getElementById('lsLine');
+      if(line){line.style.opacity='1';line.style.width=(t*110)+'px'}
+    }
+
+    if(e>=T.total){
+      cancelAnimationFrame(raf);
+      lsHide();
+      return;
+    }
+    raf=requestAnimationFrame(animate);
+  }
+
+  window.lsHide=function(){
+    var ls=document.getElementById('lsScreen');
+    if(!ls)return;
+    ls.classList.add('ls-hide');
+    setTimeout(function(){ls.style.display='none'},700);
+    if(raf)cancelAnimationFrame(raf);
+  };
+
+  window.addEventListener('resize',resize);
+  resize();makeParticles();
+  raf=requestAnimationFrame(animate);
+})();
+</script>
+</div>
+<!-- END LOADING SCREEN -->
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <img class="logo" src="assets/img/logo.png" alt="SheMatics">
+    <div class="brand">SheMatics</div>
+    <div class="nav">
+      <span class="nav-chip">Free forever</span>
+      <span class="nav-chip">Mobile friendly</span>
+      <a class="nav-chip" href="blog/index.html">Blog</a>
+      <a class="nav-chip yt" href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">▶ YouTube</a>
+      <!-- DARK MODE TOGGLE -->
+      <button class="dm-toggle" id="dmToggle" onclick="toggleDark()">
+        <div class="dm-pill"><div class="dm-knob" id="dmKnob">☀️</div></div>
+        <span class="dm-label" id="dmLabel">Light</span>
+      </button>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <span>Free forever</span>
+  <a href="blog/index.html">📝 Blog</a>
+  <a href="#exams">📚 Explore Exams</a>
+  <a href="register.html">📅 Book Free Session</a>
+  <a class="m-yt" href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">▶ YouTube</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><div class="badge-pulse"></div>Live Now — Free Mock Tests</div>
+      <h1>Mock Tests &amp; Notes<br>for <span class="typewriter" id="typewriter"></span><span class="cursor-blink"></span><br>exams</h1>
+      <p class="hero-sub">maths by her, ∞ — timed practice sets, topic-wise notes and a clean exam interface. 100% free, always.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="register.html">📅 Book Free Session</a>
+        <a class="btn btn-blue" href="#exams">Explore Exams</a>
+        <a class="btn btn-ghost" href="#about">About</a>
+        <a class="btn btn-yt" href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">▶ YouTube</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num" data-target="500" data-suffix="+">0+</div><div class="stat-label">Questions</div></div>
+        <div class="stat"><div class="stat-num" data-target="4" data-suffix="">0</div><div class="stat-label">Exam Types</div></div>
+        <div class="stat"><div class="stat-num" data-target="100" data-suffix="%">0%</div><div class="stat-label">Free</div></div>
+        <div class="stat"><div class="stat-num">∞</div><div class="stat-label">By Her</div></div>
+      </div>
+    </div>
+    <div class="hero-right"></div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- INTRO -->
+<section class="pw-section">
+<style>
+.pw-section{padding:80px 32px;background:#fff;position:relative;overflow:hidden;font-family:"Plus Jakarta Sans",system-ui,sans-serif;transition:.3s background}
+body.dark-mode .pw-section{background:#161b22}
+.pw-blob1{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(229,57,53,.04),transparent 70%);top:-100px;left:-100px;pointer-events:none}
+.pw-blob2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,.05),transparent 70%);bottom:-100px;right:-100px;pointer-events:none}
+.pw-accent{height:3px;background:linear-gradient(90deg,transparent 0%,#E53935 20%,#8a9ab0 50%,#1E64C8 80%,transparent 100%);margin-bottom:56px;position:relative;overflow:hidden}
+.pw-accent::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);animation:pwSweep 3s infinite}
+@keyframes pwSweep{to{left:120%}}
+.pw-inner{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}
+.pw-left{animation:pwFadeL .9s ease both}
+@keyframes pwFadeL{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+.pw-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;padding:6px 14px 6px 6px;background:#f8f9fc;border:1px solid rgba(11,15,26,.07);border-radius:999px;transition:.3s background,.3s border-color}
+.pw-dot{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#E53935,#1E64C8);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;font-weight:800}
+.pw-eyebrow-text{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6b7280}
+.pw-h{font-family:"Playfair Display",serif;font-size:42px;font-weight:800;line-height:1.12;color:#0B0F1A;margin-bottom:16px;transition:.3s color}
+.pw-h em{font-style:italic;font-weight:700;background:linear-gradient(135deg,#E53935 0%,#c8392b 40%,#1E64C8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-u{display:inline-block;position:relative}
+.pw-u::after{content:"";position:absolute;bottom:-6px;left:0;right:0;height:3px;background:linear-gradient(90deg,#E53935,#1E64C8);border-radius:2px;animation:pwULine 1.2s .5s ease both;transform-origin:left;transform:scaleX(0)}
+@keyframes pwULine{to{transform:scaleX(1)}}
+.pw-sub{font-size:15.5px;color:#6b7280;line-height:1.85;margin-bottom:30px;max-width:400px;transition:.3s color}
+.pw-sub strong{color:#0B0F1A;font-weight:700;transition:.3s color}
+.pw-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.pw-tag{padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;color:#1e2535;background:#f4f7fc;border:1px solid rgba(11,15,26,.09);cursor:default;transition:.25s all;animation:pwTagPop .4s ease both}
+.pw-tag:nth-child(1){animation-delay:.4s}.pw-tag:nth-child(2){animation-delay:.5s}.pw-tag:nth-child(3){animation-delay:.6s}.pw-tag:nth-child(4){animation-delay:.7s}.pw-tag:nth-child(5){animation-delay:.8s}
+@keyframes pwTagPop{from{opacity:0;transform:scale(.8) translateY(6px)}to{opacity:1;transform:none}}
+.pw-tag:hover{background:#0B0F1A;color:#fff;border-color:#0B0F1A;transform:translateY(-2px)}
+.pw-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pw-btn{padding:12px 26px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.25s all;position:relative;overflow:hidden;font-family:"Plus Jakarta Sans",system-ui,sans-serif}
+.pw-btn::before{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);transition:0s}
+.pw-btn:hover::before{left:125%;transition:.5s left}
+.pw-btn:hover{transform:translateY(-2px)}
+.pw-btn-p{background:linear-gradient(135deg,#E53935,#1E64C8);color:#fff;box-shadow:0 6px 20px rgba(30,100,200,.3)}
+.pw-btn-p:hover{box-shadow:0 10px 28px rgba(30,100,200,.45)}
+.pw-btn-g{color:#1E64C8;font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:5px;transition:.25s gap}
+.pw-btn-g:hover{gap:9px}
+.pw-right{animation:pwFadeR .9s .15s ease both}
+@keyframes pwFadeR{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+.pw-cards{display:flex;flex-direction:column;gap:14px}
+.pw-card{display:flex;align-items:center;gap:18px;padding:20px 22px;border-radius:18px;border:1px solid rgba(11,15,26,.07);background:#fff;box-shadow:0 4px 18px rgba(11,15,26,.05);transition:.3s transform,.3s box-shadow,.3s border-color,.3s background;cursor:default;opacity:0;transform:translateY(30px) scale(.95)}
+.pw-card.bounced{animation:pwBounce .7s ease forwards}
+@keyframes pwBounce{0%{opacity:0;transform:translateY(30px) scale(.95)}50%{opacity:1;transform:translateY(-8px) scale(1.02)}70%{transform:translateY(4px) scale(.99)}85%{transform:translateY(-3px) scale(1.005)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.pw-card:hover{transform:translateY(-5px) translateX(-3px);box-shadow:0 18px 38px rgba(11,15,26,.11);border-color:rgba(30,100,200,.2)}
+.pw-card-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;transition:.3s transform}
+.pw-card:hover .pw-card-icon{transform:scale(1.12) rotate(-7deg)}
+.pw-card:nth-child(1) .pw-card-icon{background:linear-gradient(135deg,rgba(229,57,53,.12),rgba(229,57,53,.04))}
+.pw-card:nth-child(2) .pw-card-icon{background:linear-gradient(135deg,rgba(30,100,200,.12),rgba(30,100,200,.04))}
+.pw-card:nth-child(3) .pw-card-icon{background:linear-gradient(135deg,rgba(138,154,176,.16),rgba(138,154,176,.06))}
+.pw-card-body{flex:1}
+.pw-card-title{font-size:14px;font-weight:700;color:#0B0F1A;margin-bottom:3px;transition:.3s color}
+.pw-card-desc{font-size:12px;color:#9ca3af;line-height:1.5}
+.pw-card-badge{font-family:"Playfair Display",serif;font-size:24px;font-weight:800;white-space:nowrap}
+.pw-card:nth-child(1) .pw-card-badge{background:linear-gradient(135deg,#E53935,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-card:nth-child(2) .pw-card-badge{background:linear-gradient(135deg,#1E64C8,#0d3b7a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-card:nth-child(3) .pw-card-badge{background:linear-gradient(135deg,#8a9ab0,#4a5568);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-mobile-cards{display:none;gap:12px;flex-direction:column;margin-top:32px}
+.pw-mobile-card{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:16px;border:1px solid rgba(11,15,26,.07);background:#fff;box-shadow:0 4px 16px rgba(11,15,26,.05);opacity:0;transform:translateY(24px) scale(.96);transition:.3s background,.3s border-color}
+.pw-mobile-card.bounced{animation:pwBounce .7s ease forwards}
+.pw-mobile-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.pw-mc1 .pw-mobile-icon{background:rgba(229,57,53,.10)}.pw-mc2 .pw-mobile-icon{background:rgba(30,100,200,.10)}.pw-mc3 .pw-mobile-icon{background:rgba(138,154,176,.12)}
+.pw-mobile-body{flex:1}
+.pw-mobile-title{font-size:13px;font-weight:700;color:#0B0F1A;transition:.3s color}
+.pw-mobile-desc{font-size:11px;color:#9ca3af;margin-top:2px}
+.pw-mobile-num{font-family:"Playfair Display",serif;font-size:20px;font-weight:800}
+.pw-mc1 .pw-mobile-num{background:linear-gradient(135deg,#E53935,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-mc2 .pw-mobile-num{background:linear-gradient(135deg,#1E64C8,#0d3b7a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-mc3 .pw-mobile-num{background:linear-gradient(135deg,#8a9ab0,#4a5568);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pw-bottom{max-width:1040px;margin:52px auto 0;padding-top:28px;border-top:1px solid rgba(11,15,26,.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.pw-live{display:flex;align-items:center;gap:8px;font-size:13px;color:#6b7280}
+.pw-live-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:pwLivePulse 2s infinite}
+@keyframes pwLivePulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 7px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+.pw-quote{font-family:"Playfair Display",serif;font-size:13px;font-style:italic;color:#c8d4e0}
+@media(max-width:720px){.pw-section{padding:52px 20px}.pw-inner{grid-template-columns:1fr;gap:0}.pw-right{display:none}.pw-h{font-size:30px}.pw-mobile-cards{display:flex}.pw-bottom{margin-top:28px}}
+</style>
+<div class="pw-blob1"></div><div class="pw-blob2"></div><div class="pw-accent"></div>
+<div class="pw-inner">
+  <div class="pw-left">
+    <div class="pw-eyebrow"><div class="pw-dot">π</div><span class="pw-eyebrow-text">About SheMatics</span></div>
+    <h2 class="pw-h">Your <span class="pw-u">free</span> gateway<br>to <em>exam success</em></h2>
+    <p class="pw-sub">Prepare for <strong>SSC, Banking &amp; Railway</strong> with timed mock tests, topic-wise practice and crisp notes — crafted with care, built for every aspirant.</p>
+    <div class="pw-tags">
+      <span class="pw-tag">SSC CGL</span><span class="pw-tag">SSC CHSL</span><span class="pw-tag">SSC MTS</span><span class="pw-tag">Banking</span><span class="pw-tag">Railway</span>
+    </div>
+    <div class="pw-cta">
+      <a class="pw-btn pw-btn-p" href="exams/ssc/mock-tests/set-1.html">Start Free Test</a>
+      <a class="pw-btn-g" href="#exams">Explore all exams →</a>
+    </div>
+    <div class="pw-mobile-cards" id="pwMobileCards">
+      <div class="pw-mobile-card pw-mc1"><div class="pw-mobile-icon">⏱️</div><div class="pw-mobile-body"><div class="pw-mobile-title">Timed Mock Tests</div><div class="pw-mobile-desc">Real exam feel, instant results</div></div><div class="pw-mobile-num">500+</div></div>
+      <div class="pw-mobile-card pw-mc2"><div class="pw-mobile-icon">📊</div><div class="pw-mobile-body"><div class="pw-mobile-title">Score Analysis</div><div class="pw-mobile-desc">Know your weak areas</div></div><div class="pw-mobile-num">4 Sets</div></div>
+      <div class="pw-mobile-card pw-mc3"><div class="pw-mobile-icon">📝</div><div class="pw-mobile-body"><div class="pw-mobile-title">Crisp Notes</div><div class="pw-mobile-desc">Quick revision anytime</div></div><div class="pw-mobile-num">∞</div></div>
+    </div>
+  </div>
+  <div class="pw-right">
+    <div class="pw-cards" id="pwDesktopCards">
+      <div class="pw-card"><div class="pw-card-icon">⏱️</div><div class="pw-card-body"><div class="pw-card-title">Timed Mock Tests</div><div class="pw-card-desc">Real exam feel with instant results</div></div><div class="pw-card-badge">500+</div></div>
+      <div class="pw-card"><div class="pw-card-icon">📊</div><div class="pw-card-body"><div class="pw-card-title">Score Analysis</div><div class="pw-card-desc">Detailed weak area breakdown</div></div><div class="pw-card-badge">4 Sets</div></div>
+      <div class="pw-card"><div class="pw-card-icon">📝</div><div class="pw-card-body"><div class="pw-card-title">Crisp Notes</div><div class="pw-card-desc">Quick revision, anytime anywhere</div></div><div class="pw-card-badge">∞</div></div>
+    </div>
+  </div>
+</div>
+<div class="pw-bottom">
+  <div class="pw-live"><span class="pw-live-dot"></span>New content added regularly — bookmark us!</div>
+  <div class="pw-quote">"maths by her, ∞"</div>
+</div>
+<script>
+(function(){
+  function triggerBounce(cards){cards.forEach(function(card){card.classList.add('bounced')})}
+  function checkCards(){
+    var dc=document.querySelectorAll('#pwDesktopCards .pw-card');
+    var mc=document.querySelectorAll('#pwMobileCards .pw-mobile-card');
+    var section=document.querySelector('.pw-section');
+    if(!section)return;
+    if(section.getBoundingClientRect().top<window.innerHeight-60){triggerBounce(dc);triggerBounce(mc);window.removeEventListener('scroll',checkCards)}
+  }
+  window.addEventListener('scroll',checkCards,{passive:true});
+  setTimeout(checkCards,400);
+})();
+</script>
+</section>
+
+<!-- FEATURES -->
+<div class="cf-section">
+<style>
+.cf-section{background:linear-gradient(180deg,#f4f7fc 0%,#eef3fb 100%);padding:72px 28px;position:relative;overflow:hidden;font-family:"Plus Jakarta Sans",system-ui,sans-serif;transition:.3s background}
+body.dark-mode .cf-section{background:linear-gradient(180deg,#0d1117 0%,#111827 100%)}
+.cf-bg1{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(229,57,53,.05),transparent 70%);top:-150px;right:-100px;pointer-events:none}
+.cf-bg2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,.06),transparent 70%);bottom:-100px;left:-80px;pointer-events:none}
+.cf-header{text-align:center;margin-bottom:48px;position:relative;z-index:1}
+.cf-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(11,15,26,.08);border-radius:999px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6b7280;margin-bottom:20px;box-shadow:0 2px 12px rgba(11,15,26,.05);transition:.3s background,.3s border-color}
+.cf-ey-dot{width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#E53935,#1E64C8)}
+.cf-title{font-family:"Playfair Display",serif;font-size:34px;font-weight:800;color:#0B0F1A;margin-bottom:16px;line-height:1.2;transition:.3s color}
+.cf-title span{background:linear-gradient(135deg,#E53935,#1E64C8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cf-tw-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:8px;min-height:32px;flex-wrap:wrap;gap:4px}
+.cf-tw-pre{font-size:16px;color:#6b7280;font-weight:500;white-space:nowrap;transition:.3s color}
+.cf-tw-text{font-size:16px;font-weight:700;color:#0B0F1A;transition:.3s color}
+.cf-tw-cur{display:inline-block;width:2px;height:18px;background:linear-gradient(180deg,#E53935,#1E64C8);border-radius:2px;margin-left:2px;animation:cfBlink .7s infinite;vertical-align:middle}
+@keyframes cfBlink{0%,100%{opacity:1}50%{opacity:0}}
+.cf-sub{font-size:14px;color:#9ca3af;max-width:560px;margin:10px auto 0;line-height:1.75;transition:.3s color}
+.cf-sub strong{color:#0B0F1A;font-weight:700;transition:.3s color}
+.cf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:860px;margin:0 auto;position:relative;z-index:1}
+.cf-card{border-radius:24px;padding:32px 28px;position:relative;overflow:hidden;cursor:default;transition:.35s transform,.35s box-shadow,.35s background;opacity:0;transform:translateY(40px) scale(.94)}
+.cf-card.cf-in{animation:cfBounce .75s cubic-bezier(.34,1.56,.64,1) forwards}
+.cf-card:nth-child(1){animation-delay:.1s}.cf-card:nth-child(2){animation-delay:.22s}.cf-card:nth-child(3){animation-delay:.34s}.cf-card:nth-child(4){animation-delay:.46s}
+@keyframes cfBounce{0%{opacity:0;transform:translateY(40px) scale(.94)}70%{transform:translateY(-8px) scale(1.02)}85%{transform:translateY(3px) scale(.99)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.cf-c1{background:linear-gradient(135deg,#fff5f5,#fff);border:1.5px solid rgba(229,57,53,.15);box-shadow:0 8px 32px rgba(229,57,53,.08)}
+.cf-c1:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 24px 48px rgba(229,57,53,.15)}
+.cf-c2{background:linear-gradient(135deg,#f0f6ff,#fff);border:1.5px solid rgba(30,100,200,.15);box-shadow:0 8px 32px rgba(30,100,200,.08)}
+.cf-c2:hover{transform:translateY(-8px) rotate(1deg);box-shadow:0 24px 48px rgba(30,100,200,.14)}
+.cf-c3{background:linear-gradient(135deg,#f7f8fa,#fff);border:1.5px solid rgba(138,154,176,.2);box-shadow:0 8px 32px rgba(138,154,176,.10)}
+.cf-c3:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 24px 48px rgba(138,154,176,.18)}
+.cf-c4{background:linear-gradient(135deg,#fff5f5,#f0f6ff);border:1.5px solid rgba(30,100,200,.12);box-shadow:0 8px 32px rgba(30,100,200,.07)}
+.cf-c4:hover{transform:translateY(-8px) rotate(1deg);box-shadow:0 24px 48px rgba(30,100,200,.15)}
+.cf-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:.35s transform}
+.cf-card:hover::before{transform:scaleX(1)}
+.cf-c1::before{background:linear-gradient(90deg,#E53935,#fb923c)}.cf-c2::before{background:linear-gradient(90deg,#1E64C8,#0d3b7a)}.cf-c3::before{background:linear-gradient(90deg,#8a9ab0,#4a5568)}.cf-c4::before{background:linear-gradient(90deg,#E53935,#1E64C8)}
+.cf-emoji{font-size:42px;display:block;margin-bottom:16px;animation:cfFloat 3s ease-in-out infinite}
+.cf-card:nth-child(2) .cf-emoji{animation-delay:.5s}.cf-card:nth-child(3) .cf-emoji{animation-delay:1s}.cf-card:nth-child(4) .cf-emoji{animation-delay:1.5s}
+@keyframes cfFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.cf-card:hover .cf-emoji{animation:cfSpin .5s ease}
+@keyframes cfSpin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(-15deg) scale(1.2)}100%{transform:rotate(0) scale(1)}}
+.cf-card h3{font-size:18px;font-weight:800;margin-bottom:8px;line-height:1.2}
+.cf-c1 h3{color:#b91c1c}.cf-c2 h3{color:#1d4ed8}.cf-c3 h3{color:#374151}
+.cf-c4 h3{background:linear-gradient(135deg,#E53935,#1E64C8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cf-card p{font-size:13.5px;color:#6b7280;line-height:1.7;margin-bottom:16px}
+.cf-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700;transition:.25s transform}
+.cf-card:hover .cf-pill{transform:scale(1.05)}
+.cf-c1 .cf-pill{background:rgba(229,57,53,.10);color:#b91c1c}.cf-c2 .cf-pill{background:rgba(30,100,200,.10);color:#1d4ed8}.cf-c3 .cf-pill{background:rgba(138,154,176,.14);color:#4a5568}.cf-c4 .cf-pill{background:linear-gradient(135deg,rgba(229,57,53,.08),rgba(30,100,200,.08));color:#1E64C8}
+.cf-corner{position:absolute;bottom:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:.07;transition:.35s transform}
+.cf-card:hover .cf-corner{transform:scale(1.4)}
+.cf-c1 .cf-corner{background:#E53935}.cf-c2 .cf-corner{background:#1E64C8}.cf-c3 .cf-corner{background:#8a9ab0}.cf-c4 .cf-corner{background:#E53935}
+@media(max-width:600px){.cf-section{padding:48px 18px}.cf-grid{grid-template-columns:1fr;gap:16px}.cf-title{font-size:26px}.cf-card{padding:24px 20px}.cf-emoji{font-size:34px}}
+</style>
+<div class="cf-bg1"></div><div class="cf-bg2"></div>
+<div class="cf-header reveal">
+  <div class="cf-eyebrow"><div class="cf-ey-dot"></div>Why Choose Us</div>
+  <h2 class="cf-title">Why <span>SheMatics?</span></h2>
+  <div class="cf-tw-wrap"><span class="cf-tw-pre">We help you&nbsp;</span><span class="cf-tw-text" id="cfTw"></span><span class="cf-tw-cur"></span></div>
+  <p class="cf-sub">Everything you need to <strong>crack SSC, Banking &amp; Railway</strong> — timed tests, crisp notes, score analysis and more. <strong>100% free</strong>, always.</p>
+</div>
+<div class="cf-grid" id="cfGrid">
+  <div class="cf-card cf-c1"><span class="cf-emoji">⏱️</span><h3>Timed Mock Tests</h3><p>Real exam feel with countdown timer, question palette and instant results after every test.</p><span class="cf-pill">500+ Questions</span><div class="cf-corner"></div></div>
+  <div class="cf-card cf-c2"><span class="cf-emoji">📊</span><h3>Score Analysis</h3><p>Detailed result page showing your accuracy, weak areas and time spent per question.</p><span class="cf-pill">Section-wise</span><div class="cf-corner"></div></div>
+  <div class="cf-card cf-c3"><span class="cf-emoji">📝</span><h3>Crisp Notes</h3><p>Topic-wise short notes designed for quick revision — perfect for last-minute exam prep.</p><span class="cf-pill">Always Free</span><div class="cf-corner"></div></div>
+  <div class="cf-card cf-c4"><span class="cf-emoji">📱</span><h3>Mobile Friendly</h3><p>Practice anywhere — fully responsive on phones, tablets and desktops. No app needed!</p><span class="cf-pill">All Devices</span><div class="cf-corner"></div></div>
+</div>
+<script>
+(function(){
+  var phrases=["practice like the real exam","identify your weak areas fast","revise smarter with crisp notes","score higher every attempt","prepare anytime, anywhere"];
+  var pi=0,ci=0,del=false;
+  var el=document.getElementById('cfTw');
+  function tw(){var word=phrases[pi];if(!del){el.textContent=word.substring(0,ci+1);ci++;if(ci===word.length){del=true;setTimeout(tw,1800);return}}else{el.textContent=word.substring(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length}}setTimeout(tw,del?55:100)}
+  setTimeout(tw,600);
+  var triggered=false;
+  function check(){if(triggered)return;var g=document.getElementById('cfGrid');if(!g)return;if(g.getBoundingClientRect().top<window.innerHeight-60){triggered=true;g.querySelectorAll('.cf-card').forEach(function(c){c.classList.add('cf-in')})}}
+  window.addEventListener('scroll',check,{passive:true});setTimeout(check,500);
+})();
+</script>
+</div>
+
+<!-- SAMPLE QUESTION WIDGET -->
+<section class="sample-section">
+  <div class="sample-inner reveal">
+    <h2>Try a Sample Question!</h2>
+    <p>Get a feel of our mock test experience right here</p>
+    <div class="quiz-widget">
+      <div class="qw-meta"><span class="qw-badge" id="qwSection">Maths</span><span class="qw-num">Q <span id="qwNum">1</span> / 5</span></div>
+      <div class="qw-question" id="qwQuestion"></div>
+      <div class="qw-options" id="qwOptions"></div>
+      <div class="qw-explain" id="qwExplain"></div>
+      <div class="qw-actions">
+        <button class="qw-btn qw-btn-check" id="qwCheck" onclick="checkAnswer()">✓ Check Answer</button>
+        <button class="qw-btn qw-btn-next" id="qwNext" onclick="nextQuestion()">Next Question →</button>
+        <button class="qw-btn qw-btn-start" onclick="window.location.href='exams/ssc/mock-tests/set-1.html'">🚀 Start Full Test</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMS -->
+<section id="exams" class="exams-section">
+  <div class="section-header reveal"><h2>Choose Your Exam</h2><p>Select your target exam and start practising today</p></div>
+  <div class="grid">
+    <article class="card reveal-left" style="transition-delay:.05s">
+      <span class="pill blue">Popular</span><h3>SSC Mock Tests</h3>
+      <p class="muted">Free mock tests, topic-wise practice &amp; crisp notes for SSC CGL, CHSL, MTS.</p>
+      <div class="actions">
+        <a class="btn-accent" href="exams/ssc/mock-tests/set-1.html">Set 1</a>
+        <a class="btn-accent" href="exams/ssc/mock-tests/set-creative.html">Creative</a>
+        <a class="btn-outline" href="exams/ssc/mock-tests/set-2.html">Set 2</a>
+        <a class="btn-outline" href="exams/ssc/mock-tests/set-3.html">Set 3</a>
+        <a class="btn-outline" href="exams/ssc/notes.html">Notes</a>
+      </div>
+    </article>
+    <article class="card reveal" style="transition-delay:.15s">
+      <span class="pill red">Coming Soon</span><h3>Banking</h3>
+      <p class="muted">PO/Clerk practice sets, quant &amp; reasoning notes.</p>
+      <div class="actions"><button class="btn-outline" disabled style="opacity:.45;cursor:not-allowed">Locked</button></div>
+    </article>
+    <article class="card reveal" style="transition-delay:.25s">
+  <span class="pill blue">New</span>
+  <h3>Railway</h3>
+  <p class="muted">RRB NTPC / Group D preparation sets.</p>
+  <div class="actions">
+    <a class="btn-accent" href="exams/railway/mock-tests/set-1.html">Set 1</a>
+  </div>
+</article>
+    <article class="card reveal-right" style="transition-delay:.05s">
+      <span class="pill blue">New</span><h3>Blog</h3>
+      <p class="muted">SSC exam strategies, tips, notes &amp; updates.</p>
+      <div class="actions">
+        <a class="btn-accent" href="blog/index.html">Read Posts</a>
+        <a class="btn-outline" href="blog/how-to-crack-ssc-cgl.html">60-Day Plan</a>
+        <a class="btn-outline" href="blog/number-system-notes.html">Number System</a>
+      </div>
+    </article>
+  </div>
+  <div id="about" class="note reveal">
+    <div class="note-dot"></div>
+    <div><strong>Heads up!</strong> New exams and content are added regularly. Bookmark this page!</div>
+  </div>
+</section>
+
+<!-- SLIDER -->
+<section class="slider-section">
+  <div class="section-header reveal"><h2>Highlights</h2><p>A peek inside SheMatics</p></div>
+  <div class="slider-container reveal">
+    <div class="slides">
+      <img src="assets/slider/img1.jpg" alt="SSC Mock Test Practice" fetchpriority="high">
+      <img src="assets/slider/img2.jpg" alt="SSC Notes" loading="lazy">
+      <img src="assets/slider/img3.jpg" alt="Free Online Mock Tests" loading="lazy">
+      <img src="assets/slider/img4.jpg" alt="SheMatics Exam Prep" loading="lazy">
+      <img src="assets/slider/img5.jpg" alt="SSC CGL Practice" loading="lazy">
+    </div>
+    <button class="nav-btn prev">&#10094;</button>
+    <button class="nav-btn next">&#10095;</button>
+    <div class="dots"></div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">π SheMatics</span>
+  <div>maths by her, ∞ &nbsp;·&nbsp; © <span id="y"></span> SheMatics</div>
+  <div class="footer-links">
+    <a href="exams/ssc/mock-tests/set-1.html">SSC Mock Test</a>
+    <a href="blog/index.html">Blog</a>
+    <a href="register.html">Book Session</a>
+    <a href="https://www.youtube.com/@Shematicss" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</footer>
+
+<script>
+// ── DARK MODE ──
+function toggleDark(){
+  document.body.classList.toggle('dark-mode');
+  var dark=document.body.classList.contains('dark-mode');
+  document.getElementById('dmKnob').textContent=dark?'🌙':'☀️';
+  document.getElementById('dmLabel').textContent=dark?'Dark':'Light';
+  localStorage.setItem('shematics-theme',dark?'dark':'light');
+}
+// Remember preference
+(function(){
+  var saved=localStorage.getItem('shematics-theme');
+  if(saved==='dark'){
+    document.body.classList.add('dark-mode');
+    var knob=document.getElementById('dmKnob');
+    var label=document.getElementById('dmLabel');
+    if(knob)knob.textContent='🌙';
+    if(label)label.textContent='Dark';
+  }
+})();
+
+// ── HAMBURGER ──
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileMenu.classList.toggle('open')});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open')}));
+
+// ── TYPEWRITER ──
+const words=['SSC CGL','SSC CHSL','Banking','Railway','SSC MTS'];
+let wi=0,ci=0,deleting=false;
+const tw=document.getElementById('typewriter');
+function typeWrite(){
+  const word=words[wi];
+  if(!deleting){tw.textContent=word.substring(0,ci+1);ci++;if(ci===word.length){deleting=true;setTimeout(typeWrite,1800);return}}
+  else{tw.textContent=word.substring(0,ci-1);ci--;if(ci===0){deleting=false;wi=(wi+1)%words.length}}
+  setTimeout(typeWrite,deleting?60:110);
+}
+setTimeout(typeWrite,1200);
+
+// ── COUNTING STATS ──
+function countUp(el,target,suffix){let cur=0;const step=Math.ceil(target/50);const t=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(t)}el.textContent=cur+suffix},30)}
+let counted=false;
+function checkStats(){if(counted)return;const s=document.querySelector('.hero-stats');if(!s)return;if(s.getBoundingClientRect().top<window.innerHeight){counted=true;document.querySelectorAll('.stat-num[data-target]').forEach(el=>countUp(el,+el.dataset.target,el.dataset.suffix||''))}}
+window.addEventListener('scroll',checkStats);setTimeout(checkStats,800);
+
+// ── SCROLL REVEAL ──
+const revEls=document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+function checkReveal(){revEls.forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-70)el.classList.add('visible')})}
+window.addEventListener('scroll',checkReveal,{passive:true});
+checkReveal();
+
+// ── SAMPLE QUESTION WIDGET ──
+const sampleQs=[
+  {section:"Maths",q:"What is 25% of 200?",o:["40","50","45","60"],a:1,e:"25% of 200 = 0.25×200 = 50"},
+  {section:"Reasoning",q:"Complete series: 2, 4, 8, 16, ?",o:["24","28","32","36"],a:2,e:"Each term ×2 → next = 32"},
+  {section:"English",q:"Synonym of 'Happy':",o:["Sad","Angry","Joyful","Tired"],a:2,e:"Joyful = Happy"},
+  {section:"GK/GS",q:"Capital of India is:",o:["Mumbai","Chennai","Kolkata","New Delhi"],a:3,e:"New Delhi is the capital of India"},
+  {section:"Maths",q:"√144 = ?",o:["11","12","13","14"],a:1,e:"12×12 = 144, so √144 = 12"}
+];
+let sqIdx=0,sqSel=null;
+const L=['A','B','C','D'];
+function loadSQ(){
+  const q=sampleQs[sqIdx];sqSel=null;
+  document.getElementById('qwSection').textContent=q.section;
+  document.getElementById('qwNum').textContent=sqIdx+1;
+  document.getElementById('qwQuestion').textContent=q.q;
+  document.getElementById('qwExplain').style.display='none';
+  document.getElementById('qwCheck').style.display='inline-flex';
+  document.getElementById('qwNext').style.display='none';
+  const opts=document.getElementById('qwOptions');opts.innerHTML='';
+  q.o.forEach((opt,i)=>{
+    const div=document.createElement('div');div.className='qw-opt';
+    div.innerHTML=`<div class="qw-letter">${L[i]}</div><span>${opt}</span>`;
+    div.onclick=()=>{document.querySelectorAll('.qw-opt').forEach(o=>{o.style.background='';o.style.borderColor=''});div.style.background='rgba(255,255,255,.2)';div.style.borderColor='rgba(255,255,255,.5)';sqSel=i};
+    opts.appendChild(div);
+  });
+}
+function checkAnswer(){
+  if(sqSel===null)return;
+  const q=sampleQs[sqIdx];
+  document.querySelectorAll('.qw-opt').forEach((o,i)=>{o.style.background='';o.style.borderColor='';o.onclick=null;if(i===q.a)o.classList.add('correct');else if(i===sqSel&&sqSel!==q.a)o.classList.add('wrong')});
+  const ex=document.getElementById('qwExplain');ex.textContent='💡 '+q.e;ex.style.display='block';
+  document.getElementById('qwCheck').style.display='none';document.getElementById('qwNext').style.display='inline-flex';
+}
+function nextQuestion(){
+  sqIdx=(sqIdx+1)%sampleQs.length;
+  document.querySelectorAll('.qw-opt').forEach(o=>{o.classList.remove('correct','wrong');o.style.background='';o.style.borderColor=''});
+  loadSQ();
+}
+loadSQ();
+
+// ── SLIDER ──
+const container=document.querySelector('.slider-container');
+const slidesEl=document.querySelector('.slides');
+const imgs=document.querySelectorAll('.slides img');
+const total=imgs.length;
+slidesEl.style.setProperty('--total',total);
+const prevBtn=document.querySelector('.prev');
+const nextBtn=document.querySelector('.next');
+const dotsWrap=document.querySelector('.dots');
+const AUTOPLAY=4000;
+let idx=0,timer;
+for(let i=0;i<total;i++){const d=document.createElement('button');d.className='pager-dot';d.setAttribute('aria-label',`Slide ${i+1}`);d.addEventListener('click',()=>goTo(i,true));dotsWrap.appendChild(d)}
+const dots=[...document.querySelectorAll('.pager-dot')];
+function update(){slidesEl.style.transform=`translateX(-${(idx*100)/total}%)`;dots.forEach((d,i)=>d.classList.toggle('active',i===idx))}
+function next(){idx=(idx+1)%total;update()}
+function prev(){idx=(idx-1+total)%total;update()}
+function goTo(i,r=false){idx=i;update();if(r)restart()}
+function start(){stop();timer=setInterval(next,AUTOPLAY)}
+function stop(){if(timer)clearInterval(timer)}
+function restart(){stop();start()}
+nextBtn.addEventListener('click',()=>{next();restart()});
+prevBtn.addEventListener('click',()=>{prev();restart()});
+['mouseenter','focusin'].forEach(e=>container.addEventListener(e,stop));
+['mouseleave','focusout'].forEach(e=>container.addEventListener(e,start));
+let sx=null;
+container.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+container.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){dx<0?next():prev();restart()}sx=null});
+update();start();
+document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+
+<!-- Chatbase -->
+<script>
+(function(){
+  if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+    window.chatbase=(...a)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(a)};
+    window.chatbase=new Proxy(window.chatbase,{get(t,p){if(p==="q")return t.q;return(...a)=>t(p,...a)}})
+  }
+  const onLoad=()=>{const s=document.createElement("script");s.src="https://www.chatbase.co/embed.min.js";s.id="TBt82mPInWqAUCZULZlpF";s.domain="www.chatbase.co";document.body.appendChild(s)};
+  if(document.readyState==="complete")onLoad();else window.addEventListener("load",onLoad);
+})();
+</script>
 </body>
 </html>
